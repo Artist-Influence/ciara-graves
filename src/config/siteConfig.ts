@@ -1,91 +1,83 @@
-import piercePressPhoto from "@/assets/pierce-press-photo.jpg";
-import pierceLogo from "@/assets/pierce-logo-white.png";
+import ciaraPortrait from "@/assets/ciara-portrait.jpg";
+import ciaraLogo from "@/assets/ciara-logo.svg";
+import heroVideo from "@/assets/hero-bg.mp4";
+import dvdBounceVideo from "@/assets/dvd-bounce.mp4";
 
 export const siteConfig = {
   artist: {
-    name: "PIERCE",
-    tagline: "DARK BASS. CINEMATIC PRESSURE.",
-    location: "SCOTTSDALE, AZ",
-    description: "Modern bass music from the edge of impact.",
-    logoUrl: pierceLogo,
+    name: "CIARA GRAVES",
+    tagline: "Bass-heavy. Sweet with bite.",
+    location: "WILMINGTON, DE / OUTSIDE PHILLY",
+    description:
+      "Bass-heavy DJ + artist blending dubstep, UK bass, and trap with retro aesthetics and modern club culture.",
+    logoUrl: ciaraLogo,
+    portraitUrl: ciaraPortrait,
+    heroVideoUrl: heroVideo,
+    dvdBounceUrl: dvdBounceVideo,
   },
 
   socials: {
-    spotify: "https://open.spotify.com/artist/1sg7LKlpfKmZSvI0xxqNWC",
-    soundcloud: "https://soundcloud.com/piercesounds",
-    instagram: "https://www.instagram.com/piercesounds/",
-    tiktok: "",
-    youtube: "https://www.youtube.com/channel/UCWFCph1sKXOil52D4Ne3szw",
-    twitch: "https://www.twitch.tv/piercesounds",
-    twitter: "https://x.com/piercesounds",
-    bandsintown: "https://www.bandsintown.com/a/PIERCE",
+    soundcloud: "https://soundcloud.com/ciaragraves",
+    audius: "https://audius.co/ciaragraves",
+    instagram: "https://www.instagram.com/ciaragraves_",
+    tiktok: "https://www.tiktok.com/@ciaragravesxo",
+    // SPOTIFY PLACEHOLDER — flip enabled to true once profile is populated
+    spotify: { enabled: false, url: "" },
   },
 
   bandsintown: {
-    artistId: "PIERCE",
-    appId: "f61f468b6396e370af134f76e547c94c",
-    profileUrl: "https://www.bandsintown.com/a/PIERCE",
+    artistId: "Ciara Graves",
+    appId: "ba07a5e038e1fa576899f90a80cf24bf",
+    profileUrl: "https://www.bandsintown.com/a/Ciara%20Graves",
   },
 
+  // SoundCloud RSS — fetched server-side via edge function fetch-soundcloud-feed
+  soundcloud: {
+    rssUrl:
+      "https://feeds.soundcloud.com/users/soundcloud:users:141298274/sounds.rss",
+    profileUrl: "https://soundcloud.com/ciaragraves",
+  },
+
+  // LAYLO EMBED PLACEHOLDER — drop iframe / SDK markup into LayloPlaceholder.tsx
   laylo: {
-    dropId: "FR8u5",
-    username: "pierce",
-    profileEmbedUrl: "",
-    idsDropId: "184a2a11-48d4-418c-8f34-870af84dfc8b",
-  },
-
-  spotifyEmbed: {
-    artistId: "1sg7LKlpfKmZSvI0xxqNWC",
-    playlistId: "",
+    enabled: false,
+    dropId: "",
+    username: "ciaragraves",
   },
 
   about: {
     bioShort:
-      "Hailing from Scottsdale, AZ, PIERCE crafts dark sound design and explosive, cinematic energy. Modern bass music engineered for impact.",
-    paragraphs: [
-      "Hailing from Scottsdale, Arizona, PIERCE is a producer obsessed with dark sound design, explosive energy, and cinematic storytelling — a precision-built operator in the modern bass music space.",
-      "His catalog spans WAKAAN, Bassrush Records, Trippy Bee / LSDREAM, Mad Decent, and Dim Mak, with signature records including Rockin, How Low, Pursuit (Remix), and B.A.S.S. with SNAILS.",
-      "Live, PIERCE has detonated stages from Mission Ballroom alongside Deathpact to Lost Lands and the Alleycvt Tour — connecting deeper every cycle with his fanbase, the Archers.",
+      "Ciara Graves is a bass-heavy DJ and artist based just outside Philly in Wilmington, Delaware. She blends dubstep, UK bass, and trap into high-energy sets that balance retro aesthetics with modern club culture. Shaped by nostalgic TV reruns, internet culture, gaming, and a lifelong obsession with sweet treats, her creative world is rooted in contrast: sweetness with edge, nostalgia with bite.",
+    bioLong: [
+      "Ciara Graves is a bass-heavy artist based just outside of Philly in Wilmington, Delaware. She blends dubstep, UK bass, and trap into a high-energy style that balances retro aesthetics with a modern club feel.",
+      "Ciara developed a sharp sense of contrast, mood, and detail through a mix of scenes and influences. Internet memes, nostalgic TV reruns, gaming, and a lifelong obsession with sweet treats all inform her visual world and identity. Her cherry motif sits at the center of her branding as a symbol of contrast: sweetness with edge, nostalgia with bite, and a balance of playful and polished.",
+      "That duality carries through her music and performances. Her productions move between heavy and light, precise and loose, familiar and forward-facing, while staying cohesive. Her sets are fast-moving and intentional, built from bass-heavy selections, UK influences, and flips that keep energy shifting without losing flow. She has supported artists including T-Pain, CAM GIRL, BENZI, and QUIX, and performed at clubs across the U.S., including Avalon Hollywood in Los Angeles and SILO in Brooklyn.",
+      "With new music and performances on the horizon, Ciara is stepping into her next chapter, building a project designed to feel fun, immersive, and made for connection.",
     ],
-    pullQuote: "PRECISION-BUILT CHAOS FROM SCOTTSDALE.",
-    labels: ["WAKAAN", "BASSRUSH", "MAD DECENT", "DIM MAK", "TRIPPY BEE / LSDREAM"],
-    signatureRecords: ["ROCKIN", "HOW LOW", "PURSUIT (REMIX)", "B.A.S.S. w/ SNAILS"],
-    performances: ["MISSION BALLROOM w/ DEATHPACT", "LOST LANDS", "ALLEYCVT TOUR"],
-    fanbase: "THE ARCHERS",
-    imageUrl: piercePressPhoto,
   },
 
-  epk: {
-    epkUrl: "https://www.dropbox.com/scl/fi/rynym40srxma3uqytvetw/EPK-PIERCE-2k26.pdf?rlkey=zt6cxbnaeibk9mn4wffba5vf5&st=ff9uvfkv&dl=1",
-    bookingEmail: "pierce@piercesounds.com",
-    managementEmail: "pierce@piercesounds.com",
-  },
-
-  marqueePhrases: [
-    "WAKAAN",
-    "BASSRUSH",
-    "MAD DECENT",
-    "DIM MAK",
-    "LSDREAM / TRIPPY BEE",
-    "LOST LANDS",
-    "MISSION BALLROOM",
-    "ARCHERS // SIGNAL LOCKED",
-    "PRECISION-BUILT CHAOS",
-    "SCOTTSDALE // AZ",
+  highlights: [
+    { label: "SUPPORTED", value: "T-PAIN · BENZI · CAM GIRL · QUIX", kind: "card" },
+    { label: "STAGES", value: "AVALON HOLLYWOOD · SILO BROOKLYN · MEOW WOLF", kind: "ticket" },
+    { label: "CHARTS", value: "TOP 5 — AUDIUS GLOBAL TRENDING", kind: "sticker" },
+    { label: "PARTNERS", value: "DYSON BEAUTY · SUPERGOOP! · NARS", kind: "label" },
+    { label: "PRESS", value: "RUN THE TRAP · SUPPORT WOMEN DJs · DELIRIUM", kind: "card" },
   ],
 
-  contact: {
-    booking: "pierce@piercesounds.com",
-    management: "pierce@piercesounds.com",
-  },
+  marqueePhrases: [
+    "DUBSTEP",
+    "UK BASS",
+    "TRAP",
+    "RETRO CLUB CULTURE",
+    "SWEET WITH BITE",
+    "CHERRY NOIR",
+    "WILMINGTON / DE",
+    "BASS FROM ANOTHER ROOM",
+  ],
 
-  backgroundMedia: {
-    hero: { videoUrl: "", posterUrl: "" },
-    laylo: { videoUrl: "", posterUrl: "" },
-    music: { videoUrl: "", posterUrl: "" },
-    tour: { videoUrl: "", posterUrl: "" },
-    about: { videoUrl: "", posterUrl: "" },
-    archers: { videoUrl: "", posterUrl: "" },
+  booking: {
+    email: "info@ciaragraves.com",
+    epkUrl: "/epk/Ciara-Graves-Biography-2026.pdf",
   },
 };
 
