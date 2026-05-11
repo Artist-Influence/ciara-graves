@@ -2,98 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ================================================================
+   CIARA GRAVES — Cherry Noir / VHS / DVD-Menu design system
+   All colors HSL via CSS variables (semantic tokens only).
+================================================================ */
+
+@font-face {
+  font-family: 'Bootzy';
+  src: url('/fonts/Bootzy_TM.otf') format('opentype'),
+       url('/fonts/Bootzy_TM.ttf') format('truetype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@500;700&display=swap');
+
 @layer base {
   :root {
-    /* PIERCE design tokens — all HSL */
-    --background: 240 20% 2%;          /* #030305 near-black */
-    --foreground: 240 10% 96%;         /* #F4F4F6 off-white */
+    /* Core surfaces */
+    --background: 0 0% 4%;              /* near-black */
+    --foreground: 36 28% 92%;           /* muted cream */
 
-    --card: 240 20% 4%;                /* #0A0A0F charcoal */
-    --card-foreground: 240 10% 96%;
+    --card: 0 0% 6%;
+    --card-foreground: 36 28% 92%;
 
-    --popover: 240 20% 4%;
-    --popover-foreground: 240 10% 96%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 36 28% 92%;
 
-    --primary: 355 78% 52%;            /* crimson signal red #DC2638 */
-    --primary-foreground: 240 20% 2%;
+    /* Cherry red — primary */
+    --primary: 354 78% 42%;             /* deep cherry */
+    --primary-foreground: 36 28% 96%;
 
-    --secondary: 240 18% 7%;           /* #111118 elevated panel */
-    --secondary-foreground: 240 10% 96%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 36 28% 92%;
 
-    --muted: 240 12% 10%;
-    --muted-foreground: 240 6% 46%;    /* #6A6A75 system gray */
+    --muted: 0 0% 12%;
+    --muted-foreground: 36 10% 60%;
 
-    --accent: 355 78% 52%;
-    --accent-foreground: 240 20% 2%;
+    --accent: 354 78% 42%;
+    --accent-foreground: 36 28% 96%;
 
-    --destructive: 15 85% 55%;         /* hot orange-red alert */
-    --destructive-foreground: 240 10% 96%;
+    --destructive: 354 78% 42%;
+    --destructive-foreground: 36 28% 96%;
 
-    --border: 240 10% 14%;
-    --input: 240 10% 14%;
-    --ring: 355 78% 52%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 354 78% 42%;
 
-    --radius: 0;
+    --radius: 0.125rem;
 
-    /* Custom PIERCE tokens */
-    --signal: 355 78% 52%;
-    --signal-soft: 355 78% 52%;
-    --alert: 15 85% 55%;
-    --panel: 240 20% 4%;
-    --panel-2: 240 18% 7%;
-    --ink: 240 10% 96%;
-    --mute: 240 6% 46%;
-    --grid-line: 0 0% 100%;
+    /* Custom Ciara tokens */
+    --cherry: 354 78% 42%;              /* deep cherry red */
+    --cherry-bright: 354 92% 55%;       /* brighter cherry for glows */
+    --cream: 36 38% 90%;                /* muted off-white */
+    --cream-dim: 36 18% 70%;
+    --toxic: 88 92% 55%;                /* toxic green from logo */
+    --toxic-glow: 95 100% 60%;
+    --electric: 195 100% 55%;           /* electric blue/teal accent */
+    --ink: 36 28% 92%;
+    --noir: 0 0% 3%;
 
-    --sidebar-background: 240 20% 2%;
-    --sidebar-foreground: 240 10% 96%;
-    --sidebar-primary: 355 78% 52%;
-    --sidebar-primary-foreground: 240 20% 2%;
-    --sidebar-accent: 240 18% 7%;
-    --sidebar-accent-foreground: 240 10% 96%;
-    --sidebar-border: 240 10% 14%;
-    --sidebar-ring: 355 78% 52%;
+    --sidebar-background: 0 0% 4%;
+    --sidebar-foreground: 36 28% 92%;
+    --sidebar-primary: 354 78% 42%;
+    --sidebar-primary-foreground: 36 28% 96%;
+    --sidebar-accent: 0 0% 9%;
+    --sidebar-accent-foreground: 36 28% 92%;
+    --sidebar-border: 0 0% 14%;
+    --sidebar-ring: 354 78% 42%;
   }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
+  * { @apply border-border; }
   html, body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Barlow Condensed', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    background-color: hsl(var(--noir));
   }
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Anton', 'Inter', system-ui, sans-serif;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
+    font-family: 'Bootzy', 'Barlow Condensed', system-ui, sans-serif;
+    letter-spacing: 0.005em;
+    line-height: 0.95;
   }
   ::selection {
-    background: hsl(var(--signal) / 0.4);
-    color: hsl(var(--ink));
+    background: hsl(var(--cherry-bright) / 0.6);
+    color: hsl(var(--cream));
   }
 }
 
 @layer utilities {
-  .font-display { font-family: 'Anton', 'Inter', sans-serif; letter-spacing: 0.01em; }
-  .font-body    { font-family: 'Inter', system-ui, sans-serif; }
+  .font-display { font-family: 'Bootzy', 'Barlow Condensed', sans-serif; }
+  .font-cond    { font-family: 'Barlow Condensed', system-ui, sans-serif; letter-spacing: 0.04em; }
   .font-mono    { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .font-script  { font-family: 'Caveat', cursive; }
 
-  /* Grid + dot backdrops */
-  .bg-grid-lines {
-    background-image:
-      linear-gradient(to right, hsl(var(--grid-line) / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--grid-line) / 0.05) 1px, transparent 1px);
-    background-size: 64px 64px;
-  }
-  .bg-grid-dots {
-    background-image: radial-gradient(hsl(var(--grid-line) / 0.07) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
+  .text-cherry        { color: hsl(var(--cherry)); }
+  .text-cherry-bright { color: hsl(var(--cherry-bright)); }
+  .text-cream         { color: hsl(var(--cream)); }
+  .text-cream-dim     { color: hsl(var(--cream-dim)); }
+  .text-toxic         { color: hsl(var(--toxic)); }
+  .text-electric      { color: hsl(var(--electric)); }
+  .bg-cherry          { background-color: hsl(var(--cherry)); }
+  .bg-cherry-bright   { background-color: hsl(var(--cherry-bright)); }
+  .bg-cream           { background-color: hsl(var(--cream)); }
+  .bg-toxic           { background-color: hsl(var(--toxic)); }
+  .bg-noir            { background-color: hsl(var(--noir)); }
+  .border-cherry      { border-color: hsl(var(--cherry)); }
+  .border-toxic       { border-color: hsl(var(--toxic)); }
+  .border-cream       { border-color: hsl(var(--cream) / 0.4); }
 
-  /* Scanline overlay */
+  /* === Glows === */
+  .glow-cherry { box-shadow: 0 0 24px hsl(var(--cherry-bright) / 0.45), 0 0 60px hsl(var(--cherry) / 0.3); }
+  .glow-toxic  { box-shadow: 0 0 18px hsl(var(--toxic-glow) / 0.55), 0 0 48px hsl(var(--toxic) / 0.3); }
+  .text-glow-cherry { text-shadow: 0 0 12px hsl(var(--cherry-bright) / 0.7), 0 0 28px hsl(var(--cherry) / 0.4); }
+  .text-glow-toxic  { text-shadow: 0 0 10px hsl(var(--toxic-glow) / 0.7), 0 0 24px hsl(var(--toxic) / 0.4); }
+
+  /* === Scanlines (CRT) === */
+  .scanlines {
+    position: relative;
+  }
   .scanlines::before {
     content: "";
     position: absolute;
@@ -101,86 +131,125 @@
     pointer-events: none;
     background-image: repeating-linear-gradient(
       to bottom,
-      hsl(var(--ink) / 0.03) 0px,
-      hsl(var(--ink) / 0.03) 1px,
+      hsl(var(--cream) / 0.06) 0px,
+      hsl(var(--cream) / 0.06) 1px,
       transparent 1px,
       transparent 3px
     );
     mix-blend-mode: overlay;
-    z-index: 2;
+    z-index: 5;
+  }
+  .scanlines-strong::before {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      hsl(0 0% 0% / 0.4) 0px,
+      hsl(0 0% 0% / 0.4) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+    mix-blend-mode: multiply;
   }
 
-  /* Signal glow */
-  .signal-glow {
-    box-shadow:
-      0 0 0 1px hsl(var(--signal) / 0.4),
-      0 0 24px hsl(var(--signal) / 0.25),
-      inset 0 0 24px hsl(var(--signal) / 0.08);
+  /* === Grain === */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: -50%;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.93 0 0 0 0 0.88 0 0 0 0.18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    z-index: 4;
+    animation: grain-shift 1.2s steps(6) infinite;
   }
-  .text-signal-glow {
-    text-shadow: 0 0 12px hsl(var(--signal) / 0.6), 0 0 32px hsl(var(--signal) / 0.25);
+  @keyframes grain-shift {
+    0%   { transform: translate(0,0); }
+    20%  { transform: translate(-3%,2%); }
+    40%  { transform: translate(2%,-3%); }
+    60%  { transform: translate(-2%,-2%); }
+    80%  { transform: translate(3%,1%); }
+    100% { transform: translate(0,0); }
   }
 
-  /* Vignette for hero */
-  .vignette {
-    background: radial-gradient(ellipse at center, transparent 0%, transparent 50%, hsl(var(--background) / 0.6) 80%, hsl(var(--background)) 100%);
+  /* === Vignette === */
+  .vignette-cherry::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 30%, hsl(var(--cherry) / 0.12) 70%, hsl(var(--noir)) 100%);
+    z-index: 3;
   }
 
-  /* Marquee */
+  /* === Marquee === */
   @keyframes marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
   .animate-marquee { animation: marquee 40s linear infinite; }
 
-  /* Scanline sweep on cards */
-  @keyframes sweep {
-    0%   { transform: translateX(-120%); }
-    100% { transform: translateX(120%); }
-  }
-  .group:hover .card-sweep {
-    animation: sweep 1.4s ease-out;
-  }
-
-  /* Hero ring rotate */
-  @keyframes spin-slow {
+  /* === Spin (cassette reels / CD) === */
+  @keyframes spin-reel {
     from { transform: rotate(0deg); }
     to   { transform: rotate(360deg); }
   }
-  @keyframes spin-reverse {
-    from { transform: rotate(360deg); }
-    to   { transform: rotate(0deg); }
-  }
-  .animate-spin-slow { animation: spin-slow 40s linear infinite; }
-  .animate-spin-reverse { animation: spin-reverse 60s linear infinite; }
+  .animate-spin-reel { animation: spin-reel 4s linear infinite; }
+  .animate-spin-cd   { animation: spin-reel 8s linear infinite; }
 
-  /* Glitch — RGB split + slice */
-  @keyframes glitch-r {
-    0%, 92%, 100% { transform: translate(0,0); clip-path: inset(0 0 0 0); opacity: 0; }
-    93% { transform: translate(-2px, 0); clip-path: inset(10% 0 70% 0); opacity: 0.85; }
-    94% { transform: translate(-3px, 1px); clip-path: inset(50% 0 25% 0); opacity: 0.85; }
-    95% { transform: translate(-1px, 0); clip-path: inset(75% 0 5% 0); opacity: 0.85; }
-    96% { transform: translate(0,0); opacity: 0; }
+  /* === DVD Bounce === */
+  @keyframes dvd-bounce-x {
+    0%   { left: 0; }
+    100% { left: calc(100% - var(--dvd-w, 120px)); }
   }
-  @keyframes glitch-c {
-    0%, 92%, 100% { transform: translate(0,0); clip-path: inset(0 0 0 0); opacity: 0; }
-    93% { transform: translate(2px, 0); clip-path: inset(10% 0 70% 0); opacity: 0.85; }
-    94% { transform: translate(3px, -1px); clip-path: inset(50% 0 25% 0); opacity: 0.85; }
-    95% { transform: translate(1px, 0); clip-path: inset(75% 0 5% 0); opacity: 0.85; }
-    96% { transform: translate(0,0); opacity: 0; }
+  @keyframes dvd-bounce-y {
+    0%   { top: 0; }
+    100% { top: calc(100% - var(--dvd-h, 60px)); }
   }
-  .glitch-r { animation: glitch-r 6s infinite steps(1); mix-blend-mode: screen; }
-  .glitch-c { animation: glitch-c 6s infinite steps(1); animation-delay: 0.08s; mix-blend-mode: screen; }
+  .animate-dvd-x { animation: dvd-bounce-x 11s linear infinite alternate; }
+  .animate-dvd-y { animation: dvd-bounce-y 7s linear infinite alternate; }
 
-  /* Pulse halo */
-  @keyframes pulse-halo {
-    0%, 100% { opacity: 0.25; transform: scale(1); }
-    50%      { opacity: 0.55; transform: scale(1.05); }
+  /* === Equalizer bars === */
+  @keyframes eq {
+    0%, 100% { transform: scaleY(0.3); }
+    50%      { transform: scaleY(1); }
   }
-  .animate-pulse-halo { animation: pulse-halo 5s ease-in-out infinite; }
+  .eq-bar { transform-origin: bottom; animation: eq 0.9s ease-in-out infinite; }
 
-  /* Button corner notches */
-  .notch-corners {
+  /* === Float === */
+  @keyframes float-soft {
+    0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+    50%      { transform: translateY(-8px) rotate(var(--rot, 0deg)); }
+  }
+  .animate-float-soft { animation: float-soft 5s ease-in-out infinite; }
+
+  /* === Flicker === */
+  @keyframes flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+    20%, 24%, 55% { opacity: 0.55; }
+  }
+  .animate-flicker { animation: flicker 6s infinite; }
+
+  /* === VHS chromatic on hover === */
+  .vhs-hover { transition: filter 0.3s ease, transform 0.3s ease; }
+  .vhs-hover:hover {
+    filter: drop-shadow(2px 0 0 hsl(var(--cherry-bright))) drop-shadow(-2px 0 0 hsl(var(--electric) / 0.7));
+  }
+
+  /* === Sticker tilt === */
+  .sticker {
+    transform: rotate(var(--rot, -3deg));
+    transition: transform 0.25s ease;
+  }
+  .sticker:hover { transform: rotate(0deg) scale(1.05); }
+
+  /* === Notch / ticket-stub clip === */
+  .clip-ticket {
+    clip-path: polygon(
+      0 0, 100% 0, 100% calc(100% - 14px),
+      calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px)
+    );
+  }
+  .clip-notch {
     clip-path: polygon(
       0 8px, 8px 0,
       calc(100% - 8px) 0, 100% 8px,
@@ -189,8 +258,37 @@
     );
   }
 
+  /* === Cassette window inner shadow === */
+  .cassette-window {
+    background: linear-gradient(180deg, hsl(0 0% 8%) 0%, hsl(0 0% 14%) 50%, hsl(0 0% 8%) 100%);
+    box-shadow: inset 0 0 12px hsl(0 0% 0% / 0.8);
+  }
+
+  /* === Hide scrollbar === */
   .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
   .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* === CRT screen frame === */
+  .crt-frame {
+    background: radial-gradient(ellipse at center, hsl(0 0% 6%) 0%, hsl(0 0% 3%) 100%);
+    border: 8px solid hsl(0 0% 10%);
+    border-radius: 24px;
+    box-shadow:
+      inset 0 0 60px hsl(0 0% 0% / 0.9),
+      0 0 0 2px hsl(0 0% 14%),
+      0 30px 60px hsl(0 0% 0% / 0.6);
+  }
+
+  /* === Logo green tint (DVD bounce) === */
+  .logo-toxic {
+    filter: brightness(0) saturate(100%) invert(82%) sepia(62%) saturate(2000%) hue-rotate(40deg) brightness(120%) contrast(110%);
+  }
+  .logo-cream {
+    filter: brightness(0) saturate(100%) invert(95%) sepia(8%) saturate(120%) hue-rotate(0deg);
+  }
+  .logo-cherry {
+    filter: brightness(0) saturate(100%) invert(20%) sepia(85%) saturate(4500%) hue-rotate(340deg) brightness(95%) contrast(105%);
+  }
 }
 
 html { scroll-behavior: smooth; }
