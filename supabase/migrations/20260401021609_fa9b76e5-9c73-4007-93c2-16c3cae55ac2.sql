@@ -1,0 +1,1 @@
+DELETE FROM public.releases WHERE id = '3856f0c7-3bc4-482a-bed0-f654543a3001';

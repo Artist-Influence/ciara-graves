@@ -1,0 +1,1 @@
+DELETE FROM public.releases WHERE (spotify_url IS NULL OR spotify_url NOT LIKE '%1sg7LKlpfKmZSvI0xxqNWC%') AND (soundcloud_url IS NULL OR soundcloud_url NOT LIKE '%users:639237%');
