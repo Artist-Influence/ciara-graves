@@ -38,13 +38,9 @@ export const LayloPlaceholder = () => {
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-noir/70 via-noir/40 to-noir/80 pointer-events-none" />
 
       <div className="container relative z-10 flex flex-col items-center text-center max-w-xl">
-        <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.9]">
-          SIGNAL
-        </h2>
-
         {/* Laylo embed frame */}
-        <div className="mt-10 w-full relative border border-cherry/60 bg-noir/80 backdrop-blur-sm clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)] p-4 sm:p-6">
-          <div className="flex items-center justify-between mb-3 font-mono text-[10px] tracking-[0.3em] text-cherry-bright">
+        <div className="w-full relative border border-cherry/60 bg-noir/80 backdrop-blur-sm clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)] p-4 sm:p-6">
+          <div className="flex items-center justify-between mb-3 font-mono text-[10px] tracking-[0.3em] text-cream/60">
             <span>▍ LAYLO_FEED</span>
             <span>// SUBSCRIBE</span>
           </div>
@@ -55,10 +51,6 @@ export const LayloPlaceholder = () => {
             }}
           />
         </div>
-
-        <p className="mt-8 font-script text-2xl text-cherry-bright rotate-[-2deg]">
-          no spam. just bass.
-        </p>
       </div>
     </section>
   );

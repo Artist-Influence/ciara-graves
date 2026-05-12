@@ -21,7 +21,7 @@ export const Shows = () => {
       <div className="container relative z-10">
         <header className="mb-10 sm:mb-14">
           <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ HOTLINE / TICKET_STACK</p>
-          <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">CATCH ME LIVE.</h2>
+          <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">Upcoming Shows</h2>
         </header>
 
         {isLoading && <p className="font-mono text-sm text-cream-dim">▸ pulling dates…</p>}
@@ -50,7 +50,7 @@ export const Shows = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     {e.soldOut ? (
-                      <span className="font-mono text-[11px] tracking-[0.3em] uppercase px-3 py-2 border border-cherry-bright text-cherry-bright">
+                      <span className="font-mono text-[11px] tracking-[0.3em] uppercase px-3 py-2 border border-cherry text-cherry">
                         SOLD OUT
                       </span>
                     ) : (
@@ -74,7 +74,7 @@ export const Shows = () => {
               <p className="font-display text-3xl sm:text-4xl text-cream">
                 No shows listed right now.
               </p>
-              <p className="mt-3 font-script text-2xl text-cherry-bright">
+              <p className="mt-3 font-script text-2xl text-cream">
                 join the list for the next drop ✦
               </p>
               <a
