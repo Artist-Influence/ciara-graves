@@ -27,9 +27,6 @@ export const HeroCiara = () => {
 
       {/* Center content */}
       <div className="relative z-20 container flex flex-col items-center justify-center min-h-[100svh] text-center pt-24 pb-32">
-        <p className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-toxic mb-4 animate-flicker">
-          ▍ WILMINGTON, DE ▍
-        </p>
 
         <img
           src={siteConfig.artist.logoUrl}
@@ -61,13 +58,6 @@ export const HeroCiara = () => {
           </a>
         </div>
 
-        <div className="mt-10 flex items-center gap-3">
-          <EqualizerBars />
-          <span className="font-mono text-[10px] tracking-[0.3em] text-cream/70">
-            SIGNAL LOCKED · 808 HZ
-          </span>
-          <EqualizerBars />
-        </div>
       </div>
 
     </section>

@@ -59,7 +59,7 @@ export const BookingFooter = () => (
 
         <ul className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-[11px] tracking-[0.25em] text-cream-dim">
           <li><a href="#music" className="hover:text-toxic">MUSIC</a></li>
-          <li><a href="#signal" className="hover:text-toxic">JOIN ME</a></li>
+          <li><a href="#signal" className="hover:text-toxic">UPDATES</a></li>
           <li><a href="#shows" className="hover:text-toxic">SHOWS</a></li>
           <li><a href="#about" className="hover:text-toxic">ABOUT</a></li>
         </ul>
