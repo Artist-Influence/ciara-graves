@@ -1,4 +1,4 @@
-import klusterFluxLogo from "@/assets/klusterflux-logo-white.png";
+import ciaraLogo from "@/assets/ciara-logo.png";
 
 interface BrandLogoProps {
   className?: string;
@@ -7,9 +7,9 @@ interface BrandLogoProps {
 
 const BrandLogo = ({ className = "", maxWidth = "max-w-2xl" }: BrandLogoProps) => (
   <img
-    src={klusterFluxLogo}
-    alt="KLUSTER FLUX"
-    className={`w-full ${maxWidth} object-contain ${className}`}
+    src={ciaraLogo}
+    alt="CIARA GRAVES"
+    className={`logo-knockout w-full ${maxWidth} object-contain ${className}`}
     draggable={false}
   />
 );
