@@ -49,7 +49,7 @@ export const LayloPlaceholder = () => {
                 width: "1px",
                 minWidth: "100%",
                 maxWidth: "1000px",
-                minHeight: "220px",
+                height: "380px",
                 background: "transparent",
                 display: "block",
               }}
