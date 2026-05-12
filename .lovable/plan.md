@@ -1,26 +1,17 @@
-## Goal
-In the Contact footer, replace the round CD/logo medallion with a compact **spinning vinyl record** anchored to the **right side** of the contact block at all breakpoints (no stacking underneath).
+## Changes
 
-## Changes — `src/components/ciara/BookingFooter.tsx`
+### 1. `src/components/ciara/BookingFooter.tsx` — vinyl closer & larger
+- Tighten gap on the flex row from `gap-10` to `gap-6 sm:gap-8` so the disc sits closer to the contact text.
+- Bump disc size from `w-32 h-32 sm:w-36 sm:h-36` to `w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64`.
+- Keep current spinning vinyl styling (grooves, sheen, cherry label, spindle, glow, `animate-spin-cd`).
 
-1. **Layout — keep it side-by-side, more compact**
-   - Change the outer grid from `lg:grid-cols-3` (which stacks on mobile) to a flex row that holds together earlier:
-     - `flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8`
-   - Left: contact copy (email, CTAs, nav list).
-   - Right: the spinning record, sized down to ~`w-32 h-32 sm:w-36 sm:h-36` (was `w-48 h-48`) so it reads as an accent, not a feature block.
-   - Drop the `BURN_001 · CIARA GRAVES` caption under the disc (it added vertical bulk); keep the disc clean.
+### 2. `src/components/ciara/HeroCiara.tsx` — kill the moving dark overlay
+- Remove the `vignette-cherry` class from the hero `<section>` (the dark radial-gradient ring darkening the edges over the video). Keep `grain` and `scanlines` for texture.
+- If the user actually meant the animated grain, easy follow-up to drop `grain` too — but vignette is the dark gradient sitting on top of the video.
 
-2. **Spinning vinyl record** (replaces the current radial-gradient medallion)
-   - Outer disc: black vinyl with concentric grooves rendered via `repeating-radial-gradient` of subtle `hsl(var(--cream)/0.05)` rings on a near-black base.
-   - Light sheen: a soft conic-gradient highlight overlay at low opacity for that "rotating reflection" feel.
-   - Center label: cherry-red circle (~38% of disc), with the FILTHY/Ciara logo (`siteConfig.artist.logoUrl`) centered using the existing `logo-knockout` filter, scaled small.
-   - Spindle hole: tiny `bg-noir` dot in the dead center.
-   - Animation: reuse the existing `animate-spin-cd` utility (already defined in `index.css` as an 8s linear infinite spin) on the whole disc. Center label spins with the disc (authentic record behavior).
-   - Add a soft `glow-cherry` ring around the disc edge for brand cohesion.
-
-3. **Responsive behavior**
-   - At `<sm`: record sits to the right of stacked content via `flex-row` with the text taking remaining width — or, if too tight on narrow phones, allow it to drop to a right-aligned position above the nav list. Final call: keep `flex-col sm:flex-row` so on the smallest phones it stacks (record on top, right-aligned), but on ≥640px it sits compactly to the right of the contact text. This matches the user's "not under" intent for the desktop/tablet view they're previewing (898px).
+### 3. Shows section — swap in uploaded MP4
+- Copy `user-uploads://CIARA_GRAVES02034220.mp4` → `src/assets/viz-shows.mp4` (overwrite existing).
+- No code change needed — `siteConfig.ts` already imports `viz-shows.mp4.asset.json` and `Shows.tsx` renders it via `SectionVisualizer`. The asset pipeline will regenerate the JSON on copy.
 
 ## Out of scope
-- No new assets, no animation library, no config changes.
-- No edits to other sections or the design system (the `animate-spin-cd` keyframe already exists).
+No backend, no design system, no other sections.
