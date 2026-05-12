@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/siteConfig";
 import EqualizerBars from "./EqualizerBars";
-import DVDBounceLogo from "./DVDBounceLogo";
 import MarqueeTicker from "@/components/MarqueeTicker";
 
 export const HeroCiara = () => {
@@ -21,14 +20,8 @@ export const HeroCiara = () => {
         poster={siteConfig.artist.portraitUrl}
         aria-hidden
       />
-      {/* Tinted gradient overlays */}
+      {/* Tinted gradient overlay */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-noir/40 via-noir/30 to-noir" />
-      <div className="absolute inset-0 z-[1] bg-[radial-gradient(ellipse_at_70%_30%,hsl(var(--cherry)/0.25),transparent_55%),radial-gradient(ellipse_at_15%_80%,hsl(var(--toxic)/0.18),transparent_50%)]" />
-
-      {/* Floating DVD-bounce logo (corner) */}
-      <div className="absolute top-24 left-4 sm:top-28 sm:left-8 z-10 hidden sm:block">
-        <DVDBounceLogo size={120} />
-      </div>
 
       {/* Channel label corner */}
       <div className="absolute top-20 right-4 z-10 font-mono text-[10px] tracking-[0.3em] text-cream/70">
@@ -38,7 +31,7 @@ export const HeroCiara = () => {
       {/* Center content */}
       <div className="relative z-20 container flex flex-col items-center justify-center min-h-[100svh] text-center pt-24 pb-32">
         <p className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-toxic mb-4 animate-flicker">
-          ▍ {siteConfig.artist.location}
+          ▍ WILMINGTON, DE
         </p>
 
         <img
