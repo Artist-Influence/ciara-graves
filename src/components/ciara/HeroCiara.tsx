@@ -6,7 +6,7 @@ export const HeroCiara = () => {
   return (
     <section
       id="top"
-      className="relative min-h-[100svh] w-full overflow-hidden grain scanlines vignette-cherry isolate"
+      className="relative min-h-[100svh] w-full overflow-hidden grain scanlines isolate"
     >
       {/* Background video */}
       <video

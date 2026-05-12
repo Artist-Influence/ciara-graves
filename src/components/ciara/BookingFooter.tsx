@@ -2,7 +2,7 @@ import { siteConfig } from "@/config/siteConfig";
 
 export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
-    <div className="container relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10">
+    <div className="container relative z-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
       <div className="flex-1 min-w-0">
         <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
         <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.85]">
@@ -42,7 +42,7 @@ export const BookingFooter = () => (
 
       <div className="shrink-0 self-center sm:self-auto">
         <div
-          className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full animate-spin-cd glow-cherry"
+          className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full animate-spin-cd glow-cherry"
           style={{
             background: `
               radial-gradient(circle at center, hsl(0 0% 4%) 0%, hsl(0 0% 6%) 100%),
