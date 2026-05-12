@@ -34,9 +34,9 @@ export const LayloPlaceholder = () => {
             <span>// SUBSCRIBE</span>
           </div>
           <div
-            className="w-full"
+            className="w-full min-h-[420px]"
             dangerouslySetInnerHTML={{
-              __html: `<iframe id="laylo-drop-${dropId}" frameborder="0" scrolling="no" allow="web-share" allowtransparency="true" style="width:1px;min-width:100%;max-width:1000px;background:transparent" src="https://embed.laylo.com?dropId=${dropId}&color=${color}&minimal=false&theme=${theme}"></iframe>`,
+              __html: `<iframe id="laylo-drop-${dropId}" frameborder="0" scrolling="no" allow="web-share" allowtransparency="true" style="width:1px;min-width:100%;max-width:1000px;min-height:420px;background:transparent" src="https://embed.laylo.com?dropId=${dropId}&color=${color}&minimal=false&theme=${theme}"></iframe>`,
             }}
           />
         </div>
