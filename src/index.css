@@ -57,8 +57,8 @@
     --cherry-bright: 354 92% 55%;       /* brighter cherry for glows */
     --cream: 36 38% 90%;                /* muted off-white */
     --cream-dim: 36 18% 70%;
-    --toxic: 88 92% 55%;                /* toxic green from logo */
-    --toxic-glow: 95 100% 60%;
+    --toxic: 340 95% 70%;               /* cherry pink accent (was toxic green) */
+    --toxic-glow: 335 100% 78%;
     --electric: 195 100% 55%;           /* electric blue/teal accent */
     --ink: 36 28% 92%;
     --noir: 0 0% 3%;
@@ -281,7 +281,7 @@
 
   /* === Logo green tint (DVD bounce) === */
   .logo-toxic {
-    filter: brightness(0) saturate(100%) invert(82%) sepia(62%) saturate(2000%) hue-rotate(40deg) brightness(120%) contrast(110%);
+    filter: brightness(0) saturate(100%) invert(60%) sepia(80%) saturate(1800%) hue-rotate(295deg) brightness(105%) contrast(105%);
   }
   .logo-cream {
     filter: brightness(0) saturate(100%) invert(95%) sepia(8%) saturate(120%) hue-rotate(0deg);
