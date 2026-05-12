@@ -2,6 +2,7 @@ import ciaraPortrait from "@/assets/ciara-portrait.jpg";
 import ciaraLogo from "@/assets/ciara-logo.svg";
 import heroVideo from "@/assets/hero-bg.mp4";
 import dvdBounceVideo from "@/assets/dvd-bounce.mp4";
+import layloBgVideo from "@/assets/laylo-bg.mp4";
 
 export const siteConfig = {
   artist: {
