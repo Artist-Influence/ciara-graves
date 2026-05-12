@@ -1,60 +1,68 @@
-# Ciara Graves Artist Site — Build Plan
+## Cleanup pass
 
-## Vision
-A bass-heavy artist site that feels like a haunted DVD menu meets cherry-red club flyer meets premium EPK. Cinematic, weird, fun, premium — not a generic EDM/EPK template. Fully responsive (collage-rich on desktop, clean and fast on mobile).
+**Hero (`HeroCiara.tsx`)**
+- Remove the corner `<DVDBounceLogo />` in the hero (the floating top-left bouncing visualizer).
+- Change location chip copy from `▍ WILMINGTON, DE / OUTSIDE PHILLY` → `▍ WILMINGTON, DE`.
+- Remove the second cherry/toxic radial-gradient overlay layered on top of the hero video so the bg reads cleaner.
 
-## Aesthetic system
-- **Palette (HSL tokens in `index.css`)**: near-black base, deep cherry red, muted cream/off-white, toxic green (logo accent), occasional electric blue/teal glow.
-- **Effects**: grain overlay, CRT scanlines, paper texture, soft red/green glow, subtle VHS chromatic-aberration on hover, light DVD-bounce float for the green logo.
-- **Typography**: install the uploaded **Bootzy_TM** font as the display face (logo-style headings/marks), pair with a condensed all-caps sans (e.g. Barlow Condensed) for headings and a compact mono (e.g. JetBrains Mono) for cassette-label UI text. Optional handwritten accent (Caveat) used sparingly for stickers like "sweet with bite."
-- **Motion**: tasteful — DVD bounce loop, slow cassette/CD spin, equalizer bars, hover scale/tilt, scanline flicker. Respect `prefers-reduced-motion`.
+**Global gradients on top of visuals**
+- Remove the spinning conic-gradient ring overlaid on the CD in `BookingFooter` (the rotating multicolor ring sitting on top of the disc).
+- Remove the rainbow horizontal gradient bar at the very top of `BookingFooter`.
+- Remove the cassette inner gradient strip + spinning reels' duplicate gradient strip on cassette cards (`MusicFeed`) — keep static cassette window only.
+- Drop the DVDBounce overlay sitting on top of the featured release card in `MusicFeed`.
 
-## Asset handling (copy from user-uploads)
-- `Bootzy_TM.ttf` / `.otf` → `public/fonts/` and `@font-face` in `index.css`.
-- `CIARA_GRAVES_LOGO_-Artboard_9.svg` → `src/assets/ciara-logo.svg` (white + cherry-red SVG).
-- A green-tinted version of the logo (via CSS filter / SVG color override) used as the **DVD-bounce** floater.
-- `Logo_DVD_Bounce.MP4` → `src/assets/dvd-bounce.mp4` (looping background motif in hero corner / footer / visual world).
-- `CIARA_GRAVES_HERO_SECTION_VIDEO.mp4` → `src/assets/hero-bg.mp4` (hero background loop, muted/autoplay/playsinline + force-play polling for mobile).
-- `Ciara_Graves_Bio_Pic.JPG` → `src/assets/ciara-portrait.jpg` (about/collage).
-- `Ciara_Graves_Biography_2026.pdf` → `public/epk/Ciara-Graves-Biography-2026.pdf` (Read Full Bio + EPK download).
+## Color retune: green → cherry pink
 
-## Content config
-Replace `src/config/siteConfig.ts` with a Ciara-focused config: artist name, tagline ("Bass-heavy. Sweet with bite."), location, socials (SoundCloud, Audius, Instagram, TikTok — Spotify left as a clearly-commented placeholder), Bandsintown (`artistId: "Ciara Graves"`, `appId: ba07a5e038e1fa576899f90a80cf24bf`), Laylo placeholder, booking email `info@ciaragraves.com`, marquee phrases, highlights/credibility list (NO ACRAZE credit).
+- Update `--toxic` and `--toxic-glow` tokens in `src/index.css` from green (`88 92% 55%`) to a cherry pink (e.g. `--toxic: 340 95% 70%`, `--toxic-glow: 335 100% 78%`). Keep the token name `toxic` so we don't have to rename everywhere — it now reads as a hot cherry pink accent.
+- Update `.logo-toxic` filter in `index.css` to map black → cherry pink (new hue-rotate values) so the DVD-bounce green logo reads pink.
+- Hero animate-flicker label, mono labels, hover states, sticker accents, etc. all inherit through `text-toxic` / `bg-toxic` / `border-toxic` so no per-component edits required.
 
-## Page structure (`src/pages/Index.tsx`, route `/`)
-Sticky nav (small wordmark + anchors) with smooth scroll. Sections, in order:
+## Releases section (`MusicFeed.tsx`) — 90s catalog rework
 
-1. **Hero** — full-viewport video bg (Ciara + stereo), dark overlay with red/green glow, big logo, tagline, CTAs (Listen / Shows / Book Ciara), small marquee "DUBSTEP / UK BASS / TRAP / RETRO CLUB CULTURE", floating DVD-bounce green-logo loop in a corner.
-2. **Music / Latest Drops** — fetched from SoundCloud RSS via a new edge function `fetch-soundcloud-feed` (RSS isn't CORS-friendly client-side). Cards styled as cassette tapes / boombox screens with spinning reel, equalizer bars, title, date, Play/SoundCloud links. One looping audio-reactive style visualizer beside the latest track. Streaming row: SoundCloud, Audius, Instagram, TikTok. Spotify placeholder commented for easy enable.
-3. **Laylo / Fan Capture** — phone-screen / desktop pop-up styling, headline "Get the next drop first", body copy, CTA "Join Ciara's List". Clearly commented `{/* LAYLO EMBED PLACEHOLDER */}` slot.
-4. **About / Bio** — collage layout (cherries, poker card, TV, cassette, lucky 7 stickers around a portrait tile). On-page short bio + "Read full bio" drawer with the long bio (ACRAZE line removed per instructions). Handwritten accent stickers.
-5. **Highlights / Credibility** — punchy ticket-stub / poker-card / VHS-label cards with hover motion. Items: supported T-Pain, BENZI, CAM GIRL, QUIX; venues Avalon Hollywood, SILO Brooklyn, Meow Wolf; Top 5 Audius Global Trending; brand partners Dyson Beauty, Supergoop!, NARS; press Run The Trap, Support Women DJs, Delirium.
-6. **Shows** — Bandsintown via existing `useBandsintownEvents` hook with new app id. Styled as ticket-stub stack / club-flyer wall. Empty state: "No shows listed right now. Join the list for the next drop." + Laylo CTA.
-7. **Visual World / Moodboard** — horizontal scroll collage inside a CRT frame; tiles for cassette, boombox, red velvet, poker/lucky 7, cherries, flip phone, mirrors, cats, magazine collage, club imagery. Three labeled video slots: `VISUALIZER_VIDEO_01`, `VISUALIZER_VIDEO_02` (uses `dvd-bounce.mp4`), `VISUALIZER_VIDEO_03`, with clear comments for swapping.
-8. **Video / Performance** — DVD-menu / camcorder layout: one large featured slot + two small slots. Placeholders labeled "LIVE FILE_001 / BASS TRANSMISSION / CLUB FOOTAGE", commented for swap.
-9. **Socials** — "Find me somewhere weird." Custom buttons styled as desktop icons / cassette labels / poker chips for SoundCloud, Audius, Instagram/Threads, TikTok.
-10. **Booking / Footer** — back-of-burned-CD aesthetic. Booking email `info@ciaragraves.com`, Download EPK button (links to PDF), socials, mini logo + DVD-bounce loop, minimal nav.
+- Top: one large featured release card (latest SoundCloud track) styled like a CD jewel-case insert (artwork left, title + play CTA right, scanlines, cassette window strip).
+- Below: a single horizontally scrollable strip of remaining releases as 90s catalog cards (square artwork, sticker price-tag, mono catalog code `CAT.NO 00X`, "PLAY ↗" pill). Use `snap-x` + `scrollbar-hide` (already in css) and a "scroll →" hint in cherry-pink script.
+- Keep the "ALSO ON →" streaming pill row.
+- Remove the DVD bounce overlay on the featured card.
 
-## Components to create (`src/components/ciara/`)
-`StickyNavCiara`, `HeroCiara`, `MarqueeTicker` (reuse), `MusicFeed`, `LayloPlaceholder`, `BioSection`, `Highlights`, `Shows`, `VisualWorld`, `VideoSection`, `SocialLinks`, `BookingFooter`. Plus shared atoms: `CassetteCard`, `TicketStub`, `CRTFrame`, `DVDBounceLogo`, `EqualizerBars`, `ScanlineOverlay` (reuse), `GrainOverlay` (reuse Noise), `StickerText`.
+## Co-signs / Highlights → tuck into Bio
 
-## Backend / data
-- **Edge function `fetch-soundcloud-feed`**: server-side fetch of `https://feeds.soundcloud.com/users/soundcloud:users:141298274/sounds.rss`, parse to `{ title, link, pubDate, artworkUrl }[]`, return JSON with CORS headers. Frontend hook `useSoundCloudFeed` calls it via `supabase.functions.invoke`.
-- **Bandsintown**: reuse existing `useBandsintownEvents` with new artist id and the provided app id.
-- **No DB schema changes** — the SoundCloud feed is fetched live (cached in React Query for 10 min).
+- Delete `Highlights.tsx` rendering as its own section in `Index.tsx`.
+- Inside `BioSection.tsx`, add a compact "CO-SIGNED" strip beneath the bio copy: small mono label + a horizontal flex row of tiny pill/ticket chips generated from `siteConfig.highlights` (text-xs, no big cards, no rotation). Reads as a credit ribbon, not a section.
 
-## Routing & cleanup
-- `App.tsx`: route `/` → new `Index` page. Keep `NotFound`.
-- Remove the `Pierce` page and `src/components/pierce/*` (replaced by `ciara/*`).
-- Update `index.html` `<title>`, meta description, OG tags, favicon to Ciara Graves; single H1 in hero; semantic landmarks; alt text on every image.
+## Section removals
 
-## Performance & a11y
-- Lazy-load below-the-fold sections, `loading="lazy"` on images, `preload="metadata"` on videos, `poster` images for video tiles.
-- Respect `prefers-reduced-motion` (disable DVD bounce, scanline flicker, autoplay loops where appropriate).
-- Color contrast checked for both bright cherry on near-black and cream body on near-black.
-- Mobile: collage simplifies to stacked rhythm; horizontal-scroll sections become swipeable; nav becomes compact.
+- Remove `<VisualWorld />` (Ciara's World) from `Index.tsx`. Delete component file.
+- Remove `<VideoSection />` (footage at bottom) from `Index.tsx`. Delete component file.
+- Update `StickyNavCiara` links + `BookingFooter` link list to drop `WORLD` and `VIDEO`.
 
-## Out of scope / explicit nots
-- No ACRAZE / gold / platinum credit anywhere.
-- No Spotify section enabled (clearly commented placeholder only).
-- No developer credit / watermark in footer.
+## Laylo integration (`LayloPlaceholder.tsx` → `LayloSection.tsx`)
+
+- Use the supplied Laylo client subscribe token. Token is a client-scoped publishable key (`hasClientAccess: true`) — safe to ship in code, but still loaded from `siteConfig.laylo.token` so it's swappable.
+- Inside the existing phone-screen mock, mount Laylo's official subscribe embed:
+  - Inject `<script src="https://embed.laylo.com/laylo.js">` once on mount.
+  - Render `<laylo-drop data-token="…" data-username="ciaragraves" data-background-color="transparent" />` inside the screen.
+  - Iframe is forced transparent + `allowTransparency` per project rule so it blends with the cherry-noir screen.
+- Set `siteConfig.laylo.enabled = true`, store token + username; remove the dashed placeholder block and the mailto fallback.
+- Replace the static `dvd-bounce.mp4` reference: use the supplied DVD mp4 (`siteConfig.artist.dvdBounceUrl`) as a subtle looping background **inside** the Laylo phone screen behind the embed (low opacity, mix-blend-screen) so the section now uses Ciara's DVD video here instead of the hero.
+
+## Socials section (`SocialLinks.tsx`)
+
+- Replace the emoji glyphs with real brand logos:
+  - SoundCloud: existing `src/components/icons/SoundCloudIcon.tsx`.
+  - Add small inline SVG icon components for Audius, Instagram, TikTok in `src/components/icons/` (monochrome white, color via `currentColor`).
+- Each social tile becomes: square card, brand SVG centered (cream → cherry-pink on hover), label below in mono, keeps the cherry drop-shadow stamp aesthetic.
+
+## Booking footer (`BookingFooter.tsx`)
+
+- Heading copy `Book Ciara Graves.` → `Contact.`
+- Remove the `<DVDBounceLogo />` block beneath the burned-CD graphic.
+- Remove the spinning conic-gradient + the top rainbow bar (covered above).
+- Trim footer nav list to remove WORLD + VIDEO.
+
+## Files touched (summary)
+
+- Edit: `src/index.css` (token retune, logo filter), `src/config/siteConfig.ts` (laylo token + enabled), `src/pages/Index.tsx`, `src/components/ciara/HeroCiara.tsx`, `src/components/ciara/MusicFeed.tsx`, `src/components/ciara/BioSection.tsx`, `src/components/ciara/LayloPlaceholder.tsx` (rename internals), `src/components/ciara/SocialLinks.tsx`, `src/components/ciara/BookingFooter.tsx`, `src/components/ciara/StickyNavCiara.tsx`.
+- Delete: `src/components/ciara/VisualWorld.tsx`, `src/components/ciara/VideoSection.tsx`, `src/components/ciara/Highlights.tsx`.
+- Add: `src/components/icons/AudiusIcon.tsx`, `InstagramIcon.tsx`, `TikTokIcon.tsx`.
+
+No backend, no schema, no edge-function changes.
