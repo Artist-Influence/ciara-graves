@@ -21,7 +21,7 @@ export const Shows = () => {
       <div className="container relative z-10">
         <header className="mb-10 sm:mb-14">
           <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ HOTLINE / TICKET_STACK</p>
-          <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">CATCH HER LIVE.</h2>
+          <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">CATCH ME LIVE.</h2>
         </header>
 
         {isLoading && <p className="font-mono text-sm text-cream-dim">▸ pulling dates…</p>}
