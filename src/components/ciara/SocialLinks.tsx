@@ -1,8 +1,9 @@
-import { siteConfig } from "@/config/siteConfig";
+import { siteConfig, visualizers } from "@/config/siteConfig";
 import SoundCloudIcon from "@/components/icons/SoundCloudIcon";
 import AudiusIcon from "@/components/icons/AudiusIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
+import SectionVisualizer from "@/components/ciara/SectionVisualizer";
 
 const items = [
   { href: siteConfig.socials.soundcloud, label: "SoundCloud", Icon: SoundCloudIcon, bg: "bg-cherry text-cream", rot: "-3deg" },
@@ -13,7 +14,8 @@ const items = [
 
 export const SocialLinks = () => (
   <section id="socials" className="relative py-24 sm:py-32 border-t border-cherry/20 overflow-hidden">
-    <div className="container text-center">
+    <SectionVisualizer src={visualizers.findme} opacity="opacity-30" />
+    <div className="container text-center relative z-10">
       <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ DESKTOP / DOCK</p>
       <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">FIND ME SOMEWHERE WEIRD.</h2>
 

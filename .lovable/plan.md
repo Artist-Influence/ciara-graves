@@ -1,19 +1,44 @@
-## Logo swap (uploaded PNG)
-- Copy `user-uploads://Ciara_Graves_Logo.png` → `src/assets/ciara-logo.png`.
-- Update `src/config/siteConfig.ts`: change the import from `ciara-logo.svg` to `ciara-logo.png` so all logo usages (hero + sticky nav + footer) pick it up.
-- Note: the PNG ships with a white square background. To make it read on the dark site without re-exporting the file, swap the existing `logo-cream` CSS class on the hero/nav `<img>` tags for a small inline treatment: `filter: invert(1)` + `mix-blend-mode: screen` (CSS), which drops the white background out and renders the oval+wordmark in white. Add a reusable utility `.logo-knockout` in `src/index.css` so both spots share the rule.
+## 1. Fix SoundCloud + Audius logos
 
-## EPK download
-- Pull the file from Google Drive (`fileId 1wmBXbGzl3ClT2rieh8Ss3m2N-QupqnAI`) via the Drive connector and save it to `public/epk/Ciara-Graves-Biography-2026.pdf` (overwriting the existing placeholder). The current `siteConfig.booking.epkUrl` already points there, so the "Download EPK" button keeps working with no code change.
+Replace the inaccurate hand-drawn paths in `src/components/icons/SoundCloudIcon.tsx` and `src/components/icons/AudiusIcon.tsx` with the **official brand SVG path data** pulled from each company's press kit:
 
-## Copy fix
-- `siteConfig.artist.location`: `"WILMINGTON, DE / OUTSIDE PHILLY"` → `"WILMINGTON, DE"`. This updates the footer line that currently reads the long version.
+- **SoundCloud**: official 5-bar waveform mark with cloud silhouette (the real shape, not a generic rising-bars + cloud).
+- **Audius**: official "stacked chevron" mark (three nested triangles forming the A) — not a triangle-with-notch.
 
-## Hero gradient
-- In `src/components/ciara/HeroCiara.tsx`, delete the tinted overlay div on line 24 (`bg-gradient-to-b from-noir/40 via-noir/30 to-noir`) so the hero video shows clean. Keep `vignette-cherry` and the bottom marquee for legibility around the CTAs.
+Both stay as `currentColor` single-path SVGs at 24×24 so the existing `text-cream`/hover styling keeps working. No other component changes needed since they're already wired up.
+
+## 2. Background visualizers — Music / Bio / Shows / Find Me
+
+Aesthetic chosen: **AI-generated lo-fi loops** combining audio waveform + VHS scanlines + particle dust, plus desaturated camcorder b-roll. One unique 5–10s seamless MP4 per section, all in cherry/noir palette so they read as one family.
+
+Per-section direction:
+
+| Section | Loop concept |
+|---|---|
+| Music (`MusicSection`) | Slow horizontal cherry-red audio waveform drifting left→right over noir, faint VHS scanlines, soft grain. Reads as "the music itself." |
+| Bio (`BioSection`) | Heavily desaturated lo-fi camcorder b-roll — close-up hands on a mixer/turntable, shallow depth, occasional tracking glitch. Replaces the grey gradient that was just removed. |
+| Shows (`ShowsSection`) | Camcorder POV through a dark crowd, red stage wash strobing slowly, scanlines + chromatic aberration. |
+| Find Me Somewhere (`FindMeSection`) | Drifting white particle dust / dust motes on pure noir, very slow, almost still — quiet contrast to the other three. |
+
+**Generation**: use `videogen--generate_video` (1080p, 16:9, 10s, `camera_fixed: true`) with cherry/noir prompts → save to `src/assets/viz-music.mp4`, `viz-bio.mp4`, `viz-shows.mp4`, `viz-findme.mp4`.
+
+**Integration pattern** (reuses the existing Signal-section approach):
+- Add a small `<SectionVisualizer src={...} />` component (absolute-positioned `<video autoplay muted loop playsinline>` with the existing force-play polling per memory rule, `opacity-20 mix-blend-screen`, behind content).
+- Drop one into each of the four section components, behind their current content, above the section bg. Sections get `relative overflow-hidden` if not already.
+- Register sources in `siteConfig.ts` under a new `visualizers` block so swaps are one-line.
+
+## Technical notes
+
+- Icons stay `currentColor` SVG; no raster, no new assets.
+- Videos: H.264 MP4, ~2–4MB each at 10s 1080p; lazy via `preload="metadata"` and `IntersectionObserver`-gated play to keep mobile cheap.
+- Respect `prefers-reduced-motion` → pause + show static poster frame.
+- No backend, schema, or auth changes.
 
 ## Files touched
-- Add asset: `src/assets/ciara-logo.png`.
-- Replace asset: `public/epk/Ciara-Graves-Biography-2026.pdf` (via Drive connector download).
-- Edit: `src/config/siteConfig.ts`, `src/components/ciara/HeroCiara.tsx`, `src/components/ciara/StickyNavCiara.tsx`, `src/index.css`.
-- No backend / schema changes.
+
+- `src/components/icons/SoundCloudIcon.tsx` — replace path
+- `src/components/icons/AudiusIcon.tsx` — replace path
+- `src/assets/viz-music.mp4`, `viz-bio.mp4`, `viz-shows.mp4`, `viz-findme.mp4` — new (videogen)
+- `src/components/ciara/SectionVisualizer.tsx` — new shared component
+- `src/components/ciara/MusicSection.tsx`, `BioSection.tsx`, `ShowsSection.tsx`, `FindMeSection.tsx` — wire visualizer
+- `src/config/siteConfig.ts` — add `visualizers` block
