@@ -16,7 +16,6 @@ export const HeroCiara = () => {
         loop
         playsInline
         preload="metadata"
-        poster={siteConfig.artist.portraitUrl}
         aria-hidden
       />
       {/* Gradient overlay removed for clean hero video */}
