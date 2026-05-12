@@ -1,28 +1,23 @@
 ## Problem
 
-The Laylo iframe is rendering its content (form + Laylo footer) in the top ~240px, but the iframe itself is locked to ~880px tall because:
+The Laylo iframe is still rendering ~880px tall with a huge black void below the form. The postMessage listener isn't catching Laylo's resize events (their SDK either doesn't post height for this drop type, or uses a shape we don't recognize), so the iframe never shrinks.
 
-1. `min-height: 460px` is hard-coded inline on the iframe.
-2. The wrapper div has `min-h-[460px] sm:min-h-[520px]`.
-3. Laylo's SDK isn't posting a `setHeight` message that our listener recognizes (origin or shape mismatch), so the iframe never shrinks to fit content.
+## Fix
 
-Result: huge empty black space below the "Make a Drop like this" row.
+Stop trying to auto-size and just lock the iframe to a compact, content-correct height. The Laylo subscribe form is a fixed-size widget — the form, fine print, Laylo logo, and "Make a Drop like this" link fit comfortably in ~340px.
 
-## Fix (`src/components/ciara/LayloPlaceholder.tsx`)
+### `src/components/ciara/LayloPlaceholder.tsx`
 
-1. **Drop the wrapper `min-h-*` classes** — let the iframe define its own height.
-2. **Lower iframe `minHeight` to a small placeholder** (e.g. `220px`) so the section reserves a little space while loading but doesn't bloat once the SDK reports actual height.
-3. **Broaden the postMessage listener** to accept both `https://embed.laylo.com` and `https://laylo.com` origins, and to handle Laylo's actual message shapes (`{ type: 'setHeight'|'resize', height }`, `{ event: 'resize', height }`, or numeric `data.height` / `data.payload.height`). Apply the height by setting `iframe.style.height` only (not `minHeight`), so subsequent shrink messages work.
-4. **Also handle the case where Laylo posts the iframe element id**: only resize the iframe whose id matches `iframeId` when the message includes one; otherwise resize ours unconditionally (single embed on page).
-5. Keep the SDK single-load logic and the "Open on Laylo →" fallback link unchanged.
+1. Set the iframe to a fixed `height: 360px` (mobile may need slightly more for stacked phone country picker — use `height: 380px` on `<sm` via inline style + a small responsive tweak, or simply use `380px` everywhere as a safe constant). Drop `minHeight` entirely.
+2. Remove the postMessage listener and resize logic — it's not firing reliably and is the source of the bloat when it does fire with bad numbers.
+3. Keep the SDK single-load logic and "Open on Laylo →" fallback link.
+4. Keep section padding `py-16 sm:py-24` and frame padding `p-3 sm:p-5`.
 
-## Spacing pass on the surrounding section
+### Result
 
-- Reduce `<section>` padding from `py-24 sm:py-32` to `py-16 sm:py-24` so the SIGNAL block doesn't feel oversized relative to the now-correct iframe height.
-- Tighten internal frame padding from `p-4 sm:p-6` to `p-3 sm:p-5`.
-- Tighten the `mt-4` on the fallback link to `mt-3`.
+Section ends cleanly right below the "Make a Drop like this" row, matching the user's screenshot expectation. Identical height across devices/browsers — no dependency on cross-origin messages.
 
 ## Out of scope
 
-- No styling/copy changes inside the Laylo iframe itself (we can't — cross-origin).
-- No changes to other sections or `siteConfig`.
+- No changes to Laylo content (cross-origin).
+- No other sections touched.

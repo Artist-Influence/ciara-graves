@@ -24,42 +24,6 @@ export const LayloPlaceholder = () => {
         /* no-op */
       }
     }
-
-    const onMessage = (ev: MessageEvent) => {
-      const origin = ev.origin || "";
-      if (!/^https:\/\/([\w-]+\.)?laylo\.com$/i.test(origin)) return;
-      const data = ev.data;
-      if (!data) return;
-
-      // Accept many shapes Laylo has used over time
-      let height: number | undefined;
-      let targetId: string | undefined;
-      if (typeof data === "object") {
-        const d = data as {
-          type?: string;
-          event?: string;
-          height?: number;
-          dropId?: string;
-          id?: string;
-          payload?: { height?: number; dropId?: string };
-        };
-        height =
-          (typeof d.height === "number" ? d.height : undefined) ??
-          (typeof d.payload?.height === "number" ? d.payload.height : undefined);
-        targetId = d.id ?? d.dropId ?? d.payload?.dropId;
-      }
-      if (typeof height !== "number" || !height) return;
-
-      const iframe = document.getElementById(iframeId) as HTMLIFrameElement | null;
-      if (!iframe) return;
-      // If the message names a different drop, ignore it
-      if (targetId && !`laylo-drop-${targetId}`.includes(iframeId) && targetId !== dropId) {
-        return;
-      }
-      iframe.style.height = `${height}px`;
-    };
-    window.addEventListener("message", onMessage);
-    return () => window.removeEventListener("message", onMessage);
   }, [iframeId, dropId]);
 
   return (
@@ -85,7 +49,7 @@ export const LayloPlaceholder = () => {
                 width: "1px",
                 minWidth: "100%",
                 maxWidth: "1000px",
-                minHeight: "220px",
+                height: "380px",
                 background: "transparent",
                 display: "block",
               }}
