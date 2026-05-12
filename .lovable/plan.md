@@ -1,17 +1,17 @@
+## Issue
+The new MP4 is on disk at `src/assets/viz-shows.mp4` but `viz-shows.mp4.asset.json` still points to the old AI-generated upload URL (`/__l5e/assets-v1/24884f57-.../viz-shows.mp4`), so `Shows.tsx` keeps rendering the old clip.
+
 ## Changes
 
-### 1. `src/components/ciara/BookingFooter.tsx` — vinyl closer & larger
-- Tighten gap on the flex row from `gap-10` to `gap-6 sm:gap-8` so the disc sits closer to the contact text.
-- Bump disc size from `w-32 h-32 sm:w-36 sm:h-36` to `w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64`.
-- Keep current spinning vinyl styling (grooves, sheen, cherry label, spindle, glow, `animate-spin-cd`).
+### 1. `src/config/siteConfig.ts` — import the local MP4 directly
+- Replace `import vizShows from "@/assets/viz-shows.mp4.asset.json"` with `import vizShows from "@/assets/viz-shows.mp4"`.
+- Update the `visualizers.shows` entry from `vizShows.url` to `vizShows` (Vite returns the bundled URL string).
 
-### 2. `src/components/ciara/HeroCiara.tsx` — kill the moving dark overlay
-- Remove the `vignette-cherry` class from the hero `<section>` (the dark radial-gradient ring darkening the edges over the video). Keep `grain` and `scanlines` for texture.
-- If the user actually meant the animated grain, easy follow-up to drop `grain` too — but vignette is the dark gradient sitting on top of the video.
+### 2. `src/components/ciara/Shows.tsx` — copy update
+- Change the H2 from `CATCH HER LIVE.` to `CATCH ME LIVE.`
 
-### 3. Shows section — swap in uploaded MP4
-- Copy `user-uploads://CIARA_GRAVES02034220.mp4` → `src/assets/viz-shows.mp4` (overwrite existing).
-- No code change needed — `siteConfig.ts` already imports `viz-shows.mp4.asset.json` and `Shows.tsx` renders it via `SectionVisualizer`. The asset pipeline will regenerate the JSON on copy.
+### 3. Cleanup
+- Delete `src/assets/viz-shows.mp4.asset.json` (no longer referenced).
 
 ## Out of scope
-No backend, no design system, no other sections.
+No changes to other visualizers, layout, or backend.
