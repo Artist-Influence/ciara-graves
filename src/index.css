@@ -57,8 +57,8 @@
     --cherry-bright: 354 92% 55%;       /* brighter cherry for glows */
     --cream: 36 38% 90%;                /* muted off-white */
     --cream-dim: 36 18% 70%;
-    --toxic: 340 95% 70%;               /* cherry pink accent (was toxic green) */
-    --toxic-glow: 335 100% 78%;
+    --toxic: 354 92% 55%;               /* red accent (was pink) */
+    --toxic-glow: 354 100% 65%;
     --electric: 195 100% 55%;           /* electric blue/teal accent */
     --ink: 36 28% 92%;
     --noir: 0 0% 3%;
