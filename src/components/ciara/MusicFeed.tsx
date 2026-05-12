@@ -1,8 +1,6 @@
 import { useSoundCloudFeed, type SoundCloudTrack } from "@/hooks/useSoundCloudFeed";
 import { siteConfig } from "@/config/siteConfig";
 import EqualizerBars from "./EqualizerBars";
-import DVDBounceLogo from "./DVDBounceLogo";
-import { cn } from "@/lib/utils";
 
 const formatDate = (s: string) => {
   if (!s) return "";
@@ -13,79 +11,93 @@ const formatDate = (s: string) => {
   }
 };
 
-const CassetteCard = ({ track, featured = false }: { track: SoundCloudTrack; featured?: boolean }) => (
-  <article
-    className={cn(
-      "group relative overflow-hidden bg-card border border-cherry/40 vhs-hover scanlines",
-      featured ? "p-5 sm:p-6" : "p-4"
-    )}
-  >
-    <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em] text-toxic mb-3">
-      <span>● TAPE_{track.id.slice(-4).toUpperCase()}</span>
-      <span className="text-cream-dim">{formatDate(track.pubDate)}</span>
-    </div>
-
-    {/* Cassette body */}
-    <div className="relative cassette-window p-3 sm:p-4 border border-border">
-      <div className="flex items-center gap-3">
-        <div className="relative shrink-0 w-10 h-10 rounded-full border border-cherry/60 bg-noir flex items-center justify-center animate-spin-reel">
-          <div className="w-2 h-2 rounded-full bg-cherry-bright" />
-          <div className="absolute inset-1 border border-cherry/30 rounded-full" />
-        </div>
-        <div className="flex-1 h-[2px] bg-gradient-to-r from-cherry/60 via-cream/30 to-cherry/60" />
-        <div className="relative shrink-0 w-10 h-10 rounded-full border border-cherry/60 bg-noir flex items-center justify-center animate-spin-reel" style={{ animationDelay: "-1s" }}>
-          <div className="w-2 h-2 rounded-full bg-cherry-bright" />
-          <div className="absolute inset-1 border border-cherry/30 rounded-full" />
-        </div>
-      </div>
-      <div className="mt-3 flex items-center justify-between">
-        <span className="font-mono text-[9px] tracking-[0.3em] text-cream-dim">SIDE A · CIARA GRAVES</span>
-        <EqualizerBars bars={4} className="h-3" />
-      </div>
-    </div>
-
-    {/* Artwork strip + title */}
-    <div className="mt-4 flex gap-3 items-start">
-      {track.artworkUrl && (
+const FeaturedRelease = ({ track }: { track: SoundCloudTrack }) => (
+  <article className="relative overflow-hidden bg-card border border-cherry/40 vhs-hover scanlines p-5 sm:p-6 grid sm:grid-cols-[200px_1fr] gap-5 sm:gap-6">
+    <div className="relative">
+      {track.artworkUrl ? (
         <img
           src={track.artworkUrl}
           alt=""
           loading="lazy"
-          className="w-16 h-16 object-cover border border-cherry/40 saturate-110 contrast-110"
+          className="w-full aspect-square object-cover border-[3px] border-cream/80 shadow-[6px_6px_0_hsl(var(--cherry))]"
         />
+      ) : (
+        <div className="w-full aspect-square bg-noir border-[3px] border-cream/80" />
       )}
-      <div className="flex-1 min-w-0">
-        <h3 className={cn("font-display uppercase text-cream leading-tight", featured ? "text-2xl" : "text-lg")}>
-          {track.title}
-        </h3>
+      <div className="absolute -top-3 -left-3 bg-toxic text-noir font-mono text-[10px] tracking-[0.25em] px-2 py-1 sticker" style={{ ["--rot" as never]: "-6deg" }}>
+        ★ FEATURED
       </div>
     </div>
-
-    <div className="mt-4 flex flex-wrap items-center gap-2">
-      <a
-        href={track.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-mono text-[11px] tracking-[0.25em] uppercase px-3 py-2 bg-cherry text-cream hover:bg-cherry-bright transition-colors clip-notch"
-      >
-        ▶ Play
-      </a>
-      <a
-        href={track.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="font-mono text-[11px] tracking-[0.25em] uppercase px-3 py-2 border border-cream/40 text-cream hover:border-toxic hover:text-toxic transition-colors clip-notch"
-      >
-        ↗ SoundCloud
-      </a>
+    <div className="flex flex-col">
+      <div className="flex items-center justify-between font-mono text-[10px] tracking-[0.25em] text-toxic mb-3">
+        <span>● TAPE_{track.id.slice(-4).toUpperCase()}</span>
+        <span className="text-cream-dim">{formatDate(track.pubDate)}</span>
+      </div>
+      <h3 className="font-display uppercase text-cream text-3xl sm:text-4xl leading-[0.95]">
+        {track.title}
+      </h3>
+      <p className="mt-2 font-script text-cherry-bright text-xl rotate-[-1deg] inline-block w-fit">
+        latest drop
+      </p>
+      <div className="mt-auto pt-4 flex flex-wrap items-center gap-2">
+        <a
+          href={track.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-[11px] tracking-[0.25em] uppercase px-4 py-2.5 bg-cherry text-cream hover:bg-cherry-bright transition-colors clip-notch glow-cherry"
+        >
+          ▶ Play Now
+        </a>
+        <a
+          href={track.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-mono text-[11px] tracking-[0.25em] uppercase px-4 py-2.5 border border-cream/40 text-cream hover:border-toxic hover:text-toxic transition-colors clip-notch"
+        >
+          ↗ SoundCloud
+        </a>
+        <EqualizerBars className="ml-auto" />
+      </div>
     </div>
   </article>
+);
+
+const CatalogCard = ({ track, index }: { track: SoundCloudTrack; index: number }) => (
+  <a
+    href={track.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="group snap-start shrink-0 w-[220px] sm:w-[240px] bg-card border border-cherry/30 hover:border-toxic/60 transition-colors p-3 vhs-hover"
+  >
+    <div className="relative">
+      {track.artworkUrl ? (
+        <img
+          src={track.artworkUrl}
+          alt=""
+          loading="lazy"
+          className="w-full aspect-square object-cover border-2 border-cream/30 saturate-110"
+        />
+      ) : (
+        <div className="w-full aspect-square bg-noir border-2 border-cream/30" />
+      )}
+      <div className="absolute top-2 right-2 bg-cream text-noir font-mono text-[9px] tracking-[0.2em] px-1.5 py-0.5 sticker" style={{ ["--rot" as never]: "4deg" }}>
+        CAT.{(index + 2).toString().padStart(3, "0")}
+      </div>
+    </div>
+    <h4 className="mt-3 font-display uppercase text-cream text-base leading-tight line-clamp-2">
+      {track.title}
+    </h4>
+    <div className="mt-2 flex items-center justify-between font-mono text-[9px] tracking-[0.25em] text-cream-dim">
+      <span>{formatDate(track.pubDate)}</span>
+      <span className="text-toxic group-hover:text-cherry-bright transition-colors">PLAY ↗</span>
+    </div>
+  </a>
 );
 
 export const MusicFeed = () => {
   const { data: tracks, isLoading, isError } = useSoundCloudFeed();
   const featured = tracks?.[0];
-  const rest = tracks?.slice(1, 7) ?? [];
+  const rest = tracks?.slice(1) ?? [];
 
   return (
     <section id="music" className="relative py-24 sm:py-32 overflow-hidden border-t border-cherry/20">
@@ -121,29 +133,19 @@ export const MusicFeed = () => {
           </div>
         )}
 
-        {tracks && tracks.length > 0 && (
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Featured */}
-            <div className="lg:col-span-2 relative">
-              {featured && <CassetteCard track={featured} featured />}
-              {/* Visualizer beside featured */}
-              <div className="hidden lg:block absolute -right-4 -bottom-4 w-32 opacity-80">
-                <DVDBounceLogo size={120} />
-              </div>
+        {featured && <FeaturedRelease track={featured} />}
+
+        {rest.length > 0 && (
+          <div className="mt-10">
+            <div className="flex items-end justify-between mb-4">
+              <p className="font-mono text-[10px] tracking-[0.4em] text-toxic">▍ CATALOG / SIDE_B</p>
+              <p className="font-script text-cream-dim text-lg rotate-[-2deg]">scroll →</p>
             </div>
-            <div className="lg:col-span-1 grid sm:grid-cols-2 lg:grid-cols-1 gap-4">
-              {rest.slice(0, 3).map((t) => (
-                <CassetteCard key={t.id} track={t} />
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide pb-3 snap-x snap-mandatory">
+              {rest.map((t, i) => (
+                <CatalogCard key={t.id} track={t} index={i} />
               ))}
             </div>
-
-            {rest.slice(3).length > 0 && (
-              <div className="lg:col-span-3 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {rest.slice(3).map((t) => (
-                  <CassetteCard key={t.id} track={t} />
-                ))}
-              </div>
-            )}
           </div>
         )}
 
@@ -154,7 +156,6 @@ export const MusicFeed = () => {
           <StreamPill href={siteConfig.socials.audius} label="Audius" />
           <StreamPill href={siteConfig.socials.instagram} label="Instagram" />
           <StreamPill href={siteConfig.socials.tiktok} label="TikTok" />
-          {/* SPOTIFY PLACEHOLDER — set siteConfig.socials.spotify.enabled=true to surface */}
           {siteConfig.socials.spotify.enabled && siteConfig.socials.spotify.url && (
             <StreamPill href={siteConfig.socials.spotify.url} label="Spotify" />
           )}

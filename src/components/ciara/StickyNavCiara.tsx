@@ -7,8 +7,7 @@ const links = [
   { href: "#signal", label: "SIGNAL" },
   { href: "#shows", label: "SHOWS" },
   { href: "#about", label: "ABOUT" },
-  { href: "#world", label: "WORLD" },
-  { href: "#book", label: "BOOK" },
+  { href: "#book", label: "CONTACT" },
 ];
 
 export const StickyNavCiara = () => {
@@ -51,7 +50,7 @@ export const StickyNavCiara = () => {
           href={`mailto:${siteConfig.booking.email}`}
           className="hidden md:inline-flex font-mono text-[11px] tracking-[0.2em] uppercase px-3 py-2 border border-cherry text-cream hover:bg-cherry hover:text-cream transition-colors clip-notch"
         >
-          ✦ Book
+          ✦ Contact
         </a>
         <button
           aria-label="Menu"
@@ -80,7 +79,7 @@ export const StickyNavCiara = () => {
                 href={`mailto:${siteConfig.booking.email}`}
                 className="block font-mono text-xs tracking-[0.25em] text-toxic py-2"
               >
-                → BOOK CIARA
+                → CONTACT
               </a>
             </li>
           </ul>

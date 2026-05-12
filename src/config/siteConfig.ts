@@ -38,11 +38,11 @@ export const siteConfig = {
     profileUrl: "https://soundcloud.com/ciaragraves",
   },
 
-  // LAYLO EMBED PLACEHOLDER — drop iframe / SDK markup into LayloPlaceholder.tsx
   laylo: {
-    enabled: false,
-    dropId: "",
+    enabled: true,
     username: "ciaragraves",
+    token:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbklkIjoiY2ZlYzQ3OWYtZDhiYS00MTRhLWE3ZjUtYWQzMDc2NDEyM2RhIiwidXNlcklkIjoiWDl0aU1Ob3h2MHJ2UEJhRFMzSHoyWEdubCIsInRva2VuVHlwZSI6IlNVQlNDUklCRSIsImhhc0NsaWVudEFjY2VzcyI6dHJ1ZSwiY3JlYXRlZCI6MTc3ODU0MzIxNDk4NCwibGFiZWwiOiJXZWJzaXRlIiwiaWF0IjoxNzc4NTQzMjE0fQ.8e0HdfBwSjYPk0Syv0_N3hcmjO2Vrbvzy_SoUbDlRfY",
   },
 
   about: {
