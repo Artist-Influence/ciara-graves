@@ -1,17 +1,26 @@
-## Problem
+## Changes
 
-The Laylo embed area renders the cherry-noir frame and `LAYLO_FEED // SUBSCRIBE` header, but the iframe body is empty/collapsed. The Laylo SDK script (`embed.laylo.com/laylo-sdk.js`) is responsible for posting a height message to the iframe; without it the iframe stays at its tiny default size and looks blank.
+### 1. New bio/about photo
+- Copy `user-uploads://10-DSC05962.jpeg` → `src/assets/ciara-portrait-boombox.jpg`
+- In `src/config/siteConfig.ts`, switch `ciaraPortrait` import to the new file so `BioSection` picks it up automatically. (Keep old file in repo, just unreferenced.)
 
-Root cause: the SDK is loaded once and attaches its `message`/iframe listeners at script execute time. When `LoadingScreen` was added, the `LayloPlaceholder` mounts later (after loader hides). On subsequent renders / fast nav the cached SDK doesn't re-scan and the new `laylo-drop-evpf7` iframe is never wired up, so it never receives its sizing/content payload.
+### 2. Harden Laylo embed (`src/components/ciara/LayloPlaceholder.tsx`)
 
-## Fix
+Current issue: a single SDK script injection races with iframe mount and silently fails on some devices/browsers (mobile Safari, in-app webviews, or when the SDK was cached from a prior route). When the SDK doesn't bind, the iframe stays at its 1px collapsed default and the section looks empty.
 
-**`src/components/ciara/LayloPlaceholder.tsx`** — make the SDK re-initialize whenever this component mounts:
-- Always remove any existing `embed.laylo.com/laylo-sdk.js` script tag on mount, then re-append a fresh one. This forces the SDK to re-scan the DOM and bind to the current `laylo-drop-${dropId}` iframe.
-- Add a sensible minimum height to the iframe wrapper (e.g. `min-h-[420px]`) so even before the SDK posts its size, the embed area is visibly reserved (no more "disappeared" look on slow loads).
-- Keep the existing markup, frame, and styling. No siteConfig changes.
+Fixes:
+- **Mount order:** inject the SDK script *after* the iframe is in the DOM (run effect after render, query for `#laylo-drop-${dropId}` first).
+- **Force fresh SDK each mount:** remove any existing `embed.laylo.com/laylo-sdk.js` tag, then append a new one with a cache-busting query param so the SDK re-scans and binds.
+- **Reserved space fallback:** give the iframe wrapper a real `min-height` (≈ 460px desktop, 520px mobile) so the section never collapses while the SDK is loading or if it fails entirely. Iframe itself keeps `width:100%` and `min-height` inline so even pre-SDK it's visible.
+- **postMessage height listener (belt + suspenders):** add a `window.addEventListener('message', ...)` that listens for Laylo's height messages and applies them to the iframe directly. This makes sizing work even when the official SDK never executes (ad blockers, strict CSP, slow networks).
+- **Visible fallback link:** under the iframe, add a small "Open on Laylo →" link to `https://laylo.com/ciaragraves` (or the drop URL) so users on browsers where the iframe is blocked still have a path to subscribe.
+- **Cleanup:** remove the message listener on unmount.
 
-## Behavior after change
+No changes to siteConfig Laylo entries.
 
-- Loader hides → Laylo section mounts → SDK script is (re)injected → iframe receives its content + height → embed renders normally inside the cherry-noir frame.
-- Even on a slow Laylo response, the framed area holds its space instead of collapsing.
+### 3. Remove SIGNAL from top header (`src/components/ciara/StickyNavCiara.tsx`)
+- Delete the `{ href: "#signal", label: "SIGNAL" }` entry from the `links` array. Section + footer "UPDATES" link still work; only the nav item is gone (desktop and mobile menu both update from the same array).
+
+## Out of scope
+- No backend/data changes.
+- No restyle of the embed frame itself beyond the min-height.
