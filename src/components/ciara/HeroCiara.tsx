@@ -31,7 +31,7 @@ export const HeroCiara = () => {
       {/* Center content */}
       <div className="relative z-20 container flex flex-col items-center justify-center min-h-[100svh] text-center pt-24 pb-32">
         <p className="font-mono text-[10px] sm:text-xs tracking-[0.4em] text-toxic mb-4 animate-flicker">
-          ▍ WILMINGTON, DE
+          ▍ WILMINGTON, DE ▍
         </p>
 
         <img
@@ -60,10 +60,16 @@ export const HeroCiara = () => {
             ◆ Shows
           </a>
           <a
-            href={`mailto:${siteConfig.booking.email}`}
+            href="#signal"
+            className="group relative font-mono text-xs sm:text-sm tracking-[0.3em] uppercase px-6 py-3 border border-cream/60 text-cream hover:border-toxic hover:text-toxic transition-all clip-notch"
+          >
+            ✦ Signal
+          </a>
+          <a
+            href="#contact"
             className="group relative font-mono text-xs sm:text-sm tracking-[0.3em] uppercase px-6 py-3 border border-toxic text-toxic hover:bg-toxic hover:text-noir transition-all clip-notch"
           >
-            ✦ Book Ciara
+            ✉ Contact
           </a>
         </div>
 
