@@ -7,6 +7,8 @@ interface Props {
   opacity?: string;
   /** blend mode utility e.g. "mix-blend-screen" */
   blend?: string;
+  /** playback rate (1 = normal, 2 = double speed) */
+  rate?: number;
 }
 
 /**
@@ -19,6 +21,7 @@ const SectionVisualizer = ({
   className = "",
   opacity = "opacity-20",
   blend = "mix-blend-screen",
+  rate = 1,
 }: Props) => {
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -33,6 +36,7 @@ const SectionVisualizer = ({
     let cancelled = false;
     const tryPlay = () => {
       if (cancelled || !v) return;
+      v.playbackRate = rate;
       v.play().catch(() => {});
     };
     tryPlay();
@@ -41,7 +45,7 @@ const SectionVisualizer = ({
       cancelled = true;
       window.clearInterval(id);
     };
-  }, []);
+  }, [rate]);
 
   return (
     <video
