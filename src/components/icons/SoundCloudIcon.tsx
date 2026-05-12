@@ -1,6 +1,21 @@
 const SoundCloudIcon = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M11.56 8.87V17h8.76c1.85-.01 2.68-1.4 2.68-2.75 0-1.4-1.06-2.75-2.68-2.75-.28 0-.56.04-.84.13C19.15 9.03 16.94 7 14.25 7c-.98 0-1.89.28-2.69.87zM10.59 9.41C10.36 9.74 10.18 10.1 10.06 10.5c-.04.13-.02.27.06.38.08.11.2.17.33.17h.06V17h-1V9.56c.36-.11.72-.15 1.08-.15zM8.5 10.5v6.5h-1V11c.28-.22.6-.38.93-.5h.07zM6.5 11.5V17h-1v-4.84c.27-.28.61-.5 1-.66zM4.5 12.84V17h-1v-3.22c.28-.34.62-.64 1-.94zM2.5 14.66V17h-1v-1.54c.28-.3.62-.58 1-.8zM.5 16V17H0v-.38c.15-.22.32-.42.5-.62z" />
+  // SoundCloud — waveform bars on the left feeding into a cloud silhouette on the right.
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-hidden
+  >
+    {/* Waveform bars (ascending) */}
+    <rect x="1"   y="13" width="0.9" height="4"  rx="0.45" />
+    <rect x="2.6" y="11.5" width="0.9" height="6"  rx="0.45" />
+    <rect x="4.2" y="10" width="0.9" height="8"  rx="0.45" />
+    <rect x="5.8" y="8.5" width="0.9" height="10" rx="0.45" />
+    <rect x="7.4" y="7.5" width="0.9" height="11" rx="0.45" />
+    <rect x="9"   y="7"   width="0.9" height="12" rx="0.45" />
+    {/* Cloud body */}
+    <path d="M11 6.6c.5-.3 1.1-.5 1.7-.5 1.9 0 3.5 1.4 3.8 3.2.4-.2.9-.3 1.4-.3 1.7 0 3.1 1.4 3.1 3.1S19.6 15.2 17.9 15.2H11V6.6z" />
   </svg>
 );
 
