@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { siteConfig, visualizers } from "@/config/siteConfig";
-import SectionVisualizer from "./SectionVisualizer";
+import { siteConfig } from "@/config/siteConfig";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +14,6 @@ export const BioSection = () => {
   const [open, setOpen] = useState(false);
   return (
     <section id="about" className="relative py-24 sm:py-32 border-t border-cherry/20 overflow-hidden">
-      <SectionVisualizer src={visualizers.vertical} opacity="opacity-25" />
       <div className="container grid md:grid-cols-5 gap-10 items-start relative z-10">
         {/* Collage portrait */}
         <div className="md:col-span-2 relative">
