@@ -9,12 +9,14 @@ import { siteConfig } from "@/config/siteConfig";
 export const LayloPlaceholder = () => {
   useEffect(() => {
     const SRC = "https://embed.laylo.com/laylo-sdk.js";
-    if (!document.querySelector(`script[src="${SRC}"]`)) {
-      const s = document.createElement("script");
-      s.src = SRC;
-      s.async = true;
-      document.head.appendChild(s);
-    }
+    // Remove any cached SDK so it re-scans the DOM and binds to this iframe.
+    document
+      .querySelectorAll(`script[src="${SRC}"]`)
+      .forEach((n) => n.parentNode?.removeChild(n));
+    const s = document.createElement("script");
+    s.src = SRC;
+    s.async = true;
+    document.head.appendChild(s);
   }, []);
 
   const { dropId, color, theme } = siteConfig.laylo;
@@ -32,9 +34,9 @@ export const LayloPlaceholder = () => {
             <span>// SUBSCRIBE</span>
           </div>
           <div
-            className="w-full"
+            className="w-full min-h-[420px]"
             dangerouslySetInnerHTML={{
-              __html: `<iframe id="laylo-drop-${dropId}" frameborder="0" scrolling="no" allow="web-share" allowtransparency="true" style="width:1px;min-width:100%;max-width:1000px;background:transparent" src="https://embed.laylo.com?dropId=${dropId}&color=${color}&minimal=false&theme=${theme}"></iframe>`,
+              __html: `<iframe id="laylo-drop-${dropId}" frameborder="0" scrolling="no" allow="web-share" allowtransparency="true" style="width:1px;min-width:100%;max-width:1000px;min-height:420px;background:transparent" src="https://embed.laylo.com?dropId=${dropId}&color=${color}&minimal=false&theme=${theme}"></iframe>`,
             }}
           />
         </div>
