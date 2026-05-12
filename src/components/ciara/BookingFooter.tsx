@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/siteConfig";
 
 export const BookingFooter = () => (
-  <footer id="book" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
+  <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
     <div className="container relative z-10 grid lg:grid-cols-3 gap-12 items-start">
       <div className="lg:col-span-2">
         <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
