@@ -1,8 +1,9 @@
-import { siteConfig } from "@/config/siteConfig";
+import { siteConfig, visualizers } from "@/config/siteConfig";
 import SoundCloudIcon from "@/components/icons/SoundCloudIcon";
 import AudiusIcon from "@/components/icons/AudiusIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
+import SectionVisualizer from "@/components/ciara/SectionVisualizer";
 
 const items = [
   { href: siteConfig.socials.soundcloud, label: "SoundCloud", Icon: SoundCloudIcon, bg: "bg-cherry text-cream", rot: "-3deg" },
