@@ -36,7 +36,7 @@ export const HeroCiara = () => {
         <img
           src={siteConfig.artist.logoUrl}
           alt={siteConfig.artist.name}
-          className="logo-cream w-[78vw] max-w-[680px] drop-shadow-[0_0_30px_hsl(var(--cherry-bright)/0.5)] animate-fade-in"
+          className="logo-knockout w-[78vw] max-w-[680px] drop-shadow-[0_0_30px_hsl(var(--cherry-bright)/0.5)] animate-fade-in"
         />
 
         <h1 className="sr-only">{siteConfig.artist.name} — bass-heavy DJ &amp; artist</h1>
