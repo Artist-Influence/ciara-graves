@@ -1,6 +1,5 @@
 import { siteConfig } from "@/config/siteConfig";
 import EqualizerBars from "./EqualizerBars";
-import MarqueeTicker from "@/components/MarqueeTicker";
 
 export const HeroCiara = () => {
   return (
@@ -41,9 +40,6 @@ export const HeroCiara = () => {
 
         <h1 className="sr-only">{siteConfig.artist.name} — bass-heavy DJ &amp; artist</h1>
 
-        <p className="mt-6 font-script text-2xl sm:text-3xl text-cream rotate-[-2deg]">
-          “{siteConfig.artist.tagline}”
-        </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
           <a
@@ -81,13 +77,6 @@ export const HeroCiara = () => {
         </div>
       </div>
 
-      {/* Bottom marquee */}
-      <div className="absolute bottom-0 inset-x-0 z-20 border-t border-cherry/40 bg-noir/70 backdrop-blur-sm">
-        <MarqueeTicker
-          items={["DUBSTEP", "UK BASS", "TRAP", "RETRO CLUB CULTURE", "CHERRY NOIR"]}
-          className="!border-0 !bg-transparent"
-        />
-      </div>
     </section>
   );
 };

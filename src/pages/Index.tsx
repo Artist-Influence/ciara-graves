@@ -4,7 +4,6 @@ import MusicFeed from "@/components/ciara/MusicFeed";
 import LayloPlaceholder from "@/components/ciara/LayloPlaceholder";
 import BioSection from "@/components/ciara/BioSection";
 import Shows from "@/components/ciara/Shows";
-import SocialLinks from "@/components/ciara/SocialLinks";
 import BookingFooter from "@/components/ciara/BookingFooter";
 
 const Index = () => (
@@ -16,7 +15,6 @@ const Index = () => (
       <LayloPlaceholder />
       <BioSection />
       <Shows />
-      <SocialLinks />
     </main>
     <BookingFooter />
   </div>

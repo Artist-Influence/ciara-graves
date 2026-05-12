@@ -37,7 +37,7 @@ const FeaturedRelease = ({ track }: { track: SoundCloudTrack }) => (
       <h3 className="font-display uppercase text-cream text-3xl sm:text-4xl leading-[0.95]">
         {track.title}
       </h3>
-      <p className="mt-2 font-script text-cherry-bright text-xl rotate-[-1deg] inline-block w-fit">
+      <p className="mt-2 font-script text-cream text-xl rotate-[-1deg] inline-block w-fit">
         latest drop
       </p>
       <div className="mt-auto pt-4 flex flex-wrap items-center gap-2">
@@ -90,7 +90,7 @@ const CatalogCard = ({ track, index }: { track: SoundCloudTrack; index: number }
     </h4>
     <div className="mt-2 flex items-center justify-between font-mono text-[9px] tracking-[0.25em] text-cream-dim">
       <span>{formatDate(track.pubDate)}</span>
-      <span className="text-toxic group-hover:text-cherry-bright transition-colors">PLAY ↗</span>
+      <span className="text-toxic group-hover:text-cherry transition-colors">PLAY ↗</span>
     </div>
   </a>
 );
@@ -108,9 +108,6 @@ export const MusicFeed = () => {
           <div>
             <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ LATEST_DROPS / SIDE_A</p>
             <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">PRESS PLAY.</h2>
-            <p className="mt-3 font-script text-2xl text-cherry-bright rotate-[-2deg] inline-block">
-              bass from another room
-            </p>
           </div>
           <a
             href={siteConfig.soundcloud.profileUrl}
@@ -126,7 +123,7 @@ export const MusicFeed = () => {
           <div className="font-mono text-sm text-cream-dim animate-flicker">▸ Loading transmission…</div>
         )}
         {isError && (
-          <div className="font-mono text-sm text-cherry-bright">
+          <div className="font-mono text-sm text-cherry">
             ✕ Signal lost. Try{" "}
             <a className="underline" href={siteConfig.soundcloud.profileUrl} target="_blank" rel="noopener noreferrer">
               SoundCloud directly

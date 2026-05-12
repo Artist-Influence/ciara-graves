@@ -9,12 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-const stickers = [
-  { label: "🍒", text: "sweet with bite", rot: "-8deg", pos: "top-2 -left-3 sm:-left-6" },
-  { label: "♠", text: "lucky 7", rot: "5deg", pos: "top-1/3 -right-3 sm:-right-6" },
-  { label: "📼", text: "side B", rot: "-4deg", pos: "bottom-2 -left-2 sm:left-2" },
-  { label: "📺", text: "ch 07", rot: "8deg", pos: "bottom-12 -right-4 sm:-right-8" },
-];
+const stickers: { label: string; text: string; rot: string; pos: string }[] = [];
 
 export const BioSection = () => {
   const [open, setOpen] = useState(false);
