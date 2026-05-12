@@ -18,110 +18,123 @@ const Reel = () => (
       width: "100%",
       aspectRatio: "1 / 1",
       background: `
-        radial-gradient(circle at center, hsl(0 0% 8%) 0%, hsl(0 0% 4%) 60%, hsl(0 0% 2%) 100%),
-        repeating-radial-gradient(circle at center, hsl(var(--cream) / 0.08) 0 1px, transparent 1px 4px)
+        radial-gradient(circle at center, hsl(var(--cream)) 0%, hsl(var(--cream)) 55%, hsl(var(--cherry)) 56%, hsl(var(--cherry-bright)) 100%),
+        repeating-radial-gradient(circle at center, hsl(0 0% 100% / 0.15) 0 1px, transparent 1px 3px)
       `,
-      backgroundBlendMode: "screen",
-      boxShadow: "inset 0 0 8px hsl(0 0% 0% / 0.8), 0 0 0 1px hsl(var(--cream) / 0.1)",
+      backgroundBlendMode: "multiply",
+      boxShadow: "inset 0 0 6px hsl(0 0% 0% / 0.5), 0 1px 0 hsl(0 0% 100% / 0.4)",
     }}
   >
-    {/* spokes */}
-    {[0, 60, 120, 180, 240, 300].map((deg) => (
-      <div
-        key={deg}
-        className="absolute top-1/2 left-1/2 origin-left bg-cream/20"
-        style={{
-          width: "42%",
-          height: "2px",
-          transform: `translateY(-50%) rotate(${deg}deg)`,
-        }}
-      />
-    ))}
-    {/* hub */}
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28%] h-[28%] rounded-full bg-cherry border border-cream/40" />
-    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[8%] h-[8%] rounded-full bg-noir" />
+    {/* spokes (gear teeth on the white reel) */}
+    {Array.from({ length: 12 }).map((_, i) => {
+      const deg = (i * 360) / 12;
+      return (
+        <div
+          key={deg}
+          className="absolute top-1/2 left-1/2 origin-left"
+          style={{
+            width: "46%",
+            height: "3px",
+            background: "hsl(var(--noir) / 0.85)",
+            transform: `translateY(-50%) rotate(${deg}deg)`,
+          }}
+        />
+      );
+    })}
+    {/* red center hub */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[34%] h-[34%] rounded-full bg-cherry-bright" />
+    {/* spindle teeth notch */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[14%] h-[14%] rounded-sm bg-noir" />
   </div>
 );
 
 const Walkman = () => (
   <div
-    className="relative w-56 sm:w-64 lg:w-72 aspect-[4/3] rounded-2xl border border-cream/15 glow-cherry hover:rotate-[-1deg] transition-transform duration-500 p-3 sm:p-4"
+    className="relative w-56 sm:w-64 lg:w-72 aspect-[3/2] rounded-md overflow-hidden grain hover:rotate-[-1deg] transition-transform duration-500"
     style={{
-      background: "linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 5%) 100%)",
+      background: `
+        linear-gradient(135deg, hsl(354 95% 22%) 0%, hsl(354 80% 12%) 60%, hsl(354 90% 18%) 100%),
+        repeating-linear-gradient(45deg, hsl(0 0% 100% / 0.04) 0 2px, transparent 2px 5px)
+      `,
+      backgroundBlendMode: "screen",
       boxShadow:
-        "0 20px 40px -10px hsl(0 0% 0% / 0.6), inset 0 1px 0 hsl(var(--cream) / 0.08)",
+        "0 24px 50px -12px hsl(0 0% 0% / 0.7), inset 0 1px 0 hsl(0 0% 100% / 0.18), inset 0 -1px 0 hsl(0 0% 0% / 0.5)",
+      border: "1px solid hsl(354 60% 35% / 0.6)",
     }}
   >
-    {/* top bar */}
-    <div className="flex items-center justify-between mb-2 px-1">
-      <div className="flex items-center gap-1.5">
-        <span className="w-1.5 h-1.5 rounded-full bg-cherry-bright animate-pulse shadow-[0_0_6px_hsl(var(--cherry-bright))]" />
-        <span className="font-mono text-[8px] tracking-[0.3em] text-cream-dim">REC</span>
-      </div>
-      <span className="font-mono text-[8px] tracking-[0.25em] text-toxic/80 bg-noir px-1.5 py-0.5 border border-cream/10 rounded-sm">
-        001
+    {/* corner screws */}
+    {[
+      "top-1.5 left-1.5",
+      "top-1.5 right-1.5",
+      "bottom-1.5 left-1.5",
+      "bottom-1.5 right-1.5",
+    ].map((pos) => (
+      <div
+        key={pos}
+        className={`absolute ${pos} w-1.5 h-1.5 rounded-full bg-noir/40 border border-cream/30`}
+      />
+    ))}
+
+    {/* white "Title" strip on right */}
+    <div className="absolute right-2 top-2 bottom-2 w-5 bg-cream rounded-sm flex items-start justify-center pt-2 shadow-[inset_0_0_4px_hsl(0_0%_0%/0.15)]">
+      <span
+        className="font-mono text-[8px] tracking-[0.2em] text-cherry/80"
+        style={{ writingMode: "vertical-rl" }}
+      >
+        Title
       </span>
     </div>
 
-    {/* tape window */}
+    {/* REC + counter top-left */}
+    <div className="absolute top-2 left-2 flex items-center gap-1.5">
+      <span className="w-1.5 h-1.5 rounded-full bg-cherry-bright animate-pulse shadow-[0_0_6px_hsl(var(--cherry-bright))]" />
+      <span className="font-mono text-[7px] tracking-[0.3em] text-cream/70">REC · 001</span>
+    </div>
+
+    {/* dark printed label band across the middle */}
     <div
-      className="relative rounded-md p-3 sm:p-4 mb-3"
+      className="absolute left-3 right-9 top-1/2 -translate-y-1/2 h-[58%] rounded-[2px]"
       style={{
-        background: "linear-gradient(180deg, hsl(0 0% 2%) 0%, hsl(0 0% 6%) 100%)",
-        boxShadow: "inset 0 2px 6px hsl(0 0% 0% / 0.9), inset 0 -1px 0 hsl(var(--cream) / 0.05)",
+        background:
+          "linear-gradient(180deg, hsl(0 0% 4%) 0%, hsl(0 0% 8%) 50%, hsl(0 0% 4%) 100%)",
+        boxShadow: "inset 0 0 8px hsl(0 0% 0% / 0.9), 0 0 0 1px hsl(354 60% 25%)",
       }}
     >
-      <div className="relative flex items-center justify-between gap-3">
-        <div className="w-[34%]">
+      <div className="relative w-full h-full flex items-center justify-between px-2">
+        {/* left reel */}
+        <div className="w-[36%] aspect-square">
           <Reel />
         </div>
-        {/* tape ribbon */}
-        <div className="absolute left-[34%] right-[34%] top-1/2 -translate-y-1/2 h-px bg-cream/30" />
-        <div className="absolute left-[36%] right-[36%] top-1/2 h-2 border-b border-cream/15 rounded-b-full" />
-        {/* logo watermark */}
-        <img
-          src={siteConfig.artist.logoUrl}
-          alt=""
-          className="logo-knockout absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[18%] opacity-25"
-        />
-        <div className="w-[34%]">
+
+        {/* center printed text + IEC dots */}
+        <div className="flex flex-col items-center justify-center gap-1 select-none">
+          <div className="flex flex-col gap-[2px]">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <span key={i} className="w-[3px] h-[3px] rounded-full bg-cream/40" />
+            ))}
+          </div>
+          <span
+            className="font-mono text-[6px] tracking-[0.25em] text-cherry-bright/90 whitespace-nowrap"
+            style={{ writingMode: "vertical-rl" }}
+          >
+            POSITION:NORMAL · TYPE I · CIARA GRAVES
+          </span>
+          <div className="flex flex-col gap-[2px]">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <span key={i} className="w-[3px] h-[3px] rounded-full bg-cream/40" />
+            ))}
+          </div>
+        </div>
+
+        {/* right reel */}
+        <div className="w-[36%] aspect-square">
           <Reel />
         </div>
       </div>
     </div>
-
-    {/* controls */}
-    <div className="flex items-center justify-between gap-1.5 px-1">
-      {[
-        { l: "◀◀", play: false },
-        { l: "▶", play: true },
-        { l: "❚❚", play: false },
-        { l: "■", play: false },
-        { l: "▶▶", play: false },
-      ].map((b, i) => (
-        <span
-          key={i}
-          className={`flex-1 text-center font-mono text-[9px] py-1 rounded-sm border ${
-            b.play
-              ? "bg-cherry text-cream border-cherry-bright glow-cherry"
-              : "bg-noir text-cream-dim border-cream/15"
-          }`}
-        >
-          {b.l}
-        </span>
-      ))}
-    </div>
-
-    {/* speaker grille accent */}
-    <div
-      className="absolute right-2 top-2 bottom-2 w-1 rounded-full opacity-40"
-      style={{
-        background:
-          "repeating-linear-gradient(0deg, hsl(var(--cream) / 0.2) 0 2px, transparent 2px 4px)",
-      }}
-    />
   </div>
 );
+
 
 export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">

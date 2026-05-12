@@ -3,13 +3,13 @@ import ciaraLogo from "@/assets/ciara-logo.png";
 import heroVideo from "@/assets/hero-bg.mp4";
 import dvdBounceVideo from "@/assets/dvd-bounce.mp4";
 import layloBgVideo from "@/assets/laylo-bg.mp4";
-import vizMusic from "@/assets/viz-music.mp4";
+import vizMusic from "@/assets/viz-music.mp4.asset.json";
 import vizBio from "@/assets/viz-bio.mp4.asset.json";
 import vizShows from "@/assets/viz-shows.mp4";
 import vizFindme from "@/assets/viz-findme.mp4.asset.json";
 
 export const visualizers = {
-  music: vizMusic,
+  music: vizMusic.url,
   bio: vizBio.url,
   shows: vizShows,
   findme: vizFindme.url,
