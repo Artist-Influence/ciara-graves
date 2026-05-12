@@ -1,8 +1,120 @@
 import { siteConfig } from "@/config/siteConfig";
 
+const Reel = () => (
+  <div
+    className="relative rounded-full animate-spin-cd"
+    style={{
+      width: "100%",
+      aspectRatio: "1 / 1",
+      background: `
+        radial-gradient(circle at center, hsl(0 0% 8%) 0%, hsl(0 0% 4%) 60%, hsl(0 0% 2%) 100%),
+        repeating-radial-gradient(circle at center, hsl(var(--cream) / 0.08) 0 1px, transparent 1px 4px)
+      `,
+      backgroundBlendMode: "screen",
+      boxShadow: "inset 0 0 8px hsl(0 0% 0% / 0.8), 0 0 0 1px hsl(var(--cream) / 0.1)",
+    }}
+  >
+    {/* spokes */}
+    {[0, 60, 120, 180, 240, 300].map((deg) => (
+      <div
+        key={deg}
+        className="absolute top-1/2 left-1/2 origin-left bg-cream/20"
+        style={{
+          width: "42%",
+          height: "2px",
+          transform: `translateY(-50%) rotate(${deg}deg)`,
+        }}
+      />
+    ))}
+    {/* hub */}
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28%] h-[28%] rounded-full bg-cherry border border-cream/40" />
+    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[8%] h-[8%] rounded-full bg-noir" />
+  </div>
+);
+
+const Walkman = () => (
+  <div
+    className="relative w-56 sm:w-64 lg:w-72 aspect-[4/3] rounded-2xl border border-cream/15 glow-cherry hover:rotate-[-1deg] transition-transform duration-500 p-3 sm:p-4"
+    style={{
+      background: "linear-gradient(135deg, hsl(0 0% 10%) 0%, hsl(0 0% 5%) 100%)",
+      boxShadow:
+        "0 20px 40px -10px hsl(0 0% 0% / 0.6), inset 0 1px 0 hsl(var(--cream) / 0.08)",
+    }}
+  >
+    {/* top bar */}
+    <div className="flex items-center justify-between mb-2 px-1">
+      <div className="flex items-center gap-1.5">
+        <span className="w-1.5 h-1.5 rounded-full bg-cherry-bright animate-pulse shadow-[0_0_6px_hsl(var(--cherry-bright))]" />
+        <span className="font-mono text-[8px] tracking-[0.3em] text-cream-dim">REC</span>
+      </div>
+      <span className="font-mono text-[8px] tracking-[0.25em] text-toxic/80 bg-noir px-1.5 py-0.5 border border-cream/10 rounded-sm">
+        001
+      </span>
+    </div>
+
+    {/* tape window */}
+    <div
+      className="relative rounded-md p-3 sm:p-4 mb-3"
+      style={{
+        background: "linear-gradient(180deg, hsl(0 0% 2%) 0%, hsl(0 0% 6%) 100%)",
+        boxShadow: "inset 0 2px 6px hsl(0 0% 0% / 0.9), inset 0 -1px 0 hsl(var(--cream) / 0.05)",
+      }}
+    >
+      <div className="relative flex items-center justify-between gap-3">
+        <div className="w-[34%]">
+          <Reel />
+        </div>
+        {/* tape ribbon */}
+        <div className="absolute left-[34%] right-[34%] top-1/2 -translate-y-1/2 h-px bg-cream/30" />
+        <div className="absolute left-[36%] right-[36%] top-1/2 h-2 border-b border-cream/15 rounded-b-full" />
+        {/* logo watermark */}
+        <img
+          src={siteConfig.artist.logoUrl}
+          alt=""
+          className="logo-knockout absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[18%] opacity-25"
+        />
+        <div className="w-[34%]">
+          <Reel />
+        </div>
+      </div>
+    </div>
+
+    {/* controls */}
+    <div className="flex items-center justify-between gap-1.5 px-1">
+      {[
+        { l: "◀◀", play: false },
+        { l: "▶", play: true },
+        { l: "❚❚", play: false },
+        { l: "■", play: false },
+        { l: "▶▶", play: false },
+      ].map((b, i) => (
+        <span
+          key={i}
+          className={`flex-1 text-center font-mono text-[9px] py-1 rounded-sm border ${
+            b.play
+              ? "bg-cherry text-cream border-cherry-bright glow-cherry"
+              : "bg-noir text-cream-dim border-cream/15"
+          }`}
+        >
+          {b.l}
+        </span>
+      ))}
+    </div>
+
+    {/* speaker grille accent */}
+    <div
+      className="absolute right-2 top-2 bottom-2 w-1 rounded-full opacity-40"
+      style={{
+        background:
+          "repeating-linear-gradient(0deg, hsl(var(--cream) / 0.2) 0 2px, transparent 2px 4px)",
+      }}
+    />
+  </div>
+);
+
 export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
-    <div className="container relative z-10 flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-8">
+    <div className="container relative z-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
       <div className="flex-1 min-w-0">
         <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
         <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.85]">
@@ -40,38 +152,8 @@ export const BookingFooter = () => (
         </ul>
       </div>
 
-      <div className="shrink-0 self-center sm:self-auto">
-        <div
-          className="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full animate-spin-cd glow-cherry"
-          style={{
-            background: `
-              radial-gradient(circle at center, hsl(0 0% 4%) 0%, hsl(0 0% 6%) 100%),
-              repeating-radial-gradient(circle at center, hsl(var(--cream) / 0.06) 0 1px, transparent 1px 4px)
-            `,
-            backgroundBlendMode: "screen",
-          }}
-        >
-          {/* sheen */}
-          <div
-            className="absolute inset-0 rounded-full pointer-events-none"
-            style={{
-              background:
-                "conic-gradient(from 0deg, transparent 0deg, hsl(var(--cream) / 0.08) 30deg, transparent 70deg, transparent 180deg, hsl(var(--cream) / 0.05) 210deg, transparent 250deg)",
-            }}
-          />
-          {/* center label */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="relative w-[38%] h-[38%] rounded-full bg-cherry flex items-center justify-center">
-              <img
-                src={siteConfig.artist.logoUrl}
-                alt=""
-                className="logo-knockout w-3/4 relative z-10"
-              />
-              {/* spindle hole */}
-              <div className="absolute w-2 h-2 rounded-full bg-noir border border-cream/30 z-20" />
-            </div>
-          </div>
-        </div>
+      <div className="shrink-0 self-center sm:self-end sm:ml-auto">
+        <Walkman />
       </div>
     </div>
 
