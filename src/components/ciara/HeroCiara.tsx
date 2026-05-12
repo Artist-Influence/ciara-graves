@@ -20,8 +20,7 @@ export const HeroCiara = () => {
         poster={siteConfig.artist.portraitUrl}
         aria-hidden
       />
-      {/* Tinted gradient overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-noir/40 via-noir/30 to-noir" />
+      {/* Gradient overlay removed for clean hero video */}
 
       {/* Channel label corner */}
       <div className="absolute top-20 right-4 z-10 font-mono text-[10px] tracking-[0.3em] text-cream/70">
