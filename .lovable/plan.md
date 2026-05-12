@@ -1,25 +1,22 @@
-## Bio section background
-- In `BioSection.tsx`, remove the animated `grain` class from the portrait frame (this is the moving greyish noise overlay that reads as a shifting grey gradient behind the bio area). Keep `scanlines` for static CRT texture.
-- If the effect persists from a parent, also drop any `grain` usage inside the section wrapper. No changes to the global `.grain` keyframes (still used elsewhere).
+## Hero (`HeroCiara.tsx`)
+- Location chip → `▍ WILMINGTON, DE ▍` (add closing bar to mirror the leading one).
+- Replace CTAs with: `▶ Listen` (#music), `◆ Shows` (#shows), `✦ Signal` (#signal), `✉ Contact` (#contact). Keep existing button styles; route the new Signal button to the Laylo section and rename "Book Ciara" → "Contact" pointing at the booking footer anchor.
 
-## Laylo embed (use the provided iframe)
-- Update `LayloPlaceholder.tsx`:
-  - Swap the script src from `embed.laylo.com/laylo.js` to `https://embed.laylo.com/laylo-sdk.js`.
-  - Replace the `<laylo-drop>` custom element with the official iframe:
-    ```html
-    <iframe id="laylo-drop-evpf7" frameborder="0" scrolling="no" allow="web-share"
-      allowtransparency="true"
-      style="width:1px;min-width:100%;max-width:1000px;background:transparent"
-      src="https://embed.laylo.com?dropId={dropId}&color={color}&minimal=false&theme=light"></iframe>
-    ```
-  - Pull `dropId` from `siteConfig.laylo.dropId` so it stays swappable.
-- Update `siteConfig.laylo` to: `{ enabled: true, dropId: "evpf7", color: "F74B27", theme: "light" }`. Remove the now-unused JWT `token` and `username` fields.
+## Logo
+- Copy `user-uploads://CIARA_GRAVES_LOGO_-Artboard_2.svg` → `src/assets/ciara-logo.svg` (overwrite). Existing `siteConfig.artist.logoUrl` import already points there, so the hero + nav update automatically.
 
-## Social icons (Audius + SoundCloud)
-- Rewrite `src/components/icons/AudiusIcon.tsx` to match the uploaded reference: solid triangular "A" with a smaller triangular notch cut out near the bottom-center (single white shape on transparent bg, `fill="currentColor"`, `viewBox="0 0 24 24"`).
-- Rewrite `src/components/icons/SoundCloudIcon.tsx` to match the uploaded reference: the classic SoundCloud waveform-bars-into-cloud silhouette (single-color path, `fill="currentColor"`, `viewBox="0 0 24 24"`), replacing the current inaccurate path.
-- No changes to `SocialLinks.tsx` — the new icons drop in via `currentColor`.
+## Laylo section (`LayloPlaceholder.tsx`)
+- Drop the entire phone-mockup column. Layout becomes a single centered column inside the existing section.
+- Keep only: the `SIGNAL` headline, the Laylo iframe embed, and the `no spam. just bass.` script line beneath it. Remove DIRECT_LINE label, secondary copy, "text me…" line, status bar, notch, equalizer dashes.
+- Re-skin the embed to fit the cherry-noir aesthetic:
+  - Switch Laylo URL params to `theme=dark` and `color=F12C42` (cherry-bright hex). Update `siteConfig.laylo.color` + `theme` accordingly.
+  - Wrap the iframe in a cherry-bordered cassette-style frame: `border border-cherry/60 bg-noir clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)]`, padded, with corner brackets + a top mono label `▍ LAYLO_FEED // SUBSCRIBE`.
+  - Iframe stays `allowtransparency` + transparent bg per project rule, max-width ~520px, centered.
+- Background visualizer: copy `user-uploads://Logo_DVD_Bounce-2.MP4` → `src/assets/laylo-bg.mp4`. Add a fixed full-bleed `<video>` inside the section as a low-opacity (~25%), `mix-blend-screen` background behind the content (autoplay/muted/loop/playsInline). Replace the current DVD bg that lived inside the phone screen.
+- Section keeps `id="signal"` so the new hero CTA scrolls correctly.
 
 ## Files touched
-- Edit: `src/components/ciara/BioSection.tsx`, `src/components/ciara/LayloPlaceholder.tsx`, `src/config/siteConfig.ts`, `src/components/icons/AudiusIcon.tsx`, `src/components/icons/SoundCloudIcon.tsx`.
-- No backend, schema, or routing changes.
+- Edit: `src/components/ciara/HeroCiara.tsx`, `src/components/ciara/LayloPlaceholder.tsx`, `src/config/siteConfig.ts`.
+- Replace asset: `src/assets/ciara-logo.svg`.
+- Add asset: `src/assets/laylo-bg.mp4` (+ import in `siteConfig` as `laylo.bgVideoUrl`).
+- No backend or schema changes.
