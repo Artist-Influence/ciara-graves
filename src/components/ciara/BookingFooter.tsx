@@ -138,8 +138,8 @@ const Walkman = () => (
 
 export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
-    <div className="container relative z-10 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6">
-      <div className="flex-1 min-w-0">
+    <div className="container relative z-10 flex flex-col items-center text-center gap-12">
+      <div className="max-w-2xl w-full">
         <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
         <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.85]">
           Contact.
@@ -151,7 +151,7 @@ export const BookingFooter = () => (
           {siteConfig.booking.email}
         </a>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <a
             href={`mailto:${siteConfig.booking.email}`}
             className="font-mono text-[11px] tracking-[0.3em] uppercase px-5 py-3 bg-cherry text-cream hover:bg-cherry-bright transition-colors clip-notch glow-cherry"
@@ -167,7 +167,7 @@ export const BookingFooter = () => (
           </a>
         </div>
 
-        <div id="socials" className="mt-8 flex items-center gap-5">
+        <div id="socials" className="mt-8 flex items-center justify-center gap-5">
           {socialItems.map(({ href, label, Icon }) => (
             <a
               key={label}
@@ -182,7 +182,7 @@ export const BookingFooter = () => (
           ))}
         </div>
 
-        <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] tracking-[0.25em] text-cream-dim">
+        <ul className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-[11px] tracking-[0.25em] text-cream-dim">
           <li><a href="#music" className="hover:text-toxic">MUSIC</a></li>
           <li><a href="#signal" className="hover:text-toxic">SIGNAL</a></li>
           <li><a href="#shows" className="hover:text-toxic">SHOWS</a></li>
@@ -190,7 +190,7 @@ export const BookingFooter = () => (
         </ul>
       </div>
 
-      <div className="shrink-0 self-center sm:self-end sm:ml-auto">
+      <div className="mx-auto">
         <Walkman />
       </div>
     </div>
