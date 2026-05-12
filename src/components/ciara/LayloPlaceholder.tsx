@@ -63,7 +63,7 @@ export const LayloPlaceholder = () => {
                   ref={mountRef}
                   className="w-full"
                   dangerouslySetInnerHTML={{
-                    __html: `<laylo-drop data-token="${siteConfig.laylo.token}" data-username="${siteConfig.laylo.username}" data-background-color="transparent"></laylo-drop>`,
+                    __html: `<iframe id="laylo-drop-${siteConfig.laylo.dropId}" frameborder="0" scrolling="no" allow="web-share" allowtransparency="true" style="width:1px;min-width:100%;max-width:1000px;background:transparent" src="https://embed.laylo.com?dropId=${siteConfig.laylo.dropId}&color=${siteConfig.laylo.color}&minimal=false&theme=${siteConfig.laylo.theme}"></iframe>`,
                   }}
                 />
                 <p className="font-script text-cream/80 text-lg">no spam. just bass.</p>
