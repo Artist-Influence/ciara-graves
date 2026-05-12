@@ -17,26 +17,13 @@ export const LayloPlaceholder = () => {
     }
   }, []);
 
-  const { dropId, color, theme, bgVideoUrl } = siteConfig.laylo;
+  const { dropId, color, theme } = siteConfig.laylo;
 
   return (
     <section
       id="signal"
       className="relative py-24 sm:py-32 border-t border-cherry/20 overflow-hidden"
     >
-      {/* Background DVD-bounce visualizer */}
-      <video
-        className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-screen pointer-events-none z-0"
-        src={bgVideoUrl}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        aria-hidden
-      />
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-noir/70 via-noir/40 to-noir/80 pointer-events-none" />
-
       <div className="container relative z-10 flex flex-col items-center text-center max-w-xl">
         {/* Laylo embed frame */}
         <div className="w-full relative border border-cherry/60 bg-noir/80 backdrop-blur-sm clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)] p-4 sm:p-6">
