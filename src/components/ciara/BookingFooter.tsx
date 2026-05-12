@@ -133,7 +133,7 @@ export const BookingFooter = () => (
         </h2>
         <a
           href={`mailto:${siteConfig.booking.email}`}
-          className="mt-6 inline-block font-display text-3xl sm:text-4xl text-cherry-bright hover:text-toxic transition-colors underline decoration-cherry/40 underline-offset-8"
+          className="mt-6 inline-block font-display text-3xl sm:text-4xl text-cherry hover:text-toxic transition-colors underline decoration-cherry/40 underline-offset-8"
         >
           {siteConfig.booking.email}
         </a>
@@ -154,12 +154,26 @@ export const BookingFooter = () => (
           </a>
         </div>
 
+        <div id="socials" className="mt-8 flex items-center gap-5">
+          {socialItems.map(({ href, label, Icon }) => (
+            <a
+              key={label}
+              href={siteConfig.socials[href] as string}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={label}
+              className="text-cream-dim hover:text-cherry transition-colors"
+            >
+              <Icon className="w-6 h-6" />
+            </a>
+          ))}
+        </div>
+
         <ul className="mt-10 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[11px] tracking-[0.25em] text-cream-dim">
           <li><a href="#music" className="hover:text-toxic">MUSIC</a></li>
           <li><a href="#signal" className="hover:text-toxic">SIGNAL</a></li>
           <li><a href="#shows" className="hover:text-toxic">SHOWS</a></li>
           <li><a href="#about" className="hover:text-toxic">ABOUT</a></li>
-          <li><a href="#socials" className="hover:text-toxic">SOCIALS</a></li>
         </ul>
       </div>
 
