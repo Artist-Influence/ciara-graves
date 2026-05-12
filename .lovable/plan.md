@@ -1,26 +1,20 @@
-## Changes
+## Problem
 
-### 1. New bio/about photo
-- Copy `user-uploads://10-DSC05962.jpeg` → `src/assets/ciara-portrait-boombox.jpg`
-- In `src/config/siteConfig.ts`, switch `ciaraPortrait` import to the new file so `BioSection` picks it up automatically. (Keep old file in repo, just unreferenced.)
+The current `LayloPlaceholder` aggressively removes and re-injects the Laylo SDK on every mount with a cache-busting query string. In React 18 StrictMode (and on route re-renders), this fires twice and the second injection can race with the SDK's internal state, leaving the iframe empty. The iframe wrapper still reserves space, so the section shows as a hollow box — exactly what the screenshot shows.
 
-### 2. Harden Laylo embed (`src/components/ciara/LayloPlaceholder.tsx`)
+## Fix (`src/components/ciara/LayloPlaceholder.tsx`)
 
-Current issue: a single SDK script injection races with iframe mount and silently fails on some devices/browsers (mobile Safari, in-app webviews, or when the SDK was cached from a prior route). When the SDK doesn't bind, the iframe stays at its 1px collapsed default and the section looks empty.
+Rewrite using the official Laylo embed pattern, hardened minimally:
 
-Fixes:
-- **Mount order:** inject the SDK script *after* the iframe is in the DOM (run effect after render, query for `#laylo-drop-${dropId}` first).
-- **Force fresh SDK each mount:** remove any existing `embed.laylo.com/laylo-sdk.js` tag, then append a new one with a cache-busting query param so the SDK re-scans and binds.
-- **Reserved space fallback:** give the iframe wrapper a real `min-height` (≈ 460px desktop, 520px mobile) so the section never collapses while the SDK is loading or if it fails entirely. Iframe itself keeps `width:100%` and `min-height` inline so even pre-SDK it's visible.
-- **postMessage height listener (belt + suspenders):** add a `window.addEventListener('message', ...)` that listens for Laylo's height messages and applies them to the iframe directly. This makes sizing work even when the official SDK never executes (ad blockers, strict CSP, slow networks).
-- **Visible fallback link:** under the iframe, add a small "Open on Laylo →" link to `https://laylo.com/ciaragraves` (or the drop URL) so users on browsers where the iframe is blocked still have a path to subscribe.
-- **Cleanup:** remove the message listener on unmount.
-
-No changes to siteConfig Laylo entries.
-
-### 3. Remove SIGNAL from top header (`src/components/ciara/StickyNavCiara.tsx`)
-- Delete the `{ href: "#signal", label: "SIGNAL" }` entry from the `links` array. Section + footer "UPDATES" link still work; only the nav item is gone (desktop and mobile menu both update from the same array).
+1. **Load SDK once, globally.** On mount, check if a `script[src*="embed.laylo.com/laylo-sdk.js"]` already exists. If yes, do nothing. If no, append it once (no cache-buster, no removal). This matches Laylo's documented snippet and avoids re-init races.
+2. **Render iframe via JSX** (not `dangerouslySetInnerHTML`) with a stable `id`, `src`, and inline styles matching Laylo's official snippet (`width:1px; min-width:100%; max-width:1000px; min-height:460px`).
+3. **Keep the postMessage height fallback** but tighten origin check (`https://embed.laylo.com`) and only handle numeric `height` values.
+4. **Keep wrapper `min-h-[520px] sm:min-h-[460px]`** so layout never collapses.
+5. **Keep "Open on Laylo →" fallback link.**
+6. **Trigger SDK re-scan if already loaded.** If the script tag exists and `window.laylo` is defined, call `window.laylo?.init?.()` (no-op if undefined) so a client-side route change still binds the new iframe.
 
 ## Out of scope
-- No backend/data changes.
-- No restyle of the embed frame itself beyond the min-height.
+
+- No changes to `siteConfig.laylo` (dropId, color, theme).
+- No layout/styling changes beyond what's above.
+- No changes to other components.
