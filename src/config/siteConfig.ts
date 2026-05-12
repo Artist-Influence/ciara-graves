@@ -2,17 +2,17 @@ import ciaraPortrait from "@/assets/ciara-portrait.jpg";
 import ciaraLogo from "@/assets/ciara-logo.png";
 import heroVideo from "@/assets/hero-bg.mp4";
 import dvdBounceVideo from "@/assets/dvd-bounce.mp4";
-import layloBgVideo from "@/assets/laylo-bg.mp4";
 import vizMusic from "@/assets/viz-music.mp4.asset.json";
-import vizBio from "@/assets/viz-bio.mp4.asset.json";
 import vizShows from "@/assets/viz-shows.mp4";
 import vizFindme from "@/assets/viz-findme.mp4.asset.json";
+import vizVertical from "@/assets/viz-vertical.mp4";
 
 export const visualizers = {
   music: vizMusic.url,
-  bio: vizBio.url,
+  bio: vizVertical,
   shows: vizShows,
   findme: vizFindme.url,
+  vertical: vizVertical,
 };
 
 export const siteConfig = {
@@ -55,7 +55,7 @@ export const siteConfig = {
     dropId: "evpf7",
     color: "F12C42",
     theme: "dark",
-    bgVideoUrl: layloBgVideo,
+    bgVideoUrl: vizVertical,
   },
 
   about: {
