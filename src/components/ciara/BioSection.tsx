@@ -22,7 +22,7 @@ export const BioSection = () => {
       <div className="container grid md:grid-cols-5 gap-10 items-start">
         {/* Collage portrait */}
         <div className="md:col-span-2 relative">
-          <div className="relative scanlines grain border-[6px] border-cream/80 shadow-[0_30px_60px_hsl(0_0%_0%/0.6)] rotate-[-2deg]">
+          <div className="relative scanlines border-[6px] border-cream/80 shadow-[0_30px_60px_hsl(0_0%_0%/0.6)] rotate-[-2deg]">
             <img
               src={siteConfig.artist.portraitUrl}
               alt="Ciara Graves portrait"
