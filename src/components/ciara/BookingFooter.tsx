@@ -2,8 +2,8 @@ import { siteConfig } from "@/config/siteConfig";
 
 export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
-    <div className="container relative z-10 grid lg:grid-cols-3 gap-12 items-start">
-      <div className="lg:col-span-2">
+    <div className="container relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-10">
+      <div className="flex-1 min-w-0">
         <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
         <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.85]">
           Contact.
@@ -40,14 +40,38 @@ export const BookingFooter = () => (
         </ul>
       </div>
 
-      <div className="relative flex flex-col items-center justify-center">
-        <div className="relative w-48 h-48 rounded-full border-4 border-cream/20 bg-[radial-gradient(circle,hsl(0_0%_8%)_30%,hsl(var(--cherry))_60%,hsl(0_0%_4%)_100%)] flex items-center justify-center overflow-hidden">
-          <img src={siteConfig.artist.logoUrl} alt="" className="logo-knockout w-24 relative z-10" />
-          <div className="absolute w-4 h-4 rounded-full bg-noir border-2 border-cream/40 z-20" />
+      <div className="shrink-0 self-center sm:self-auto">
+        <div
+          className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full animate-spin-cd glow-cherry"
+          style={{
+            background: `
+              radial-gradient(circle at center, hsl(0 0% 4%) 0%, hsl(0 0% 6%) 100%),
+              repeating-radial-gradient(circle at center, hsl(var(--cream) / 0.06) 0 1px, transparent 1px 4px)
+            `,
+            backgroundBlendMode: "screen",
+          }}
+        >
+          {/* sheen */}
+          <div
+            className="absolute inset-0 rounded-full pointer-events-none"
+            style={{
+              background:
+                "conic-gradient(from 0deg, transparent 0deg, hsl(var(--cream) / 0.08) 30deg, transparent 70deg, transparent 180deg, hsl(var(--cream) / 0.05) 210deg, transparent 250deg)",
+            }}
+          />
+          {/* center label */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="relative w-[38%] h-[38%] rounded-full bg-cherry flex items-center justify-center">
+              <img
+                src={siteConfig.artist.logoUrl}
+                alt=""
+                className="logo-knockout w-3/4 relative z-10"
+              />
+              {/* spindle hole */}
+              <div className="absolute w-2 h-2 rounded-full bg-noir border border-cream/30 z-20" />
+            </div>
+          </div>
         </div>
-        <p className="mt-4 font-mono text-[10px] tracking-[0.3em] text-cream-dim text-center">
-          BURN_001 · CIARA GRAVES
-        </p>
       </div>
     </div>
 
