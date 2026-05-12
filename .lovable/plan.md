@@ -1,27 +1,11 @@
-## Root cause of the remaining pink
-`--toxic` is defined in `src/index.css` as `340 95% 70%` (literally bright pink — the comment even says "cherry pink accent"). It powers `text-toxic`, `bg-toxic`, `border-toxic`, `glow-toxic`, and the equalizer bars (which default to `text-toxic`). Repointing the token fixes every "pink" instance across the site in one shot.
+## Fix
+Replace the current `AudiusIcon.tsx` (three stacked chevrons — wrong shape) with the actual Audius mark: a **single rounded-corner triangle pointing up, with a small inverted-triangle notch cut out of the bottom-left edge** (forming the "A" foot).
 
-## Changes
-
-### 1. `src/index.css` — repoint pink tokens to red
-- `--toxic: 340 95% 70%` → `--toxic: 354 92% 55%` (matches cherry-bright red).
-- `--toxic-glow: 335 100% 78%` → `--toxic-glow: 354 100% 65%` (red glow, no pink).
-- Update inline comments from "cherry pink accent" to "red accent (was pink)".
-
-This automatically fixes:
-- Equalizer bars in the hero
-- All `text-toxic` chips/labels (▍ BOOKING, ▍ HOTLINE, ▍ BIO, etc.)
-- Tickets button (`bg-toxic`)
-- Hover states on nav + footer links
-- DVDBounceLogo `logo-toxic glow-toxic`
-- Walkman counter chip `text-toxic/80`
-
-No component edits needed — the token swap propagates.
-
-### 2. Music section visualizer — swap to uploaded MP4
-- Copy `user-uploads://IMG_7885.mp4` → `src/assets/viz-music.mp4` (overwrite).
-- Update `src/config/siteConfig.ts`: change `import vizMusic from "@/assets/viz-music.mp4.asset.json"` to `import vizMusic from "@/assets/viz-music.mp4"`, and `music: vizMusic.url` → `music: vizMusic` (same pattern we just used for shows, since `.asset.json` pins to the original AI-generated upload).
-- Delete `src/assets/viz-music.mp4.asset.json`.
+## Changes — `src/components/icons/AudiusIcon.tsx`
+- Rewrite the SVG as one path on a `0 0 24 24` viewBox using `currentColor` fill so it inherits the parent text color (keeps Walkman/footer recoloring intact).
+- Outer shape: equilateral-ish triangle with apex near `(12, 2.5)`, base from `(2.5, 21)` to `(21.5, 21)`, all three corners softened with arc segments (~`r=2`).
+- Cutout: a small inverted triangle notched out of the lower-left side around the `(7.5, 18)` region, also with rounded corners (~`r=0.8`), authored with the `evenodd` fill rule so the inner triangle subtracts from the outer.
+- Keep the component API identical (`{ className }` prop, default export) so no other files need changes.
 
 ## Out of scope
-No layout changes, no other section edits, no backend.
+No other icons, no design tokens, no layout.
