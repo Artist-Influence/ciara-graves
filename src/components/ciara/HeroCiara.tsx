@@ -58,13 +58,6 @@ export const HeroCiara = () => {
           </a>
         </div>
 
-        <div className="mt-10 flex items-center gap-3">
-          <EqualizerBars />
-          <span className="font-mono text-[10px] tracking-[0.3em] text-cream/70">
-            SIGNAL LOCKED · 808 HZ
-          </span>
-          <EqualizerBars />
-        </div>
       </div>
 
     </section>
