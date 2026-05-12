@@ -29,11 +29,11 @@ export const LayloPlaceholder = () => {
   return (
     <section
       id="signal"
-      className="relative py-16 sm:py-24 border-t border-cherry/20 overflow-hidden"
+      className="relative py-10 sm:py-14 border-t border-cherry/20 overflow-hidden"
     >
       <div className="container relative z-10 flex flex-col items-center text-center max-w-xl">
-        <div className="w-full relative border border-cherry/60 bg-noir/80 backdrop-blur-sm clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)] p-3 sm:p-5">
-          <div className="flex items-center justify-between mb-3 font-mono text-[10px] tracking-[0.3em] text-cream/60">
+        <div className="w-full relative border border-cherry/60 bg-noir/80 backdrop-blur-sm clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)] px-3 pt-3 pb-2 sm:px-5 sm:pt-4 sm:pb-3">
+          <div className="flex items-center justify-between mb-2 font-mono text-[10px] tracking-[0.3em] text-cream/60">
             <span>▍ LAYLO_FEED</span>
             <span>// SUBSCRIBE</span>
           </div>
@@ -49,7 +49,7 @@ export const LayloPlaceholder = () => {
                 width: "1px",
                 minWidth: "100%",
                 maxWidth: "1000px",
-                height: "380px",
+                height: "240px",
                 background: "transparent",
                 display: "block",
               }}
