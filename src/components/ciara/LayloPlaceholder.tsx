@@ -9,8 +9,7 @@ export const LayloPlaceholder = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Inject Laylo embed script once.
-    const SRC = "https://embed.laylo.com/laylo.js";
+    const SRC = "https://embed.laylo.com/laylo-sdk.js";
     if (!document.querySelector(`script[src="${SRC}"]`)) {
       const s = document.createElement("script");
       s.src = SRC;
