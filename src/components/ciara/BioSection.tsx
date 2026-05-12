@@ -35,7 +35,6 @@ export const BioSection = () => {
             </div>
           </div>
 
-          {/* Floating stickers */}
           {stickers.map((s) => (
             <div
               key={s.label}
@@ -83,6 +82,23 @@ export const BioSection = () => {
             >
               ↓ Download EPK
             </a>
+          </div>
+
+          {/* Co-signs ribbon */}
+          <div className="mt-10 pt-6 border-t border-cherry/20">
+            <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ CO-SIGNED</p>
+            <ul className="flex flex-wrap gap-2">
+              {siteConfig.highlights.map((h) => (
+                <li
+                  key={h.label}
+                  className="font-mono text-[10px] tracking-[0.2em] uppercase px-2.5 py-1.5 border border-cherry/40 text-cream-dim hover:text-cream hover:border-toxic transition-colors"
+                >
+                  <span className="text-toxic mr-2">◆</span>
+                  <span className="text-cream-dim/70 mr-1">{h.label}:</span>
+                  <span className="text-cream">{h.value}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>

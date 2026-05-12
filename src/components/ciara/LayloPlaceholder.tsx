@@ -1,17 +1,24 @@
+import { useEffect, useRef } from "react";
 import { siteConfig } from "@/config/siteConfig";
 
 /**
- * LAYLO EMBED PLACEHOLDER
- *
- * Drop the live Laylo iframe (or SDK markup) inside the bordered phone screen.
- * When ready, set siteConfig.laylo.enabled = true and either:
- *   - replace the placeholder block below with <iframe src=... />
- *   - or render the Laylo widget script per the Laylo install docs.
- *
- * Iframes must use background:transparent + allowTransparency to blend with
- * the cherry-noir aesthetic.
+ * Laylo subscribe embed mounted inside a phone-screen mock.
+ * Token is the public client-access SUBSCRIBE token from siteConfig.laylo.
  */
 export const LayloPlaceholder = () => {
+  const mountRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Inject Laylo embed script once.
+    const SRC = "https://embed.laylo.com/laylo.js";
+    if (!document.querySelector(`script[src="${SRC}"]`)) {
+      const s = document.createElement("script");
+      s.src = SRC;
+      s.async = true;
+      document.head.appendChild(s);
+    }
+  }, []);
+
   return (
     <section id="signal" className="relative py-24 sm:py-32 border-t border-cherry/20 overflow-hidden">
       <div className="container relative z-10 grid md:grid-cols-2 gap-10 items-center">
@@ -28,43 +35,41 @@ export const LayloPlaceholder = () => {
           </p>
         </div>
 
-        {/* Phone / pager mockup containing the placeholder */}
+        {/* Phone mockup */}
         <div className="relative mx-auto w-full max-w-sm">
           <div
             className="relative bg-[hsl(0_0%_8%)] border-[10px] border-[hsl(0_0%_14%)] rounded-[36px] shadow-[0_30px_60px_hsl(0_0%_0%/0.6)] overflow-hidden"
             style={{ ["--rot" as never]: "-2deg" }}
           >
-            {/* Phone notch */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-[hsl(0_0%_14%)] rounded-b-2xl z-10" />
-            {/* Screen */}
-            <div className="relative aspect-[9/16] bg-noir scanlines grain p-5 flex flex-col">
-              <div className="font-mono text-[9px] tracking-[0.3em] text-cream-dim flex items-center justify-between">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-5 bg-[hsl(0_0%_14%)] rounded-b-2xl z-20" />
+            <div className="relative aspect-[9/16] bg-noir scanlines p-5 flex flex-col">
+              {/* DVD video bg */}
+              <video
+                className="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-screen pointer-events-none"
+                src={siteConfig.artist.dvdBounceUrl}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden
+              />
+              <div className="relative z-10 font-mono text-[9px] tracking-[0.3em] text-cream-dim flex items-center justify-between">
                 <span>◉ CIARA.OS</span>
                 <span>{new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit" })}</span>
               </div>
-              <div className="flex-1 flex flex-col items-center justify-center text-center gap-4 px-3">
+              <div className="relative z-10 flex-1 flex flex-col items-center justify-center text-center gap-4 px-3">
                 <div className="font-display text-toxic text-glow-toxic text-3xl">SIGNAL</div>
-                <div className="font-mono text-[10px] tracking-[0.3em] text-cream/80">
-                  → INSERT LAYLO EMBED HERE
-                </div>
-                {/* === LAYLO EMBED PLACEHOLDER START === */}
-                <div className="w-full border border-dashed border-toxic/60 bg-noir/60 p-4 text-cream-dim font-mono text-[10px] tracking-[0.2em]">
-                  // LAYLO_EMBED
-                  <br />
-                  // dropId: {siteConfig.laylo.dropId || "TBD"}
-                  <br />
-                  // user: {siteConfig.laylo.username}
-                </div>
-                {/* === LAYLO EMBED PLACEHOLDER END === */}
-                <a
-                  href={`mailto:${siteConfig.booking.email}?subject=Add%20me%20to%20the%20list`}
-                  className="font-mono text-[11px] tracking-[0.3em] uppercase px-4 py-2.5 bg-cherry text-cream hover:bg-cherry-bright transition-colors clip-notch glow-cherry"
-                >
-                  ▶ Join Ciara&apos;s List
-                </a>
+                <div
+                  ref={mountRef}
+                  className="w-full"
+                  dangerouslySetInnerHTML={{
+                    __html: `<laylo-drop data-token="${siteConfig.laylo.token}" data-username="${siteConfig.laylo.username}" data-background-color="transparent"></laylo-drop>`,
+                  }}
+                />
                 <p className="font-script text-cream/80 text-lg">no spam. just bass.</p>
               </div>
-              <div className="font-mono text-[9px] tracking-[0.3em] text-cream-dim text-center mt-2">
+              <div className="relative z-10 font-mono text-[9px] tracking-[0.3em] text-cream-dim text-center mt-2">
                 ▍ ▍ ▍ ▍ ▍ ▍ ▍ ▍ ▍
               </div>
             </div>
