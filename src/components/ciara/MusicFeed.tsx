@@ -102,7 +102,7 @@ export const MusicFeed = () => {
 
   return (
     <section id="music" className="relative py-24 sm:py-32 overflow-hidden border-t border-cherry/20">
-      <SectionVisualizer src={visualizers.music} opacity="opacity-25" />
+      <SectionVisualizer src={visualizers.music} opacity="opacity-25" rate={2} />
       <div className="container relative z-10">
         <header className="mb-10 sm:mb-14 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div>
