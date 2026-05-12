@@ -1,20 +1,28 @@
 ## Problem
 
-The current `LayloPlaceholder` aggressively removes and re-injects the Laylo SDK on every mount with a cache-busting query string. In React 18 StrictMode (and on route re-renders), this fires twice and the second injection can race with the SDK's internal state, leaving the iframe empty. The iframe wrapper still reserves space, so the section shows as a hollow box — exactly what the screenshot shows.
+The Laylo iframe is rendering its content (form + Laylo footer) in the top ~240px, but the iframe itself is locked to ~880px tall because:
+
+1. `min-height: 460px` is hard-coded inline on the iframe.
+2. The wrapper div has `min-h-[460px] sm:min-h-[520px]`.
+3. Laylo's SDK isn't posting a `setHeight` message that our listener recognizes (origin or shape mismatch), so the iframe never shrinks to fit content.
+
+Result: huge empty black space below the "Make a Drop like this" row.
 
 ## Fix (`src/components/ciara/LayloPlaceholder.tsx`)
 
-Rewrite using the official Laylo embed pattern, hardened minimally:
+1. **Drop the wrapper `min-h-*` classes** — let the iframe define its own height.
+2. **Lower iframe `minHeight` to a small placeholder** (e.g. `220px`) so the section reserves a little space while loading but doesn't bloat once the SDK reports actual height.
+3. **Broaden the postMessage listener** to accept both `https://embed.laylo.com` and `https://laylo.com` origins, and to handle Laylo's actual message shapes (`{ type: 'setHeight'|'resize', height }`, `{ event: 'resize', height }`, or numeric `data.height` / `data.payload.height`). Apply the height by setting `iframe.style.height` only (not `minHeight`), so subsequent shrink messages work.
+4. **Also handle the case where Laylo posts the iframe element id**: only resize the iframe whose id matches `iframeId` when the message includes one; otherwise resize ours unconditionally (single embed on page).
+5. Keep the SDK single-load logic and the "Open on Laylo →" fallback link unchanged.
 
-1. **Load SDK once, globally.** On mount, check if a `script[src*="embed.laylo.com/laylo-sdk.js"]` already exists. If yes, do nothing. If no, append it once (no cache-buster, no removal). This matches Laylo's documented snippet and avoids re-init races.
-2. **Render iframe via JSX** (not `dangerouslySetInnerHTML`) with a stable `id`, `src`, and inline styles matching Laylo's official snippet (`width:1px; min-width:100%; max-width:1000px; min-height:460px`).
-3. **Keep the postMessage height fallback** but tighten origin check (`https://embed.laylo.com`) and only handle numeric `height` values.
-4. **Keep wrapper `min-h-[520px] sm:min-h-[460px]`** so layout never collapses.
-5. **Keep "Open on Laylo →" fallback link.**
-6. **Trigger SDK re-scan if already loaded.** If the script tag exists and `window.laylo` is defined, call `window.laylo?.init?.()` (no-op if undefined) so a client-side route change still binds the new iframe.
+## Spacing pass on the surrounding section
+
+- Reduce `<section>` padding from `py-24 sm:py-32` to `py-16 sm:py-24` so the SIGNAL block doesn't feel oversized relative to the now-correct iframe height.
+- Tighten internal frame padding from `p-4 sm:p-6` to `p-3 sm:p-5`.
+- Tighten the `mt-4` on the fallback link to `mt-3`.
 
 ## Out of scope
 
-- No changes to `siteConfig.laylo` (dropId, color, theme).
-- No layout/styling changes beyond what's above.
-- No changes to other components.
+- No styling/copy changes inside the Laylo iframe itself (we can't — cross-origin).
+- No changes to other sections or `siteConfig`.
