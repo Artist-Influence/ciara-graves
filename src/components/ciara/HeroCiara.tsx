@@ -54,12 +54,6 @@ export const HeroCiara = () => {
             ◆ Shows
           </a>
           <a
-            href="#signal"
-            className="group relative font-mono text-xs sm:text-sm tracking-[0.3em] uppercase px-6 py-3 border border-cream/60 text-cream hover:border-toxic hover:text-toxic transition-all clip-notch"
-          >
-            ✦ Signal
-          </a>
-          <a
             href="#contact"
             className="group relative font-mono text-xs sm:text-sm tracking-[0.3em] uppercase px-6 py-3 border border-toxic text-toxic hover:bg-toxic hover:text-noir transition-all clip-notch"
           >
