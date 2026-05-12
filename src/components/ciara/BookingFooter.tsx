@@ -1,4 +1,15 @@
 import { siteConfig } from "@/config/siteConfig";
+import SoundCloudIcon from "@/components/icons/SoundCloudIcon";
+import AudiusIcon from "@/components/icons/AudiusIcon";
+import InstagramIcon from "@/components/icons/InstagramIcon";
+import TikTokIcon from "@/components/icons/TikTokIcon";
+
+const socialItems = [
+  { href: "soundcloud", label: "SoundCloud", Icon: SoundCloudIcon },
+  { href: "audius", label: "Audius", Icon: AudiusIcon },
+  { href: "instagram", label: "Instagram", Icon: InstagramIcon },
+  { href: "tiktok", label: "TikTok", Icon: TikTokIcon },
+] as const;
 
 const Reel = () => (
   <div
