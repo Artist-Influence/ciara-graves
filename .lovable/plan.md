@@ -1,38 +1,24 @@
-## Goal
-Stretch the vertical CD-bounce visualizer as ONE continuous background covering both the Laylo (`#signal`) and About (`#about`) sections, instead of playing two separate copies.
+## Problem
 
-## Approach
-Wrap both sections in a shared positioned container in `src/pages/Index.tsx` that owns the single `<video>` background, and strip the per-section visualizer/background from each child.
+On first load, the hero shows Ciara's portrait (used as the `<video poster>`) before the background video starts playing, making it look like the site loaded to a static photo. The existing `LoadingScreen` component is never mounted.
 
-### `src/pages/Index.tsx`
-Replace the bare `<LayloPlaceholder />` + `<BioSection />` with a wrapper:
+## Plan
 
-```tsx
-<div className="relative">
-  <SectionVisualizer
-    src={visualizers.vertical}
-    opacity="opacity-25"
-    className="!fixed-none"
-  />
-  {/* dark overlay for readability across the combined area */}
-  <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-noir/70 via-noir/50 to-noir/80 z-[1]" />
-  <div className="relative z-[2]">
-    <LayloPlaceholder />
-    <BioSection />
-  </div>
-</div>
-```
+**1. `src/pages/Index.tsx`** — Wire up the loading screen.
+- Add local `isLoading` state (default `true`).
+- Wrap the page in `<AnimatePresence>` from framer-motion.
+- Render `<LoadingScreen />` while `isLoading`, then the main content.
+- Hide loader as soon as the site is interactive: dismiss on `window` `load` event, with a hard fallback timeout (~1.2s) so slow video assets never block reveal. Minimum visible time ~600ms so the brand logo doesn't just flash.
+- Once hidden, the full site is shown immediately (don't wait on hero video).
 
-`SectionVisualizer` already uses `absolute inset-0 w-full h-full object-cover`, so when its parent spans both sections it stretches across the full combined height as one element.
+**2. `src/components/ciara/HeroCiara.tsx`** — Stop the portrait flash.
+- Remove the `poster={siteConfig.artist.portraitUrl}` from the hero `<video>` so the portrait never appears as the first paint behind the loader or as a fallback.
+- Keep `preload="metadata"`, autoplay, muted, loop, playsInline as-is. Background falls back to the dark `bg-noir` body color until the video frame paints.
 
-### `src/components/ciara/LayloPlaceholder.tsx`
-Remove the local `<video>` background and the `bg-gradient-to-b … noir` overlay (lines ~28–38). Section keeps its `relative` positioning and inner content; background now comes from the wrapper.
+**3. `src/components/LoadingScreen.tsx`** — No structural change needed; it already uses the FILTHY `BrandLogo` with a pulse animation and dark background. Confirm it sits at `z-50` above all content (already does).
 
-### `src/components/ciara/BioSection.tsx`
-Remove the `<SectionVisualizer src={visualizers.vertical} … />` line. Section keeps `relative … overflow-hidden` so its z-indexed content still layers above the shared background.
+## Behavior after change
 
-### Borders
-Keep `border-t border-cherry/20` on each section so the visual seam between them stays.
-
-## Out of scope
-No changes to other sections, design tokens, or backend.
+- Page mounts → dark background + centered pulsing FILTHY logo.
+- Within ~600ms–1.2s, loader fades out (framer-motion `exit`), revealing the full site with hero video already loading in the background.
+- No more portrait-photo flash.
