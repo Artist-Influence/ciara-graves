@@ -42,7 +42,7 @@ export const BookingFooter = () => (
 
       <div className="relative flex flex-col items-center justify-center">
         <div className="relative w-48 h-48 rounded-full border-4 border-cream/20 bg-[radial-gradient(circle,hsl(0_0%_8%)_30%,hsl(var(--cherry))_60%,hsl(0_0%_4%)_100%)] flex items-center justify-center overflow-hidden">
-          <img src={siteConfig.artist.logoUrl} alt="" className="logo-cream w-24 relative z-10" />
+          <img src={siteConfig.artist.logoUrl} alt="" className="logo-knockout w-24 relative z-10" />
           <div className="absolute w-4 h-4 rounded-full bg-noir border-2 border-cream/40 z-20" />
         </div>
         <p className="mt-4 font-mono text-[10px] tracking-[0.3em] text-cream-dim text-center">

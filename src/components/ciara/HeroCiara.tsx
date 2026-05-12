@@ -20,8 +20,7 @@ export const HeroCiara = () => {
         poster={siteConfig.artist.portraitUrl}
         aria-hidden
       />
-      {/* Tinted gradient overlay */}
-      <div className="absolute inset-0 z-[1] bg-gradient-to-b from-noir/40 via-noir/30 to-noir" />
+      {/* Gradient overlay removed for clean hero video */}
 
       {/* Channel label corner */}
       <div className="absolute top-20 right-4 z-10 font-mono text-[10px] tracking-[0.3em] text-cream/70">
@@ -37,7 +36,7 @@ export const HeroCiara = () => {
         <img
           src={siteConfig.artist.logoUrl}
           alt={siteConfig.artist.name}
-          className="logo-cream w-[78vw] max-w-[680px] drop-shadow-[0_0_30px_hsl(var(--cherry-bright)/0.5)] animate-fade-in"
+          className="logo-knockout w-[78vw] max-w-[680px] drop-shadow-[0_0_30px_hsl(var(--cherry-bright)/0.5)] animate-fade-in"
         />
 
         <h1 className="sr-only">{siteConfig.artist.name} — bass-heavy DJ &amp; artist</h1>

@@ -289,6 +289,11 @@
   .logo-cherry {
     filter: brightness(0) saturate(100%) invert(20%) sepia(85%) saturate(4500%) hue-rotate(340deg) brightness(95%) contrast(105%);
   }
+  /* PNG knockout: invert dark→light + screen drops white background */
+  .logo-knockout {
+    filter: invert(1);
+    mix-blend-mode: screen;
+  }
 }
 
 html { scroll-behavior: smooth; }

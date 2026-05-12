@@ -1,22 +1,19 @@
-## Hero (`HeroCiara.tsx`)
-- Location chip → `▍ WILMINGTON, DE ▍` (add closing bar to mirror the leading one).
-- Replace CTAs with: `▶ Listen` (#music), `◆ Shows` (#shows), `✦ Signal` (#signal), `✉ Contact` (#contact). Keep existing button styles; route the new Signal button to the Laylo section and rename "Book Ciara" → "Contact" pointing at the booking footer anchor.
+## Logo swap (uploaded PNG)
+- Copy `user-uploads://Ciara_Graves_Logo.png` → `src/assets/ciara-logo.png`.
+- Update `src/config/siteConfig.ts`: change the import from `ciara-logo.svg` to `ciara-logo.png` so all logo usages (hero + sticky nav + footer) pick it up.
+- Note: the PNG ships with a white square background. To make it read on the dark site without re-exporting the file, swap the existing `logo-cream` CSS class on the hero/nav `<img>` tags for a small inline treatment: `filter: invert(1)` + `mix-blend-mode: screen` (CSS), which drops the white background out and renders the oval+wordmark in white. Add a reusable utility `.logo-knockout` in `src/index.css` so both spots share the rule.
 
-## Logo
-- Copy `user-uploads://CIARA_GRAVES_LOGO_-Artboard_2.svg` → `src/assets/ciara-logo.svg` (overwrite). Existing `siteConfig.artist.logoUrl` import already points there, so the hero + nav update automatically.
+## EPK download
+- Pull the file from Google Drive (`fileId 1wmBXbGzl3ClT2rieh8Ss3m2N-QupqnAI`) via the Drive connector and save it to `public/epk/Ciara-Graves-Biography-2026.pdf` (overwriting the existing placeholder). The current `siteConfig.booking.epkUrl` already points there, so the "Download EPK" button keeps working with no code change.
 
-## Laylo section (`LayloPlaceholder.tsx`)
-- Drop the entire phone-mockup column. Layout becomes a single centered column inside the existing section.
-- Keep only: the `SIGNAL` headline, the Laylo iframe embed, and the `no spam. just bass.` script line beneath it. Remove DIRECT_LINE label, secondary copy, "text me…" line, status bar, notch, equalizer dashes.
-- Re-skin the embed to fit the cherry-noir aesthetic:
-  - Switch Laylo URL params to `theme=dark` and `color=F12C42` (cherry-bright hex). Update `siteConfig.laylo.color` + `theme` accordingly.
-  - Wrap the iframe in a cherry-bordered cassette-style frame: `border border-cherry/60 bg-noir clip-notch shadow-[0_0_40px_hsl(var(--cherry)/0.4)]`, padded, with corner brackets + a top mono label `▍ LAYLO_FEED // SUBSCRIBE`.
-  - Iframe stays `allowtransparency` + transparent bg per project rule, max-width ~520px, centered.
-- Background visualizer: copy `user-uploads://Logo_DVD_Bounce-2.MP4` → `src/assets/laylo-bg.mp4`. Add a fixed full-bleed `<video>` inside the section as a low-opacity (~25%), `mix-blend-screen` background behind the content (autoplay/muted/loop/playsInline). Replace the current DVD bg that lived inside the phone screen.
-- Section keeps `id="signal"` so the new hero CTA scrolls correctly.
+## Copy fix
+- `siteConfig.artist.location`: `"WILMINGTON, DE / OUTSIDE PHILLY"` → `"WILMINGTON, DE"`. This updates the footer line that currently reads the long version.
+
+## Hero gradient
+- In `src/components/ciara/HeroCiara.tsx`, delete the tinted overlay div on line 24 (`bg-gradient-to-b from-noir/40 via-noir/30 to-noir`) so the hero video shows clean. Keep `vignette-cherry` and the bottom marquee for legibility around the CTAs.
 
 ## Files touched
-- Edit: `src/components/ciara/HeroCiara.tsx`, `src/components/ciara/LayloPlaceholder.tsx`, `src/config/siteConfig.ts`.
-- Replace asset: `src/assets/ciara-logo.svg`.
-- Add asset: `src/assets/laylo-bg.mp4` (+ import in `siteConfig` as `laylo.bgVideoUrl`).
-- No backend or schema changes.
+- Add asset: `src/assets/ciara-logo.png`.
+- Replace asset: `public/epk/Ciara-Graves-Biography-2026.pdf` (via Drive connector download).
+- Edit: `src/config/siteConfig.ts`, `src/components/ciara/HeroCiara.tsx`, `src/components/ciara/StickyNavCiara.tsx`, `src/index.css`.
+- No backend / schema changes.
