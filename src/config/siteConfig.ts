@@ -42,8 +42,9 @@ export const siteConfig = {
   laylo: {
     enabled: true,
     dropId: "evpf7",
-    color: "F74B27",
-    theme: "light",
+    color: "F12C42",
+    theme: "dark",
+    bgVideoUrl: layloBgVideo,
   },
 
   about: {
