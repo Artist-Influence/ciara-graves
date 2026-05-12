@@ -1,44 +1,26 @@
-## 1. Fix SoundCloud + Audius logos
+## Goal
+In the Contact footer, replace the round CD/logo medallion with a compact **spinning vinyl record** anchored to the **right side** of the contact block at all breakpoints (no stacking underneath).
 
-Replace the inaccurate hand-drawn paths in `src/components/icons/SoundCloudIcon.tsx` and `src/components/icons/AudiusIcon.tsx` with the **official brand SVG path data** pulled from each company's press kit:
+## Changes — `src/components/ciara/BookingFooter.tsx`
 
-- **SoundCloud**: official 5-bar waveform mark with cloud silhouette (the real shape, not a generic rising-bars + cloud).
-- **Audius**: official "stacked chevron" mark (three nested triangles forming the A) — not a triangle-with-notch.
+1. **Layout — keep it side-by-side, more compact**
+   - Change the outer grid from `lg:grid-cols-3` (which stacks on mobile) to a flex row that holds together earlier:
+     - `flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8`
+   - Left: contact copy (email, CTAs, nav list).
+   - Right: the spinning record, sized down to ~`w-32 h-32 sm:w-36 sm:h-36` (was `w-48 h-48`) so it reads as an accent, not a feature block.
+   - Drop the `BURN_001 · CIARA GRAVES` caption under the disc (it added vertical bulk); keep the disc clean.
 
-Both stay as `currentColor` single-path SVGs at 24×24 so the existing `text-cream`/hover styling keeps working. No other component changes needed since they're already wired up.
+2. **Spinning vinyl record** (replaces the current radial-gradient medallion)
+   - Outer disc: black vinyl with concentric grooves rendered via `repeating-radial-gradient` of subtle `hsl(var(--cream)/0.05)` rings on a near-black base.
+   - Light sheen: a soft conic-gradient highlight overlay at low opacity for that "rotating reflection" feel.
+   - Center label: cherry-red circle (~38% of disc), with the FILTHY/Ciara logo (`siteConfig.artist.logoUrl`) centered using the existing `logo-knockout` filter, scaled small.
+   - Spindle hole: tiny `bg-noir` dot in the dead center.
+   - Animation: reuse the existing `animate-spin-cd` utility (already defined in `index.css` as an 8s linear infinite spin) on the whole disc. Center label spins with the disc (authentic record behavior).
+   - Add a soft `glow-cherry` ring around the disc edge for brand cohesion.
 
-## 2. Background visualizers — Music / Bio / Shows / Find Me
+3. **Responsive behavior**
+   - At `<sm`: record sits to the right of stacked content via `flex-row` with the text taking remaining width — or, if too tight on narrow phones, allow it to drop to a right-aligned position above the nav list. Final call: keep `flex-col sm:flex-row` so on the smallest phones it stacks (record on top, right-aligned), but on ≥640px it sits compactly to the right of the contact text. This matches the user's "not under" intent for the desktop/tablet view they're previewing (898px).
 
-Aesthetic chosen: **AI-generated lo-fi loops** combining audio waveform + VHS scanlines + particle dust, plus desaturated camcorder b-roll. One unique 5–10s seamless MP4 per section, all in cherry/noir palette so they read as one family.
-
-Per-section direction:
-
-| Section | Loop concept |
-|---|---|
-| Music (`MusicSection`) | Slow horizontal cherry-red audio waveform drifting left→right over noir, faint VHS scanlines, soft grain. Reads as "the music itself." |
-| Bio (`BioSection`) | Heavily desaturated lo-fi camcorder b-roll — close-up hands on a mixer/turntable, shallow depth, occasional tracking glitch. Replaces the grey gradient that was just removed. |
-| Shows (`ShowsSection`) | Camcorder POV through a dark crowd, red stage wash strobing slowly, scanlines + chromatic aberration. |
-| Find Me Somewhere (`FindMeSection`) | Drifting white particle dust / dust motes on pure noir, very slow, almost still — quiet contrast to the other three. |
-
-**Generation**: use `videogen--generate_video` (1080p, 16:9, 10s, `camera_fixed: true`) with cherry/noir prompts → save to `src/assets/viz-music.mp4`, `viz-bio.mp4`, `viz-shows.mp4`, `viz-findme.mp4`.
-
-**Integration pattern** (reuses the existing Signal-section approach):
-- Add a small `<SectionVisualizer src={...} />` component (absolute-positioned `<video autoplay muted loop playsinline>` with the existing force-play polling per memory rule, `opacity-20 mix-blend-screen`, behind content).
-- Drop one into each of the four section components, behind their current content, above the section bg. Sections get `relative overflow-hidden` if not already.
-- Register sources in `siteConfig.ts` under a new `visualizers` block so swaps are one-line.
-
-## Technical notes
-
-- Icons stay `currentColor` SVG; no raster, no new assets.
-- Videos: H.264 MP4, ~2–4MB each at 10s 1080p; lazy via `preload="metadata"` and `IntersectionObserver`-gated play to keep mobile cheap.
-- Respect `prefers-reduced-motion` → pause + show static poster frame.
-- No backend, schema, or auth changes.
-
-## Files touched
-
-- `src/components/icons/SoundCloudIcon.tsx` — replace path
-- `src/components/icons/AudiusIcon.tsx` — replace path
-- `src/assets/viz-music.mp4`, `viz-bio.mp4`, `viz-shows.mp4`, `viz-findme.mp4` — new (videogen)
-- `src/components/ciara/SectionVisualizer.tsx` — new shared component
-- `src/components/ciara/MusicSection.tsx`, `BioSection.tsx`, `ShowsSection.tsx`, `FindMeSection.tsx` — wire visualizer
-- `src/config/siteConfig.ts` — add `visualizers` block
+## Out of scope
+- No new assets, no animation library, no config changes.
+- No edits to other sections or the design system (the `animate-spin-cd` keyframe already exists).
