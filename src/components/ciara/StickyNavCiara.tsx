@@ -73,14 +73,6 @@ export const StickyNavCiara = () => {
                 </a>
               </li>
             ))}
-            <li>
-              <a
-                href={`mailto:${siteConfig.booking.email}`}
-                className="block font-mono text-xs tracking-[0.25em] text-toxic py-2"
-              >
-                → CONTACT
-              </a>
-            </li>
           </ul>
         </div>
       )}
