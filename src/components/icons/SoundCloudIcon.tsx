@@ -33,10 +33,10 @@ const SoundCloudIcon = ({ className }: { className?: string }) => {
         <ellipse key={b.x} cx={b.x} cy={cy} rx={4} ry={b.ry} />
       ))}
       {/* Cloud silhouette built from overlapping primitives, all currentColor */}
-      <rect x="252" y="170" width="240" height="116" rx="6" />
-      <circle cx="320" cy="170" r="70" />
-      <circle cx="412" cy="150" r="58" />
-      <circle cx="470" cy="220" r="66" />
+      <rect x="244" y="170" width="248" height="116" />
+      <circle cx="312" cy="170" r="70" />
+      <circle cx="404" cy="150" r="58" />
+      <circle cx="466" cy="220" r="66" />
     </svg>
   );
 };
