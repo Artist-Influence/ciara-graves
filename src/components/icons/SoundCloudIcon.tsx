@@ -1,23 +1,43 @@
-// Official SoundCloud "waveform + cloud" mark.
-// Simplified single-path silhouette derived from SoundCloud brand assets.
-const SoundCloudIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 32 22"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden
-  >
-    {/* ascending waveform bars (left side) */}
-    <rect x="0"   y="11" width="1.4" height="6"  rx="0.7" />
-    <rect x="2.4" y="9"  width="1.4" height="9"  rx="0.7" />
-    <rect x="4.8" y="6"  width="1.4" height="13" rx="0.7" />
-    <rect x="7.2" y="4"  width="1.4" height="15" rx="0.7" />
-    <rect x="9.6" y="5"  width="1.4" height="14" rx="0.7" />
-    {/* tallest bar feeding into the cloud */}
-    <rect x="12"  y="2"  width="1.4" height="17" rx="0.7" />
-    {/* cloud body — pill silhouette extending right */}
-    <path d="M14.4 4.2c.6-.4 1.4-.7 2.2-.7 2.6 0 4.7 2 5 4.5.5-.2 1-.3 1.6-.3 2.7 0 4.8 2.1 4.8 4.7 0 2.6-2.1 4.7-4.8 4.7H14.4V4.2z" />
-  </svg>
-);
+// SoundCloud "waveform + cloud" mark — recreated to match the official silhouette:
+// ascending lozenge-shaped waveform bars feeding into a two-bump cloud, flat baseline.
+const SoundCloudIcon = ({ className }: { className?: string }) => {
+  // ViewBox 0..512 x 0..320; bars are vertically centered around midline y=160.
+  const cy = 160;
+  const bars: Array<{ x: number; ry: number }> = [
+    { x: 8,   ry: 18 },
+    { x: 24,  ry: 28 },
+    { x: 40,  ry: 42 },
+    { x: 56,  ry: 56 },
+    { x: 72,  ry: 70 },
+    { x: 88,  ry: 82 },
+    { x: 104, ry: 92 },
+    { x: 120, ry: 100 },
+    { x: 136, ry: 108 },
+    { x: 152, ry: 114 },
+    { x: 168, ry: 118 },
+    { x: 184, ry: 120 },
+    { x: 200, ry: 122 },
+    { x: 216, ry: 124 },
+    { x: 232, ry: 126 },
+  ];
+
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 512 320"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      {bars.map((b) => (
+        <ellipse key={b.x} cx={b.x} cy={cy} rx={4} ry={b.ry} />
+      ))}
+      {/* Cloud silhouette built from overlapping primitives, all currentColor */}
+      <rect x="244" y="170" width="248" height="116" />
+      <circle cx="312" cy="170" r="70" />
+      <circle cx="404" cy="150" r="58" />
+      <circle cx="466" cy="220" r="66" />
+    </svg>
+  );
+};
 export default SoundCloudIcon;
