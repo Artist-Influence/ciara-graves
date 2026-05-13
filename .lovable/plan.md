@@ -1,12 +1,17 @@
-## Recreate SoundCloud icon to match reference
+## Use the uploaded SoundCloud logo asset directly
 
-Replace the simplified `SoundCloudIcon` SVG in `src/components/icons/SoundCloudIcon.tsx` with a faithful 1:1 reproduction of the reference logo: ~15 thin vertical bars of varying heights (smallest on far left, gradually taller toward center) ascending into a solid filled cloud silhouette on the right.
+My SVG reproduction keeps drifting from the reference. The reliable fix is to use the user's uploaded PNG as the icon asset — guaranteed 1:1 match.
 
-**Implementation in `src/components/icons/SoundCloudIcon.tsx`**:
-- Keep the component API: `({ className })`, `fill="currentColor"`, `aria-hidden`.
-- New `viewBox="0 0 512 320"` to match the reference's roughly 16:10 footprint.
-- Replace the rounded rectangles with ~15 thin lozenge/capsule-shaped bars (very narrow width, rounded caps) using `<rect rx>` or path lozenges, with heights ramping up smoothly from far left to where the cloud begins.
-- Cloud silhouette as a single filled path: large rounded body on the left of the cloud blob, with a smaller rounded "puff" rising up on the upper-right (matching the reference's two-bump cloud shape), bottom edge flat-ish, sitting flush with the bar baseline.
-- Bars and cloud share `currentColor` so existing white/hover-glow styling continues to work in `BookingFooter`.
+**Description of the reference**: A solid black silhouette. The left ~55% is a horizontal sequence of thin vertical lozenge bars (pointed top/bottom, like rice grains) ascending in height from a tiny sliver on the far left to nearly full height. The right ~45% is a single solid cloud shape: a tall flat-left edge, a rounded dome on top-left of the cloud, a smaller rounded bump on the upper-right, and a rounded right end — the bars and cloud both sit centered on the same horizontal midline. Crucially, the segmenting "lines" are only on the left half; the cloud body itself is one solid filled mass with no internal segmentation.
 
-**Out of scope**: changing where the icon is used, hover styles, layout, or any other component.
+### Changes
+
+1. Copy `user-uploads://image-7.png` → `src/assets/soundcloud-logo.png`.
+2. Rewrite `src/components/icons/SoundCloudIcon.tsx` to render an `<img>` of that asset instead of inline SVG primitives:
+   - `import logo from "@/assets/soundcloud-logo.png"`
+   - Returns `<img src={logo} alt="" aria-hidden className={className} />` so existing sizing classes (`h-5 w-5`, etc.) keep working.
+   - Add a CSS filter `style={{ filter: "brightness(0) invert(1)" }}` so the black PNG renders white to match the other footer icons; hover-glow purple drop-shadow already lives on the parent in `BookingFooter`, which still works on `<img>`.
+
+### Out of scope
+
+No changes to `BookingFooter`, layout, or other icons.
