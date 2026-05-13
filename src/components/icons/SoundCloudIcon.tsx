@@ -1,16 +1,15 @@
 // SoundCloud "waveform + cloud" mark — recreated to match the official silhouette:
-// ascending lozenge-shaped waveform bars feeding into a chunky two-bump cloud.
+// ascending lozenge-shaped waveform bars feeding into a two-bump cloud, flat baseline.
 const SoundCloudIcon = ({ className }: { className?: string }) => {
-  // Bars: x position, vertical center y, half-height (ry). viewBox 0..512 x 0..320.
-  // Baseline at y=270; bars are vertically centered around y=210 with growing ry.
-  const baseY = 215;
+  // ViewBox 0..512 x 0..320; bars are vertically centered around midline y=160.
+  const cy = 160;
   const bars: Array<{ x: number; ry: number }> = [
     { x: 8,   ry: 18 },
     { x: 24,  ry: 28 },
     { x: 40,  ry: 42 },
     { x: 56,  ry: 56 },
     { x: 72,  ry: 70 },
-    { x: 88,  ry: 80 },
+    { x: 88,  ry: 82 },
     { x: 104, ry: 92 },
     { x: 120, ry: 100 },
     { x: 136, ry: 108 },
@@ -31,24 +30,13 @@ const SoundCloudIcon = ({ className }: { className?: string }) => {
       aria-hidden
     >
       {bars.map((b) => (
-        <ellipse key={b.x} cx={b.x} cy={baseY} rx={4} ry={b.ry} />
+        <ellipse key={b.x} cx={b.x} cy={cy} rx={4} ry={b.ry} />
       ))}
-      {/* Cloud body: tall left lobe + smaller upper-right puff, flat baseline */}
-      <path d="M256 80
-        C 256 71, 263 64, 272 64
-        C 281 64, 288 71, 288 80
-        L 288 305
-        C 288 313, 281 320, 272 320
-        L 460 320
-        C 488.7 320, 512 296.7, 512 268
-        C 512 239.3, 488.7 216, 460 216
-        C 451 216, 442.6 218.3, 435.3 222.3
-        C 430.5 168.7, 385.5 126, 330.5 126
-        C 312 126, 294.7 130.9, 280 139.4
-        L 280 305
-        C 280 313, 273 320, 264 320
-        L 272 320
-        C 263 320, 256 313, 256 305 Z" />
+      {/* Cloud silhouette built from overlapping primitives, all currentColor */}
+      <rect x="252" y="170" width="240" height="116" rx="6" />
+      <circle cx="320" cy="170" r="70" />
+      <circle cx="412" cy="150" r="58" />
+      <circle cx="470" cy="220" r="66" />
     </svg>
   );
 };
