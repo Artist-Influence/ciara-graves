@@ -46,7 +46,7 @@ export const BioSection = () => {
         <div className="md:col-span-3">
           <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BIO / DOSSIER</p>
           <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry leading-[0.9]">
-            Sweet with bite.
+            About
           </h2>
           <p className="mt-6 text-lg text-cream-dim leading-relaxed max-w-2xl">
             {siteConfig.about.bioShort}
