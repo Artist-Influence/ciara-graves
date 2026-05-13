@@ -1,14 +1,23 @@
 import logo from "@/assets/soundcloud-logo.png";
 
-// Uses the official SoundCloud mark as a PNG asset, recolored to white via CSS
-// filter so it inherits the surrounding white-icon styling and hover-glow.
+// Renders the SoundCloud PNG as a CSS mask so it inherits currentColor
+// (matches the grey/hover behavior of the other social icons).
 const SoundCloudIcon = ({ className }: { className?: string }) => (
-  <img
-    src={logo}
-    alt=""
+  <span
     aria-hidden
     className={className}
-    style={{ filter: "brightness(0) invert(1)", objectFit: "contain" }}
+    style={{
+      display: "inline-block",
+      backgroundColor: "currentColor",
+      WebkitMaskImage: `url(${logo})`,
+      maskImage: `url(${logo})`,
+      WebkitMaskRepeat: "no-repeat",
+      maskRepeat: "no-repeat",
+      WebkitMaskPosition: "center",
+      maskPosition: "center",
+      WebkitMaskSize: "contain",
+      maskSize: "contain",
+    }}
   />
 );
 export default SoundCloudIcon;

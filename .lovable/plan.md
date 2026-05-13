@@ -1,17 +1,33 @@
-## Use the uploaded SoundCloud logo asset directly
+## Make SoundCloud icon inherit `currentColor` like the other socials
 
-My SVG reproduction keeps drifting from the reference. The reliable fix is to use the user's uploaded PNG as the icon asset — guaranteed 1:1 match.
+Other icons (`AudiusIcon`, `InstagramIcon`, `TikTokIcon`) are inline SVGs filled with `currentColor`, so the parent's `text-cream-dim` (and `hover:text-cherry`) classes color them. The current `<img>` + `brightness(0) invert(1)` filter forces pure white, breaking that contract.
 
-**Description of the reference**: A solid black silhouette. The left ~55% is a horizontal sequence of thin vertical lozenge bars (pointed top/bottom, like rice grains) ascending in height from a tiny sliver on the far left to nearly full height. The right ~45% is a single solid cloud shape: a tall flat-left edge, a rounded dome on top-left of the cloud, a smaller rounded bump on the upper-right, and a rounded right end — the bars and cloud both sit centered on the same horizontal midline. Crucially, the segmenting "lines" are only on the left half; the cloud body itself is one solid filled mass with no internal segmentation.
+### Fix
 
-### Changes
+Rewrite `src/components/icons/SoundCloudIcon.tsx` to render the PNG as a **CSS mask** on a `<span>` whose `backgroundColor` is `currentColor`. This way the icon's color comes from the surrounding text color (same `text-cream-dim → hover:text-cherry` behavior as the others), perfectly matching the grey of the other social icons.
 
-1. Copy `user-uploads://image-7.png` → `src/assets/soundcloud-logo.png`.
-2. Rewrite `src/components/icons/SoundCloudIcon.tsx` to render an `<img>` of that asset instead of inline SVG primitives:
-   - `import logo from "@/assets/soundcloud-logo.png"`
-   - Returns `<img src={logo} alt="" aria-hidden className={className} />` so existing sizing classes (`h-5 w-5`, etc.) keep working.
-   - Add a CSS filter `style={{ filter: "brightness(0) invert(1)" }}` so the black PNG renders white to match the other footer icons; hover-glow purple drop-shadow already lives on the parent in `BookingFooter`, which still works on `<img>`.
+```tsx
+import logo from "@/assets/soundcloud-logo.png";
 
-### Out of scope
+const SoundCloudIcon = ({ className }: { className?: string }) => (
+  <span
+    aria-hidden
+    className={className}
+    style={{
+      display: "inline-block",
+      backgroundColor: "currentColor",
+      WebkitMaskImage: `url(${logo})`,
+      maskImage: `url(${logo})`,
+      WebkitMaskRepeat: "no-repeat",
+      maskRepeat: "no-repeat",
+      WebkitMaskPosition: "center",
+      maskPosition: "center",
+      WebkitMaskSize: "contain",
+      maskSize: "contain",
+    }}
+  />
+);
+export default SoundCloudIcon;
+```
 
-No changes to `BookingFooter`, layout, or other icons.
+No changes to `BookingFooter` — the existing `w-6 h-6` and `text-cream-dim hover:text-cherry` classes now drive the SoundCloud icon's color/sizing identically to the other icons.
