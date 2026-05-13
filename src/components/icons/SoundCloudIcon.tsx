@@ -1,23 +1,55 @@
-// Official SoundCloud "waveform + cloud" mark.
-// Simplified single-path silhouette derived from SoundCloud brand assets.
-const SoundCloudIcon = ({ className }: { className?: string }) => (
-  <svg
-    className={className}
-    viewBox="0 0 32 22"
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden
-  >
-    {/* ascending waveform bars (left side) */}
-    <rect x="0"   y="11" width="1.4" height="6"  rx="0.7" />
-    <rect x="2.4" y="9"  width="1.4" height="9"  rx="0.7" />
-    <rect x="4.8" y="6"  width="1.4" height="13" rx="0.7" />
-    <rect x="7.2" y="4"  width="1.4" height="15" rx="0.7" />
-    <rect x="9.6" y="5"  width="1.4" height="14" rx="0.7" />
-    {/* tallest bar feeding into the cloud */}
-    <rect x="12"  y="2"  width="1.4" height="17" rx="0.7" />
-    {/* cloud body — pill silhouette extending right */}
-    <path d="M14.4 4.2c.6-.4 1.4-.7 2.2-.7 2.6 0 4.7 2 5 4.5.5-.2 1-.3 1.6-.3 2.7 0 4.8 2.1 4.8 4.7 0 2.6-2.1 4.7-4.8 4.7H14.4V4.2z" />
-  </svg>
-);
+// SoundCloud "waveform + cloud" mark — recreated to match the official silhouette:
+// ascending lozenge-shaped waveform bars feeding into a chunky two-bump cloud.
+const SoundCloudIcon = ({ className }: { className?: string }) => {
+  // Bars: x position, vertical center y, half-height (ry). viewBox 0..512 x 0..320.
+  // Baseline at y=270; bars are vertically centered around y=210 with growing ry.
+  const baseY = 215;
+  const bars: Array<{ x: number; ry: number }> = [
+    { x: 8,   ry: 18 },
+    { x: 24,  ry: 28 },
+    { x: 40,  ry: 42 },
+    { x: 56,  ry: 56 },
+    { x: 72,  ry: 70 },
+    { x: 88,  ry: 80 },
+    { x: 104, ry: 92 },
+    { x: 120, ry: 100 },
+    { x: 136, ry: 108 },
+    { x: 152, ry: 114 },
+    { x: 168, ry: 118 },
+    { x: 184, ry: 120 },
+    { x: 200, ry: 122 },
+    { x: 216, ry: 124 },
+    { x: 232, ry: 126 },
+  ];
+
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 512 320"
+      fill="currentColor"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden
+    >
+      {bars.map((b) => (
+        <ellipse key={b.x} cx={b.x} cy={baseY} rx={4} ry={b.ry} />
+      ))}
+      {/* Cloud body: tall left lobe + smaller upper-right puff, flat baseline */}
+      <path d="M256 80
+        C 256 71, 263 64, 272 64
+        C 281 64, 288 71, 288 80
+        L 288 305
+        C 288 313, 281 320, 272 320
+        L 460 320
+        C 488.7 320, 512 296.7, 512 268
+        C 512 239.3, 488.7 216, 460 216
+        C 451 216, 442.6 218.3, 435.3 222.3
+        C 430.5 168.7, 385.5 126, 330.5 126
+        C 312 126, 294.7 130.9, 280 139.4
+        L 280 305
+        C 280 313, 273 320, 264 320
+        L 272 320
+        C 263 320, 256 313, 256 305 Z" />
+    </svg>
+  );
+};
 export default SoundCloudIcon;
