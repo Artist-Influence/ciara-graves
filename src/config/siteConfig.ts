@@ -18,7 +18,7 @@ export const visualizers = {
 export const siteConfig = {
   artist: {
     name: "CIARA GRAVES",
-    tagline: "About.",
+    tagline: "About",
     location: "WILMINGTON, DE",
     description:
       "Bass-heavy DJ + artist blending dubstep, UK bass, and trap with retro aesthetics and modern club culture.",
