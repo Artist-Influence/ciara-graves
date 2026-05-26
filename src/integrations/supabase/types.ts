@@ -62,6 +62,60 @@ export type Database = {
         }
         Relationships: []
       }
+      shows: {
+        Row: {
+          bandsintown_id: string
+          city: string | null
+          country: string | null
+          created_at: string
+          datetime: string
+          event_url: string | null
+          id: string
+          last_synced_at: string
+          lineup: string[]
+          region: string | null
+          sold_out: boolean
+          ticket_url: string | null
+          title: string | null
+          updated_at: string
+          venue_name: string | null
+        }
+        Insert: {
+          bandsintown_id: string
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          datetime: string
+          event_url?: string | null
+          id?: string
+          last_synced_at?: string
+          lineup?: string[]
+          region?: string | null
+          sold_out?: boolean
+          ticket_url?: string | null
+          title?: string | null
+          updated_at?: string
+          venue_name?: string | null
+        }
+        Update: {
+          bandsintown_id?: string
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          datetime?: string
+          event_url?: string | null
+          id?: string
+          last_synced_at?: string
+          lineup?: string[]
+          region?: string | null
+          sold_out?: boolean
+          ticket_url?: string | null
+          title?: string | null
+          updated_at?: string
+          venue_name?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
