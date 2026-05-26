@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { siteConfig } from "@/config/siteConfig";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface BandsintownEvent {
   id: string;
@@ -10,49 +10,30 @@ export interface BandsintownEvent {
   soldOut: boolean;
 }
 
-interface BandsintownApiEvent {
-  id: string;
-  datetime: string;
-  venue: {
-    name: string;
-    city: string;
-    region: string;
-    country: string;
-  };
-  url: string;
-  offers: { type: string; url: string; status: string }[];
-}
+const fetchEvents = async (): Promise<BandsintownEvent[]> => {
+  const nowIso = new Date().toISOString();
+  const { data, error } = await supabase
+    .from("shows")
+    .select("*")
+    .gte("datetime", nowIso)
+    .order("datetime", { ascending: true });
 
-const fetchEvents = async (
-  artistId: string,
-  appId: string
-): Promise<BandsintownEvent[]> => {
-  if (!artistId || !appId) return [];
-  const res = await fetch(
-    `https://rest.bandsintown.com/artists/${encodeURIComponent(artistId)}/events?app_id=${encodeURIComponent(appId)}`
-  );
-  if (!res.ok) throw new Error("Failed to fetch tour dates");
-  const data: BandsintownApiEvent[] = await res.json();
+  if (error) throw error;
 
-  return data.map((e) => ({
-    id: String(e.id),
-    date: e.datetime.split("T")[0],
-    city: e.venue.region
-      ? `${e.venue.city}, ${e.venue.region}`
-      : e.venue.city,
-    venue: e.venue.name,
-    ticketUrl: e.url,
-    soldOut: e.offers?.some((o) => o.status === "sold_out") ?? false,
+  return (data ?? []).map((s) => ({
+    id: s.bandsintown_id,
+    date: s.datetime.split("T")[0],
+    city: s.region ? `${s.city ?? ""}, ${s.region}` : (s.city ?? ""),
+    venue: s.title ?? s.venue_name ?? "TBA",
+    ticketUrl: s.ticket_url ?? s.event_url ?? "#",
+    soldOut: !!s.sold_out,
   }));
 };
 
 export const useBandsintownEvents = () => {
-  const artistId = siteConfig.bandsintown?.artistId || "";
-  const appId = siteConfig.bandsintown?.appId || "";
   return useQuery({
-    queryKey: ["bandsintown-events", artistId, appId],
-    queryFn: () => fetchEvents(artistId, appId),
-    enabled: Boolean(artistId && appId),
+    queryKey: ["shows"],
+    queryFn: fetchEvents,
     staleTime: 1000 * 60 * 30,
   });
 };
