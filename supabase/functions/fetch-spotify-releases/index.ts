@@ -5,8 +5,8 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-const SPOTIFY_ARTIST_ID = "1sg7LKlpfKmZSvI0xxqNWC";
-const SOUNDCLOUD_RSS_URL = "https://feeds.soundcloud.com/users/soundcloud:users:639237/sounds.rss";
+const SPOTIFY_ARTIST_ID = "2wYCS3DnZgyxDzfwDEj9Rm";
+const SOUNDCLOUD_RSS_URL = "https://feeds.soundcloud.com/users/soundcloud:users:141298274/sounds.rss";
 
 async function getSpotifyToken(): Promise<string> {
   const clientId = Deno.env.get("SPOTIFY_CLIENT_ID");
