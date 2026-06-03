@@ -151,14 +151,13 @@ export const MusicFeed = () => {
         {/* Streaming row */}
         <div className="mt-12 flex flex-wrap items-center gap-3">
           <span className="font-mono text-[10px] tracking-[0.3em] text-cream-dim mr-2">ALSO ON →</span>
+          <StreamPill href={siteConfig.socials.spotify} label="Spotify" />
           <StreamPill href={siteConfig.socials.soundcloud} label="SoundCloud" />
           <StreamPill href={siteConfig.socials.audius} label="Audius" />
           <StreamPill href={siteConfig.socials.instagram} label="Instagram" />
           <StreamPill href={siteConfig.socials.tiktok} label="TikTok" />
-          {siteConfig.socials.spotify.enabled && siteConfig.socials.spotify.url && (
-            <StreamPill href={siteConfig.socials.spotify.url} label="Spotify" />
-          )}
         </div>
+
       </div>
     </section>
   );

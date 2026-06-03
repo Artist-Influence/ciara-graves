@@ -3,13 +3,16 @@ import SoundCloudIcon from "@/components/icons/SoundCloudIcon";
 import AudiusIcon from "@/components/icons/AudiusIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
 import TikTokIcon from "@/components/icons/TikTokIcon";
+import SpotifyIcon from "@/components/icons/SpotifyIcon";
 
 const socialItems = [
+  { href: "spotify", label: "Spotify", Icon: SpotifyIcon },
   { href: "soundcloud", label: "SoundCloud", Icon: SoundCloudIcon },
   { href: "audius", label: "Audius", Icon: AudiusIcon },
   { href: "instagram", label: "Instagram", Icon: InstagramIcon },
   { href: "tiktok", label: "TikTok", Icon: TikTokIcon },
 ] as const;
+
 
 export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
