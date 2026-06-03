@@ -33,9 +33,9 @@ export const siteConfig = {
     audius: "https://audius.co/ciaragraves",
     instagram: "https://www.instagram.com/ciaragraves_",
     tiktok: "https://www.tiktok.com/@ciaragravesxo",
-    // SPOTIFY PLACEHOLDER — flip enabled to true once profile is populated
-    spotify: { enabled: false, url: "" },
+    spotify: "https://open.spotify.com/artist/2wYCS3DnZgyxDzfwDEj9Rm?si=v6Ye4o03Qiy_HNDKWNAXqA",
   },
+
 
   bandsintown: {
     artistId: "Ciara Graves",
