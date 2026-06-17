@@ -6,7 +6,7 @@ import SectionVisualizer from "./SectionVisualizer";
 const formatDate = (s: string) => {
   if (!s) return "";
   try {
-    return new Date(s).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+    return new Date(s).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
   } catch {
     return "";
   }

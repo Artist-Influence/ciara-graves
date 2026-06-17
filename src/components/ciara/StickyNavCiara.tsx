@@ -6,7 +6,7 @@ const links = [
   { href: "#music", label: "MUSIC" },
   { href: "#shows", label: "SHOWS" },
   { href: "#about", label: "ABOUT" },
-  { href: "#book", label: "CONTACT" },
+  { href: "#contact", label: "CONTACT" },
 ];
 
 export const StickyNavCiara = () => {
