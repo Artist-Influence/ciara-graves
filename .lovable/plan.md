@@ -1,7 +1,9 @@
-## Changes
+## Fixes
 
-1. **Replace bio portrait**: Upload the new `CG_Profile_Photo.jpeg` via lovable-assets and update `siteConfig.artist.portraitUrl` to point to it (used by `BioSection.tsx`).
+**1) PUMP shows "Jun 4" instead of "Jun 5"**
+The release's RSS `pubDate` is parsed and formatted with `toLocaleDateString` using the viewer's local timezone. A UTC midnight date shifts back a day in US timezones. Fix `formatDate` in `src/components/ciara/MusicFeed.tsx` to format in UTC (`timeZone: "UTC"`) so the date matches the publish date everywhere.
 
-2. **Update EPK PDF**: Replace `public/epk/Ciara-Graves-Biography-2026.pdf` with the new `Ciara_Graves_EPK.pdf` so the existing "Download EPK" link serves the updated file (no path change needed).
+**2) "Contact" link in mobile menu does nothing**
+In `src/components/ciara/StickyNavCiara.tsx` the nav links point to `#book`, but the footer section id is `#contact` (see `BookingFooter.tsx`). Update the `links` array entry from `{ href: "#book", label: "CONTACT" }` to `{ href: "#contact", label: "CONTACT" }` so both desktop and mobile menu jump to the contact section.
 
-No other code or layout changes.
+No other files affected.
