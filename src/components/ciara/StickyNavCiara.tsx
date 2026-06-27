@@ -31,7 +31,7 @@ export const StickyNavCiara = () => {
     >
       <nav className="container flex items-center justify-between py-3">
         <a href="#top" className="flex items-center gap-2">
-          <img src={siteConfig.artist.logoUrl} alt="Ciara Graves" className="h-7 w-auto logo-knockout" />
+          <img src={siteConfig.artist.logoUrl} alt="Ciara Graves" className="h-14 w-auto logo-knockout" />
         </a>
         <ul className="hidden md:flex items-center gap-7">
           {links.map((l) => (
