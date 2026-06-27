@@ -1,18 +1,16 @@
-import ciaraPortraitAsset from "@/assets/ciara-profile-boombox.jpg.asset.json";
-const ciaraPortrait = ciaraPortraitAsset.url;
+import ciaraPortrait from "@/assets/ciara-portrait-boombox.jpg";
 import ciaraLogo from "@/assets/ciara-logo.png";
 import heroVideo from "@/assets/hero-bg.mp4";
 import dvdBounceVideo from "@/assets/dvd-bounce.mp4";
 import vizMusic from "@/assets/viz-music.mp4";
 import vizShows from "@/assets/viz-shows.mp4";
-import vizFindme from "@/assets/viz-findme.mp4.asset.json";
 import vizVertical from "@/assets/viz-vertical.mp4";
 
 export const visualizers = {
   music: vizMusic,
   bio: vizVertical,
   shows: vizShows,
-  findme: vizFindme.url,
+  findme: vizVertical,
   vertical: vizVertical,
 };
 

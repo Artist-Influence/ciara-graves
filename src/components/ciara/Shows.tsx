@@ -5,10 +5,13 @@ import SectionVisualizer from "./SectionVisualizer";
 const formatDate = (s: string) => {
   if (!s) return { mo: "", day: "", yr: "" };
   const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return { mo: "", day: "", yr: "" };
+  // Format in UTC so the calendar date matches the stored event date everywhere
+  // (parsing in the viewer's local timezone shifted dates back a day).
   return {
-    mo: d.toLocaleDateString("en-US", { month: "short" }).toUpperCase(),
-    day: d.getDate().toString().padStart(2, "0"),
-    yr: d.getFullYear().toString().slice(-2),
+    mo: d.toLocaleDateString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase(),
+    day: d.toLocaleDateString("en-US", { day: "2-digit", timeZone: "UTC" }),
+    yr: d.toLocaleDateString("en-US", { year: "2-digit", timeZone: "UTC" }),
   };
 };
 

@@ -22,7 +22,7 @@ const fetchEvents = async (): Promise<BandsintownEvent[]> => {
 
   return (data ?? []).map((s) => ({
     id: s.bandsintown_id,
-    date: s.datetime.split("T")[0],
+    date: s.datetime,
     city: s.region ? `${s.city ?? ""}, ${s.region}` : (s.city ?? ""),
     venue: s.title ?? s.venue_name ?? "TBA",
     ticketUrl: s.ticket_url ?? s.event_url ?? "#",
