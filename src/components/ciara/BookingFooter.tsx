@@ -1,4 +1,5 @@
 import { siteConfig } from "@/config/siteConfig";
+import Reveal from "@/components/Reveal";
 import SoundCloudIcon from "@/components/icons/SoundCloudIcon";
 import AudiusIcon from "@/components/icons/AudiusIcon";
 import InstagramIcon from "@/components/icons/InstagramIcon";
@@ -18,10 +19,12 @@ export const BookingFooter = () => (
   <footer id="contact" className="relative pt-24 pb-12 border-t-2 border-cherry overflow-hidden bg-noir">
     <div className="container relative z-10 flex flex-col items-center text-center gap-12">
       <div className="max-w-2xl w-full">
-        <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
-        <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.85]">
-          Contact.
-        </h2>
+        <Reveal>
+          <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BOOKING / DIRECT_LINE</p>
+          <h2 className="font-display text-6xl sm:text-8xl text-cream text-glow-cherry leading-[0.85]">
+            Contact.
+          </h2>
+        </Reveal>
         <a
           href={`mailto:${siteConfig.booking.email}`}
           className="mt-6 inline-block font-display text-3xl sm:text-4xl text-cherry hover:text-toxic transition-colors underline decoration-cherry/40 underline-offset-8"

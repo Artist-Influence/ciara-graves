@@ -1,6 +1,7 @@
 import { useBandsintownEvents } from "@/hooks/useBandsintownEvents";
 import { siteConfig, visualizers } from "@/config/siteConfig";
 import SectionVisualizer from "./SectionVisualizer";
+import Reveal from "@/components/Reveal";
 
 const formatDate = (s: string) => {
   if (!s) return { mo: "", day: "", yr: "" };
@@ -23,8 +24,10 @@ export const Shows = () => {
       <SectionVisualizer src={visualizers.shows} opacity="opacity-20" />
       <div className="container relative z-10">
         <header className="mb-10 sm:mb-14">
-          <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ HOTLINE / TICKET_STACK</p>
-          <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">Upcoming Shows</h2>
+          <Reveal>
+            <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ HOTLINE / TICKET_STACK</p>
+            <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">Upcoming Shows</h2>
+          </Reveal>
         </header>
 
         {isLoading && <p className="font-mono text-sm text-cream-dim">▸ pulling dates…</p>}
