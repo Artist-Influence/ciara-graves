@@ -2,7 +2,6 @@ import { useSoundCloudFeed, type SoundCloudTrack } from "@/hooks/useSoundCloudFe
 import { siteConfig, visualizers } from "@/config/siteConfig";
 import EqualizerBars from "./EqualizerBars";
 import SectionVisualizer from "./SectionVisualizer";
-import Reveal from "@/components/Reveal";
 
 const formatDate = (s: string) => {
   if (!s) return "";
@@ -106,10 +105,10 @@ export const MusicFeed = () => {
       <SectionVisualizer src={visualizers.music} opacity="opacity-25" rate={2} />
       <div className="container relative z-10">
         <header className="mb-10 sm:mb-14 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-          <Reveal>
+          <div>
             <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ LATEST_DROPS / SIDE_A</p>
             <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry">PRESS PLAY.</h2>
-          </Reveal>
+          </div>
           <a
             href={siteConfig.soundcloud.profileUrl}
             target="_blank"
@@ -133,11 +132,7 @@ export const MusicFeed = () => {
           </div>
         )}
 
-        {featured && (
-          <Reveal y={32} delay={0.05}>
-            <FeaturedRelease track={featured} />
-          </Reveal>
-        )}
+        {featured && <FeaturedRelease track={featured} />}
 
         {rest.length > 0 && (
           <div className="mt-10">

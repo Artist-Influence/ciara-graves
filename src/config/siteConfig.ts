@@ -1,4 +1,4 @@
-import ciaraPortrait from "@/assets/ciara-portrait-boombox.jpg";
+import ciaraPortrait from "@/assets/ciara-press.jpg";
 import ciaraLogo from "@/assets/ciara-logo.png";
 import heroVideo from "@/assets/hero-bg.mp4";
 import dvdBounceVideo from "@/assets/dvd-bounce.mp4";

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { siteConfig } from "@/config/siteConfig";
-import Reveal from "@/components/Reveal";
 import {
   Dialog,
   DialogContent,
@@ -17,7 +16,7 @@ export const BioSection = () => {
     <section id="about" className="relative py-24 sm:py-32 border-t border-cherry/20 overflow-hidden">
       <div className="container grid md:grid-cols-5 gap-10 items-start relative z-10">
         {/* Collage portrait */}
-        <Reveal className="md:col-span-2 relative" y={32}>
+        <div className="md:col-span-2 relative">
           <div className="relative scanlines border-[6px] border-cream/80 shadow-[0_30px_60px_hsl(0_0%_0%/0.6)] rotate-[-2deg]">
             <img
               src={siteConfig.artist.portraitUrl}
@@ -41,10 +40,10 @@ export const BioSection = () => {
               <span>{s.text}</span>
             </div>
           ))}
-        </Reveal>
+        </div>
 
         {/* Bio copy */}
-        <Reveal className="md:col-span-3" delay={0.12} y={32}>
+        <div className="md:col-span-3">
           <p className="font-mono text-[10px] tracking-[0.4em] text-toxic mb-3">▍ BIO / DOSSIER</p>
           <h2 className="font-display text-5xl sm:text-7xl text-cream text-glow-cherry leading-[0.9]">
             About
@@ -80,7 +79,7 @@ export const BioSection = () => {
             </a>
           </div>
 
-        </Reveal>
+        </div>
       </div>
     </section>
   );
