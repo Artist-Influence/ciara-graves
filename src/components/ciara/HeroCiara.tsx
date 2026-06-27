@@ -20,9 +20,13 @@ export const HeroCiara = () => {
       />
       {/* Gradient overlay removed for clean hero video */}
 
-      {/* Channel label corner */}
-      <div className="absolute top-20 right-4 z-10 font-mono text-[10px] tracking-[0.3em] text-cream/70">
-        ◉ REC · CH 07 · {new Date().getFullYear()}
+      {/* Channel label — right-aligned to the nav container edge so it lines up under CONTACT */}
+      <div className="absolute top-16 sm:top-[4.5rem] inset-x-0 z-10 pointer-events-none">
+        <div className="container flex justify-end">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-cream/70">
+            ◉ REC · CH 07 · {new Date().getFullYear()}
+          </span>
+        </div>
       </div>
 
       {/* Center content */}

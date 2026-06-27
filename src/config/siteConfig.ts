@@ -89,7 +89,7 @@ export const siteConfig = {
 
   booking: {
     email: "info@ciaragraves.com",
-    epkUrl: "/epk/Ciara-Graves-Biography-2026.pdf",
+    epkUrl: "/epk/Ciara-Graves-EPK.pdf",
   },
 };
 
