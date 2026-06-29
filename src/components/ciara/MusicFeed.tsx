@@ -2,6 +2,7 @@ import { useSoundCloudFeed, type SoundCloudTrack } from "@/hooks/useSoundCloudFe
 import { siteConfig, visualizers } from "@/config/siteConfig";
 import EqualizerBars from "./EqualizerBars";
 import SectionVisualizer from "./SectionVisualizer";
+import { useReleaseDates, normalizeTitle } from "@/hooks/useReleaseDates";
 
 const formatDate = (s: string) => {
   if (!s) return "";
@@ -96,7 +97,15 @@ const CatalogCard = ({ track, index }: { track: SoundCloudTrack; index: number }
 );
 
 export const MusicFeed = () => {
-  const { data: tracks, isLoading, isError } = useSoundCloudFeed();
+  const { data: rawTracks, isLoading, isError } = useSoundCloudFeed();
+  const { data: releaseDates } = useReleaseDates();
+  // SoundCloud's pubDate is the upload date, which can be a day before the
+  // official DSP release (e.g. "Pump"). Prefer the authoritative release date
+  // when a feed track matches a curated release by title.
+  const tracks = rawTracks?.map((t) => {
+    const authoritative = releaseDates?.[normalizeTitle(t.title)];
+    return authoritative ? { ...t, pubDate: authoritative } : t;
+  });
   const featured = tracks?.[0];
   const rest = tracks?.slice(1) ?? [];
 
