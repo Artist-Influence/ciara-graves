@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   src: string;
@@ -13,7 +13,8 @@ interface Props {
 
 /**
  * Full-bleed background visualizer loop.
- * Uses redundant force-play polling for mobile autoplay reliability.
+ * Lazy-loads when its section nears the viewport, so the initial page weight is
+ * just the hero video. Force-play polling for mobile autoplay reliability.
  * Respects prefers-reduced-motion.
  */
 const SectionVisualizer = ({
@@ -24,10 +25,29 @@ const SectionVisualizer = ({
   rate = 1,
 }: Props) => {
   const ref = useRef<HTMLVideoElement>(null);
+  const [load, setLoad] = useState(false);
 
+  // Only fetch the video once its section is within ~half a screen of view.
   useEffect(() => {
     const v = ref.current;
     if (!v) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setLoad(true);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "500px 0px" }
+    );
+    io.observe(v);
+    return () => io.disconnect();
+  }, []);
+
+  // Force-play (mobile autoplay reliability) once the video has a source.
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !load) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       v.pause();
@@ -45,17 +65,17 @@ const SectionVisualizer = ({
       cancelled = true;
       window.clearInterval(id);
     };
-  }, [rate]);
+  }, [load, rate]);
 
   return (
     <video
       ref={ref}
-      src={src}
+      {...(load ? { src } : {})}
       autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
+      preload="none"
       aria-hidden
       tabIndex={-1}
       className={`pointer-events-none absolute inset-0 w-full h-full object-cover ${opacity} ${blend} ${className}`}

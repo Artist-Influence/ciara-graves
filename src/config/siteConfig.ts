@@ -1,6 +1,7 @@
 import ciaraPortrait from "@/assets/ciara-press.jpg";
 import ciaraLogo from "@/assets/ciara-logo.png";
 import heroVideo from "@/assets/hero-bg.mp4";
+import heroPoster from "@/assets/hero-poster.jpg";
 import dvdBounceVideo from "@/assets/dvd-bounce.mp4";
 import vizMusic from "@/assets/viz-music.mp4";
 import vizShows from "@/assets/viz-shows.mp4";
@@ -24,6 +25,7 @@ export const siteConfig = {
     logoUrl: ciaraLogo,
     portraitUrl: ciaraPortrait,
     heroVideoUrl: heroVideo,
+    heroPosterUrl: heroPoster,
     dvdBounceUrl: dvdBounceVideo,
   },
 

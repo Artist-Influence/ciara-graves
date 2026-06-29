@@ -11,11 +11,12 @@ export const HeroCiara = () => {
       <video
         className="absolute inset-0 w-full h-full object-cover z-0"
         src={siteConfig.artist.heroVideoUrl}
+        poster={siteConfig.artist.heroPosterUrl}
         autoPlay
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         aria-hidden
       />
       {/* Gradient overlay removed for clean hero video */}
